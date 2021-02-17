@@ -15,6 +15,14 @@ class Platform final : public DisplayObject {
 	void Draw() override;
 	void Update() override;
 	void Clean() override;
+
+	//Player X and Y
+	float PlayerPosX;
+	float PlayerPosY;
+	float PlayerVelX;
+	float PlayerVelY;
+	bool OnGround;
+	
 };
 
 #endif
