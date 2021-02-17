@@ -188,7 +188,7 @@ void Player::Jump() {
 	float deltaTime = TheGame::Instance()->GetDeltaTime();
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_SPACE) && !GetIsJumping()) {
-		GetRigidBody()->velocity.y = -11.0f;
+		GetRigidBody()->velocity.y = -15.0f;
 		SetIsJumping(true);
 		std::cout << "Jump" << std::endl;
 		SoundManager::Instance().playSound("jumpSound", 0);
