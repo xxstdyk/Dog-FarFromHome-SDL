@@ -33,6 +33,8 @@ void PlayScene::Update() {
 	TickGravity();
 	UpdateGlobalPositions();
 
+	GetTransform()->local_position =  m_pPlayer->GetTransform()->local_position - glm::vec2(150.0f, 475.0f);
+
 	CollisionManager::AABBCheck(m_pPlayer, m_pEnemy);
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate))
 	{
@@ -175,9 +177,8 @@ void PlayScene::GUI_Function()
 	
 	ImGui::Begin("Dog - Far From Home", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
-	static float cameraPos[2];
-	if (ImGui::SliderFloat2("Camera XY", cameraPos, -300.0f, 300.0f)) {
-	
+	static float cameraPos[2] = { GetTransform()->local_position.x, GetTransform()->local_position.y };
+	if (ImGui::SliderFloat2("Camera XY", cameraPos, -1000.0f, 1000.0f)) {
 		GetTransform()->local_position = glm::vec2(cameraPos[0], cameraPos[1]);
 	}
 

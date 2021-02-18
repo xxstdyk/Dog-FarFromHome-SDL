@@ -20,7 +20,7 @@ Player::Player() : m_currentAnimationState(PLAYER_IDLE_RIGHT) {
 	// set frame height
 	SetHeight(58);
 
-	GetTransform()->local_position = glm::vec2(400.0f, 300.0f);
+	GetTransform()->local_position = glm::vec2(540.0f, 300.0f);
 	GetRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 	//GetRigidBody()->acceleration = glm::vec2(0.0f, 0.5f);
 	GetRigidBody()->isColliding = false;
