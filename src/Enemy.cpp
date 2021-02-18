@@ -60,7 +60,7 @@ void Enemy::Draw() {
 
 }
 
-void Enemy::Update() { }
+void Enemy::Update() {}
 
 void Enemy::Clean() { }
 
