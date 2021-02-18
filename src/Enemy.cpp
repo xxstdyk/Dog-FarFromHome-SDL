@@ -17,7 +17,7 @@ Enemy::Enemy() : m_currentAnimationState(ENEMY_IDLE_RIGHT) {
 	// set frame height
 	SetHeight(64);
 
-	GetTransform()->local_position = glm::vec2(600.0f, 300.0f);
+	GetTransform()->position = glm::vec2(600.0f, 300.0f);
 	GetRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 	GetRigidBody()->acceleration = glm::vec2(0.0f, 0.0f);
 	GetRigidBody()->isColliding = false;
@@ -33,8 +33,8 @@ Enemy::~Enemy()
 
 void Enemy::Draw() {
 	// alias for x and y
-	const auto x = GetTransform()->global_position.x;
-	const auto y = GetTransform()->global_position.y;
+	const auto x = GetTransform()->drawn_position.x;
+	const auto y = GetTransform()->drawn_position.y;
 
 	// draw the player according to animation state
 	switch (m_currentAnimationState) {
