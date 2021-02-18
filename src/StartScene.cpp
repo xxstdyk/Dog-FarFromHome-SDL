@@ -19,6 +19,7 @@ void StartScene::Draw() {
 
 void StartScene::Update() {
 	UpdateDisplayList();
+	UpdateGlobalPositions();
 }
 
 void StartScene::Clean() {

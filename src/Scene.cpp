@@ -103,3 +103,17 @@ void Scene::TickGravity() {
 		}
 	}
 }
+
+void Scene::UpdateGlobalPositions() {
+
+	std::sort(m_displayList.begin(), m_displayList.end(), sortObjects);
+	for (auto &count : m_displayList) {
+		if (count != nullptr) {
+			if (!count->IsEnabled())
+				break;
+			count->GetTransform()->global_position
+				= count->GetTransform()->local_position
+				+ this->GetTransform()->local_position;
+		}
+	}
+}
