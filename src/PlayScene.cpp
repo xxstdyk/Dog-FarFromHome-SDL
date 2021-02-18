@@ -17,29 +17,33 @@ PlayScene::~PlayScene()
 
 void PlayScene::Draw() {
 
+	DrawDisplayList();
+	SDL_SetRenderDrawColor(Renderer::Instance()->getRenderer(), 255, 255, 255, 255);
+
 	if (EventManager::Instance().isIMGUIActive()) {
 
 		GUI_Function();
 	}
 
-	DrawDisplayList();
-	SDL_SetRenderDrawColor(Renderer::Instance()->getRenderer(), 255, 255, 255, 255);
 }
 
 void PlayScene::Update() {
 	
 	UpdateDisplayList();
 	TickGravity();
+	UpdateGlobalPositions();
+
+	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(540.0f, 584.0f * 3 / 4);
 
 	CollisionManager::AABBCheck(m_pPlayer, m_pEnemy);
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate))
 	{
-		m_pPressurePlate->GetTransform()->local_position = glm::vec2(625, 477.0f);
+		m_pPressurePlate->GetTransform()->position = glm::vec2(625, 477.0f);
 	}
 
 	if (!CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate))
 	{
-		m_pPressurePlate->GetTransform()->local_position = glm::vec2(625, 470.0f);
+		m_pPressurePlate->GetTransform()->position = glm::vec2(625, 470.0f);
 	}
 }
 
@@ -87,7 +91,6 @@ void PlayScene::HandleEvents() {
 		}
 	}
 
-
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_ESCAPE)) {
 		TheGame::Instance()->quit();
 	}
@@ -111,24 +114,24 @@ void PlayScene::Start() {
 
 	//Pressure plate Sprite
 	m_pPressurePlate = new PressurePlate();
-	m_pPressurePlate->GetTransform()->local_position = glm::vec2(625, 470.0f);
+	m_pPressurePlate->GetTransform()->position = glm::vec2(625, 470.0f);
 	AddChild(m_pPressurePlate);
 
 	// Player Sprite
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true); 
-	m_pPlayer->GetTransform()->local_position = glm::vec2(150.0f, 475.0f);
+	m_pPlayer->GetTransform()->position = glm::vec2(150.0f, 475.0f);
 	AddChild(m_pPlayer);
 	m_playerFacingRight = true;
 
 	//Enemy Sprite (cat)
 	m_pEnemy = new Enemy();
-	m_pEnemy->GetTransform()->local_position = glm::vec2(700.0f, 285.0f);
+	m_pEnemy->GetTransform()->position = glm::vec2(700.0f, 285.0f);
 	AddChild(m_pEnemy);
 	
 	// Back Button
 	m_pBackButton = new Button("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
-	m_pBackButton->GetTransform()->local_position = glm::vec2(5000.0f, 2000.0f);
+	m_pBackButton->GetTransform()->position = glm::vec2(5000.0f, 2000.0f);
 	m_pBackButton->AddEventListener(CLICK, [&]()-> void {
 		m_pBackButton->setActive(false);
 		TheGame::Instance()->changeSceneState(START_SCENE);
@@ -145,7 +148,7 @@ void PlayScene::Start() {
 
 	// Next Button
 	m_pNextButton = new Button("../Assets/textures/nextButton.png", "nextButton", NEXT_BUTTON);
-	m_pNextButton->GetTransform()->local_position = glm::vec2(5000.0f, 4000.0f);
+	m_pNextButton->GetTransform()->position = glm::vec2(5000.0f, 4000.0f);
 	m_pNextButton->AddEventListener(CLICK, [&]()-> void {
 		m_pNextButton->setActive(false);
 		TheGame::Instance()->changeSceneState(END_SCENE);
@@ -163,7 +166,7 @@ void PlayScene::Start() {
 	SoundManager::Instance().playMusic("forestSong", -1);
 }
 
-void PlayScene::GUI_Function() const
+void PlayScene::GUI_Function()
 {
 	// Always open with a NewFrame
 	ImGui::NewFrame();
@@ -171,24 +174,13 @@ void PlayScene::GUI_Function() const
 	// See examples by uncommenting the following - also look at imgui_demo.cpp in the IMGUI filter
 	//ImGui::ShowDemoWindow();
 	
-	ImGui::Begin("Your Window Title Goes Here", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
+	ImGui::Begin("Dog - Far From Home", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
-	if(ImGui::Button("My Button"))
-	{
-		std::cout << "My Button Pressed" << std::endl;
+	static float cameraPos[2] = { GetTransform()->position.x, GetTransform()->position.y };
+	if (ImGui::SliderFloat2("Camera XY", cameraPos, -1000.0f, 1000.0f)) {
+		GetTransform()->position = glm::vec2(cameraPos[0], cameraPos[1]);
 	}
 
-	ImGui::Separator();
-
-	static float float3[3] = { 0.0f, 1.0f, 1.5f };
-	if(ImGui::SliderFloat3("My Slider", float3, 0.0f, 2.0f))
-	{
-		std::cout << float3[0] << std::endl;
-		std::cout << float3[1] << std::endl;
-		std::cout << float3[2] << std::endl;
-		std::cout << "---------------------------\n";
-	}
-	
 	ImGui::End();
 
 	// Don't Remove this
