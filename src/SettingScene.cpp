@@ -55,7 +55,7 @@ void SettingScene::Start() // main window
 
 	// Restart Button
 	m_backButton = new Button("../Assets/textures/restartButton.png", "restartButton", RESTART_BUTTON);
-	m_backButton->GetTransform()->local_position = glm::vec2(400.0f, 400.0f);
+	m_backButton->GetTransform()->position = glm::vec2(400.0f, 400.0f);
 	m_backButton->AddEventListener(CLICK, [&]()-> void
 	{
 		m_backButton->setActive(false);
