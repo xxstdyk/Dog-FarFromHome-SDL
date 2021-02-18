@@ -59,25 +59,10 @@ bool CollisionManager::AABBCheck(GameObject *object1, GameObject *object2) {
 		p1.y < p2.y + p2Height &&
 		p1.y + p1Height > p2.y
 		) {
+
 		if (!object2->GetRigidBody()->isColliding) {
 
 			object2->GetRigidBody()->isColliding = true;
-
-			switch (object2->GetType()) {
-				case ENEMY:
-					std::cout << "Hit an Enemy!" << std::endl;
-					SoundManager::Instance().playSound("enemyCollision", 0);
-					break;
-				
-				case PRESSURE_PLATE:
-					std::cout << "Stepped on the pressure plate!" << std::endl;
-					SoundManager::Instance().playSound("pressurePlateCollision", 0);
-					break;
-				default:
-
-					break;
-			}
-
 			return true;
 		}
 		return false;

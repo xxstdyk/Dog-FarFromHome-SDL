@@ -23,7 +23,6 @@ Game::Game() :
 Game::~Game()
 = default;
 
-
 void Game::init() {
 	m_bRunning = true;
 }

@@ -16,11 +16,11 @@ class Scene : public GameObject {
 	virtual ~Scene();
 
 	// Inherited via GameObject
-	virtual void Draw() override = 0;
-	virtual void Update() override = 0;
-	virtual void Clean() override = 0;
-	virtual void HandleEvents() = 0;
 	virtual void Start() = 0;
+	virtual void Update() override = 0;
+	virtual void Draw() override = 0;
+	virtual void HandleEvents() = 0;
+	virtual void Clean() override = 0;
 
 	void AddChild(DisplayObject *_child, uint32_t _layerIndex = 0, std::optional<uint32_t> _orderIndex = std::nullopt);
 	void RemoveChild(DisplayObject *_child);
