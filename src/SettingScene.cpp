@@ -55,7 +55,7 @@ void SettingScene::Start() // main window  res , controls , sound , back
 
 	// Resolution Button
 	m_resolutionButton = new Button("../Assets/textures/resolution_Button.png", "resolutionButton", RESTART_BUTTON);
-	m_resolutionButton->GetTransform()->local_position = glm::vec2(500.0f, 200.0f);
+	m_resolutionButton->GetTransform()->position = glm::vec2(500.0f, 200.0f);
 	
 	m_resolutionButton->AddEventListener(CLICK, [&]()-> void
 	{
@@ -77,7 +77,7 @@ void SettingScene::Start() // main window  res , controls , sound , back
 
 	// controls
 	m_controlsButton = new Button("../Assets/textures/controlsButton.png", "backButton", RESTART_BUTTON);
-	m_controlsButton->GetTransform()->local_position = glm::vec2(500.0f, 275.0f);
+	m_controlsButton->GetTransform()->position = glm::vec2(500.0f, 275.0f);
 
 	m_controlsButton->AddEventListener(CLICK, [&]()-> void
 	{
@@ -103,7 +103,7 @@ void SettingScene::Start() // main window  res , controls , sound , back
 
 	// sound
 	m_soundButton = new Button("../Assets/textures/soundButton.png", "soundButton", RESTART_BUTTON);
-	m_soundButton->GetTransform()->local_position = glm::vec2(500.0f, 350.0f);
+	m_soundButton->GetTransform()->position = glm::vec2(500.0f, 350.0f);
 
 	m_soundButton->AddEventListener(CLICK, [&]()-> void
 	{
@@ -129,7 +129,7 @@ void SettingScene::Start() // main window  res , controls , sound , back
 	
 
 	m_backButton = new Button("../Assets/textures/backButton.png", "controlsButton", RESTART_BUTTON);
-	m_backButton->GetTransform()->local_position = glm::vec2(500.0f, 430.0f);
+	m_backButton->GetTransform()->position = glm::vec2(500.0f, 430.0f);
 
 	m_backButton->AddEventListener(CLICK, [&]()-> void
 	{
