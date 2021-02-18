@@ -33,8 +33,8 @@ Enemy::~Enemy()
 
 void Enemy::Draw() {
 	// alias for x and y
-	const auto x = GetTransform()->local_position.x;
-	const auto y = GetTransform()->local_position.y;
+	const auto x = GetTransform()->global_position.x;
+	const auto y = GetTransform()->global_position.y;
 
 	// draw the player according to animation state
 	switch (m_currentAnimationState) {

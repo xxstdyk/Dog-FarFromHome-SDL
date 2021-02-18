@@ -20,7 +20,7 @@ PressurePlate::~PressurePlate()
 = default;
 
 void PressurePlate::Draw() {
-	TextureManager::Instance()->draw("PressurePlate", GetTransform()->local_position.x, GetTransform()->local_position.y, 0, 250, true);
+	TextureManager::Instance()->draw("PressurePlate", GetTransform()->global_position.x, GetTransform()->global_position.y, 0, 250, true);
 }
 
 void PressurePlate::Update() {

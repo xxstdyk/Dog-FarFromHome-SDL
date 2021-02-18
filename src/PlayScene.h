@@ -7,7 +7,7 @@
 #include "Player.h"
 #include "PressurePlate.h"
 #include "Enemy.h"
-#include "Level1Background.h"
+#include "Background.h"
 #include "Button.h"
 #include "Label.h"
 
@@ -25,7 +25,7 @@ public:
 	virtual void Start() override;
 private:
 	// IMGUI Function
-	void GUI_Function() const;
+	void GUI_Function();
 	std::string m_guiTitle;
 	
 	glm::vec2 m_mousePosition;

@@ -17,19 +17,21 @@ PlayScene::~PlayScene()
 
 void PlayScene::Draw() {
 
+	DrawDisplayList();
+	SDL_SetRenderDrawColor(Renderer::Instance()->getRenderer(), 255, 255, 255, 255);
+
 	if (EventManager::Instance().isIMGUIActive()) {
 
 		GUI_Function();
 	}
 
-	DrawDisplayList();
-	SDL_SetRenderDrawColor(Renderer::Instance()->getRenderer(), 255, 255, 255, 255);
 }
 
 void PlayScene::Update() {
 	
 	UpdateDisplayList();
 	TickGravity();
+	UpdateGlobalPositions();
 
 	CollisionManager::AABBCheck(m_pPlayer, m_pEnemy);
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate))
@@ -163,7 +165,7 @@ void PlayScene::Start() {
 	SoundManager::Instance().playMusic("forestSong", -1);
 }
 
-void PlayScene::GUI_Function() const
+void PlayScene::GUI_Function()
 {
 	// Always open with a NewFrame
 	ImGui::NewFrame();
@@ -171,24 +173,14 @@ void PlayScene::GUI_Function() const
 	// See examples by uncommenting the following - also look at imgui_demo.cpp in the IMGUI filter
 	//ImGui::ShowDemoWindow();
 	
-	ImGui::Begin("Your Window Title Goes Here", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
+	ImGui::Begin("Dog - Far From Home", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
-	if(ImGui::Button("My Button"))
-	{
-		std::cout << "My Button Pressed" << std::endl;
-	}
-
-	ImGui::Separator();
-
-	static float float3[3] = { 0.0f, 1.0f, 1.5f };
-	if(ImGui::SliderFloat3("My Slider", float3, 0.0f, 2.0f))
-	{
-		std::cout << float3[0] << std::endl;
-		std::cout << float3[1] << std::endl;
-		std::cout << float3[2] << std::endl;
-		std::cout << "---------------------------\n";
-	}
+	static float cameraPos[2];
+	if (ImGui::SliderFloat2("Camera XY", cameraPos, -300.0f, 300.0f)) {
 	
+		GetTransform()->local_position = glm::vec2(cameraPos[0], cameraPos[1]);
+	}
+
 	ImGui::End();
 
 	// Don't Remove this

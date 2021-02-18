@@ -1,5 +1,5 @@
 #include "TextureManager.h"
-#include "Level1Background.h"
+#include "Background.h"
 #include "Target.h"
 
 Background::Background() {
@@ -19,7 +19,8 @@ Background::~Background()
 void Background::Draw() {
 
 	// draw the target
-	TextureManager::Instance()->draw("background", 0, 0, 0, 255, false);
+	TextureManager::Instance()->draw("background", 
+		GetTransform()->global_position.x, GetTransform()->global_position.y);
 }
 void Background::Update() {
 	m_move();

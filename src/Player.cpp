@@ -113,8 +113,8 @@ void Player::Update() {
 		}
 	}
 
-	if (GetTransform()->global_position.y > 475.0f) {
-		GetTransform()->global_position.y = 473.5f;
+	if (GetTransform()->local_position.y > 475.0f) {
+		GetTransform()->local_position.y = 473.5f;
 		if (GetIsJumping()) {
 			SoundManager::Instance().playSound("landSound", 0);
 		}

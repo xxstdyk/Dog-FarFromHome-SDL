@@ -25,3 +25,8 @@ void Camera::SetGlobalPositions() {
 	
 	}
 }
+
+void Camera::RemoveAllChildren() { 
+
+
+}
