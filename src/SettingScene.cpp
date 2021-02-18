@@ -46,16 +46,91 @@ void SettingScene::HandleEvents() // handle keyboard inputs
 	}
 }
 
-void SettingScene::Start() // main window 
+void SettingScene::Start() // main window  res , controls , sound , back 
 {
-	const SDL_Color blue = { 0, 0, 255, 255 };
-	m_settinglabel = new Label("END SCENE", "Dock51", 80, blue, glm::vec2(400.0f, 40.0f));
+	const SDL_Color blue = { 0, 0, 255, 255 }; //255
+	m_settinglabel = new Label("SETTINGS", "Consolas", 80, blue, glm::vec2(500.0f, 40.0f));
 	m_settinglabel->SetParent(this);
 	AddChild(m_settinglabel);
 
-	// Restart Button
-	m_backButton = new Button("../Assets/textures/restartButton.png", "restartButton", RESTART_BUTTON);
-	m_backButton->GetTransform()->local_position = glm::vec2(400.0f, 400.0f);
+	// Resolution Button
+	m_resolutionButton = new Button("../Assets/textures/resolution_Button.png", "resolutionButton", RESTART_BUTTON);
+	m_resolutionButton->GetTransform()->local_position = glm::vec2(500.0f, 200.0f);
+	
+	m_resolutionButton->AddEventListener(CLICK, [&]()-> void
+	{
+		m_resolutionButton->setActive(false);
+		TheGame::Instance()->changeSceneState(START_SCENE);
+	});
+
+	m_resolutionButton->AddEventListener(MOUSE_OVER, [&]()->void
+	{
+		m_resolutionButton->setAlpha(128);
+	});
+
+	m_resolutionButton->AddEventListener(MOUSE_OUT, [&]()->void
+	{
+		m_resolutionButton->setAlpha(255);
+	});
+
+	AddChild(m_resolutionButton);
+
+	// controls
+	m_controlsButton = new Button("../Assets/textures/controlsButton.png", "backButton", RESTART_BUTTON);
+	m_controlsButton->GetTransform()->local_position = glm::vec2(500.0f, 275.0f);
+
+	m_controlsButton->AddEventListener(CLICK, [&]()-> void
+	{
+		m_controlsButton->setActive(false);
+		TheGame::Instance()->changeSceneState(START_SCENE);
+	});
+
+	m_controlsButton->AddEventListener(MOUSE_OVER, [&]()->void
+	{
+		m_controlsButton->setAlpha(128);
+	});
+
+	m_controlsButton->AddEventListener(MOUSE_OUT, [&]()->void
+	{
+		m_controlsButton->setAlpha(255);
+	});
+
+	AddChild(m_controlsButton);
+
+
+
+	
+
+	// sound
+	m_soundButton = new Button("../Assets/textures/soundButton.png", "soundButton", RESTART_BUTTON);
+	m_soundButton->GetTransform()->local_position = glm::vec2(500.0f, 350.0f);
+
+	m_soundButton->AddEventListener(CLICK, [&]()-> void
+	{
+		m_soundButton->setActive(false);
+		TheGame::Instance()->changeSceneState(START_SCENE);
+	});
+
+	m_soundButton->AddEventListener(MOUSE_OVER, [&]()->void
+	{
+		m_soundButton->setAlpha(128);
+	});
+
+	m_soundButton->AddEventListener(MOUSE_OUT, [&]()->void
+	{
+		m_soundButton->setAlpha(255);
+	});
+
+	AddChild(m_soundButton);
+
+	//c button
+	
+	// 2
+	
+
+	m_backButton = new Button("../Assets/textures/backButton.png", "controlsButton", RESTART_BUTTON);
+	m_backButton->GetTransform()->local_position = glm::vec2(500.0f, 430.0f);
+
 	m_backButton->AddEventListener(CLICK, [&]()-> void
 	{
 		m_backButton->setActive(false);
@@ -73,4 +148,9 @@ void SettingScene::Start() // main window
 	});
 
 	AddChild(m_backButton);
+
+
+
+
+
 }

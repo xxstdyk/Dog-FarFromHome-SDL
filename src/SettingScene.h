@@ -21,7 +21,10 @@ public:
 
 private:
 	Label* m_settinglabel{};
+	Button* m_resolutionButton;
 	Button* m_backButton;
+	Button* m_soundButton;
+	Button* m_controlsButton;
 };
 
 #endif /* defined (__END_SCENE__) */
