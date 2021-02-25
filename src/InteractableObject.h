@@ -5,8 +5,6 @@
 #include "DisplayObject.h"
 
 class InteractableObject : public DisplayObject {
-	using DisplayObject::DisplayObject;
-	using DisplayObject::~DisplayObject;
 
 	private:
 	bool m_enabled;
