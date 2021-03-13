@@ -3,7 +3,6 @@
 #define __PLAY_SCENE__
 
 #include "Scene.h"
-#include "Plane.h"
 #include "Player.h"
 #include "PressurePlate.h"
 #include "Enemy.h"
@@ -19,7 +18,6 @@ class PlayScene : public Scene {
 	glm::vec2 m_mousePosition;
 
 	Background *m_pBackground;
-	Plane *m_pPlaneSprite;
 	Player *m_pPlayer;
 	PressurePlate *m_pPressurePlate;
 	Enemy *m_pEnemy;

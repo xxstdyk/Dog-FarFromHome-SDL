@@ -1,6 +1,5 @@
 #include "TextureManager.h"
 #include "Background.h"
-#include "Target.h"
 
 Background::Background() {
 	TextureManager::Instance()->load("../Assets/textures/background_mark_1.png", "background");

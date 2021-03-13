@@ -4,6 +4,7 @@
 #include <iomanip>
 #include "glm/gtx/string_cast.hpp"
 #include "Renderer.h"
+#include "TextureManager.h"
 #include "EventManager.h"
 
 // IMGUI Includes
