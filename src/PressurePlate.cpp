@@ -5,15 +5,13 @@
 PressurePlate::PressurePlate() {
 
 	TextureManager::Instance()->load("../Assets/textures/pressure_plate.png", "pressurePlate");
-	TextureManager::Instance()->getTextureSize("pressurePlate");
-	SetWidth(140.0f);
-	SetHeight(146.0f);
+	auto size = TextureManager::Instance()->getTextureSize("pressurePlate");
+	SetWidth(size.x);
+	SetHeight(size.y);
 	GetTransform()->position = glm::vec2(167.0f, 146.0f);
 	GetRigidBody()->isColliding = false;
 	SetType(PRESSURE_PLATE);
 
-	//For Joshi
-	//SoundManager::Instance().load();
 }
 
 PressurePlate::~PressurePlate()

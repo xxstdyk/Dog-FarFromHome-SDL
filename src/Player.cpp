@@ -229,5 +229,4 @@ void Player::SetIsJumping(bool _jump) { m_isJumping = _jump; }
 // Getters
 float Player::GetAcceleration() { return m_accelerationRate; }
 float Player::GetMaxSpeed() { return m_maxSpeed; }
-
 bool Player::GetIsJumping() { return m_isJumping; }
