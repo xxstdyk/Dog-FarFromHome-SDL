@@ -1,13 +1,17 @@
 #pragma once
+#pragma once
 #ifndef __PLAYER__
 #define __PLAYER__
 
 #include "PlayerAnimationState.h"
+#include "Collider.h"
 #include "Sprite.h"
 
 class Player final : public Sprite {
 
-private:
+	private:
+
+	std::map<std::string, Collider *> m_colliders;
 
 	float m_accelerationRate;
 	float m_maxSpeed;
@@ -15,11 +19,11 @@ private:
 	bool m_movementEnabled;
 	bool m_isJumping; // This will track whether or not the player is jumping 
 
-private:
+	private:
 
 	void BuildSoundIndex();
 
-public:
+	public:
 
 	Player();
 	~Player();
@@ -30,6 +34,8 @@ public:
 	virtual void Update() override;
 	virtual void Clean() override;
 
+	void AddCollider(Collider *_col, const std::string _key);
+
 	// setters
 	void setAnimationState(PlayerAnimationState new_state);
 	void SetAccelerationRate(float _accel);
@@ -38,15 +44,17 @@ public:
 	void SetIsJumping(bool _jump);
 
 	// Getters
+	Collider *GetCollider(const std::string _key) const;
+
 	float GetAcceleration();
 	float GetMaxSpeed();
 
 	bool GetIsJumping();
 
-private:
+	private:
 
 	void Jump();
-	void Decellerate();
+	void Decelerate();
 	void m_buildAnimations();
 	void Move(bool _direction);
 

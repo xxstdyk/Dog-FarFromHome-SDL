@@ -5,6 +5,7 @@
 #include "TextureManager.h"
 #include "SoundManager.h"
 #include "EventManager.h"
+#include "Collider.h"
 
 Player::Player() : m_currentAnimationState(PLAYER_IDLE_RIGHT) {
 	TextureManager::Instance()->loadSpriteSheet(
@@ -22,12 +23,19 @@ Player::Player() : m_currentAnimationState(PLAYER_IDLE_RIGHT) {
 
 	GetTransform()->position = glm::vec2(540.0f, 300.0f);
 	GetRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
-	//GetRigidBody()->acceleration = glm::vec2(0.0f, 0.5f);
 	GetRigidBody()->isColliding = false;
 	GetRigidBody()->hasGravity = true;
 	SetMovementEnabled(true);
 	SetAccelerationRate(1.0f);
 	SetMaxSpeed(8.25f);
+
+	Collider *gc = new Collider();
+	gc->SetParent(this);
+	gc->SetWidth(GetWidth());
+	gc->SetHeight(GetHeight() / 4);
+	gc->SetOffset(glm::vec2(0, GetHeight() * 3 / 4));
+
+	AddCollider(gc, "groundCheck");
 
 	SetType(PLAYER);
 
@@ -47,19 +55,19 @@ void Player::Draw() {
 	switch (m_currentAnimationState) {
 		case PLAYER_IDLE_RIGHT:
 			TextureManager::Instance()->playAnimation("dogsprite", GetAnimation("idle"),
-													  x, y, 0.12f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+													  x, y, 0.12f, 0, 255, false, SDL_FLIP_HORIZONTAL);
 			break;
 		case PLAYER_IDLE_LEFT:
 			TextureManager::Instance()->playAnimation("dogsprite", GetAnimation("idle"),
-													  x, y, 0.12f, 0, 255, true);
+													  x, y, 0.12f, 0, 255, false);
 			break;
 		case PLAYER_RUN_RIGHT:
 			TextureManager::Instance()->playAnimation("dogsprite", GetAnimation("run"),
-													  x, y, 0.25f, 0, 255, true, SDL_FLIP_HORIZONTAL);
+													  x, y, 0.25f, 0, 255, false, SDL_FLIP_HORIZONTAL);
 			break;
 		case PLAYER_RUN_LEFT:
 			TextureManager::Instance()->playAnimation("dogsprite", GetAnimation("run"),
-													  x, y, 0.25f, 0, 255, true);
+													  x, y, 0.25f, 0, 255, false);
 			break;
 		default:
 			break;
@@ -77,6 +85,13 @@ void Player::BuildSoundIndex() {
 }
 
 void Player::Update() {
+
+	bool colliding = false;
+	for (auto &it : m_colliders) {
+		it.second->Update();
+		colliding = colliding && it.second;
+	}
+	GetRigidBody()->isColliding = colliding;
 
 	Jump();
 
@@ -109,12 +124,12 @@ void Player::Update() {
 			Move(true);
 
 		} else if (!(EventManager::Instance().isKeyDown(SDL_SCANCODE_D)) && !(EventManager::Instance().isKeyDown(SDL_SCANCODE_A))) {
-			Decellerate();
+			Decelerate();
 		}
 	}
 
 	if (GetTransform()->position.y > 475.0f) {
-		GetTransform()->position.y = 473.5f;
+		//GetTransform()->position.y = 473.5f;
 		if (GetIsJumping()) {
 			SoundManager::Instance().playSound("landSound", 0);
 		}
@@ -126,6 +141,16 @@ void Player::Update() {
 void Player::Clean() { }
 
 // Setters
+
+void Player::AddCollider(Collider * _col, std::string _key) {
+
+	if (!m_colliders.count(_key)) {
+
+		std::cout << "Collider: " << _key << " added.\n";
+		m_colliders.insert({ _key, _col });
+	}
+}
+
 void Player::setAnimationState(const PlayerAnimationState new_state) {
 	m_currentAnimationState = new_state;
 }
@@ -201,9 +226,9 @@ void Player::Jump() {
 	GetTransform()->position.y += GetRigidBody()->velocity.y;
 }
 
-void Player::Decellerate() {
+void Player::Decelerate() {
 
-	float decellerateRate = 0.2f;
+	float decelerateRate = 0.2f;
 
 	if (GetRigidBody()->velocity.x != 0) {
 		if (GetRigidBody()->velocity.x < 1.0f && GetRigidBody()->velocity.x > -1.0f)
@@ -213,8 +238,8 @@ void Player::Decellerate() {
 		GetRigidBody()->velocity.x == 0
 			? GetRigidBody()->velocity.x == GetRigidBody()->velocity.x
 			: GetRigidBody()->velocity.x < 0
-			? GetRigidBody()->velocity.x += abs(GetRigidBody()->velocity.x * decellerateRate)
-			: GetRigidBody()->velocity.x -= abs(GetRigidBody()->velocity.x * decellerateRate);
+			? GetRigidBody()->velocity.x += abs(GetRigidBody()->velocity.x * decelerateRate)
+			: GetRigidBody()->velocity.x -= abs(GetRigidBody()->velocity.x * decelerateRate);
 
 		GetTransform()->position.x += GetRigidBody()->velocity.x;
 	}
@@ -230,3 +255,4 @@ void Player::SetIsJumping(bool _jump) { m_isJumping = _jump; }
 float Player::GetAcceleration() { return m_accelerationRate; }
 float Player::GetMaxSpeed() { return m_maxSpeed; }
 bool Player::GetIsJumping() { return m_isJumping; }
+Collider *Player::GetCollider(const std::string _key) const { return m_colliders.at(_key); }

@@ -54,6 +54,7 @@ bool CollisionManager::AABBCheck(GameObject *object1, GameObject *object2) {
 
 		if (!object2->GetRigidBody()->isColliding) {
 
+
 			object2->GetRigidBody()->isColliding = true;
 			return true;
 		}
