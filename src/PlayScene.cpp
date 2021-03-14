@@ -25,7 +25,7 @@ void PlayScene::Start() {
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true);
 	m_pPlayer->GetTransform()->position = glm::vec2(150.0f, 475.0f);
-	AddChild(m_pPlayer);
+	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
 
 	// Platform Handler
@@ -80,14 +80,12 @@ void PlayScene::Start() {
 void PlayScene::Update() {
 
 	UpdateDisplayList();
+	m_pPlatformHandler->Update();
+	CollisionHandler();
 	TickGravity();
 	UpdateGlobalPositions();
 
-	m_pPlatformHandler->Update();
-	CollisionHandler();
-
 	GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(540.0f, 584.0f * 3 / 4);
-
 }
 
 void PlayScene::Draw() {
@@ -106,7 +104,7 @@ void PlayScene::Draw() {
 
 void PlayScene::CreatePlatforms() {
 
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 475.0f), 10000, 500));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 512.0f), 10000, 500));
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 }

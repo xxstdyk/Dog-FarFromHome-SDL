@@ -1,6 +1,6 @@
 #include "PlatformHandler.h"
 
-void PlatformHandler::SetGCCollider(Collider *_gc) { m_pPlayerGroundCheck = _gc; }
+void PlatformHandler::SetGCCollider(Collider *_gc) { m_pGroundCheck = _gc; }
 
 void PlatformHandler::AddPlatform(Platform *_plat) { m_pPlatforms.push_back(_plat); }
 
@@ -8,26 +8,22 @@ std::vector<Platform *> PlatformHandler::GetPlatforms() { return m_pPlatforms; }
 
 void PlatformHandler::Update() {
 
-	bool colliding = false;
 	Platform *collidedPlat = nullptr;
 
-
 	for (auto platform : m_pPlatforms) {
-
-		if (CollisionManager::AABBCheck(m_pPlayerGroundCheck, platform)) {
+		platform->GetRigidBody()->isColliding = false;
+		if (CollisionManager::AABBCheck(m_pGroundCheck, platform)) {
+			m_pGroundCheck->GetRigidBody()->isColliding = true;
+			m_pGroundCheck->SetColliding(true);
 			collidedPlat = platform;
-			colliding = true;
 			break;
 		}
 	}
 
-	if (colliding && collidedPlat != nullptr) {
-		
-		m_pPlayerGroundCheck->GetRigidBody()->isColliding = true;
-
-		if (m_pPlayerGroundCheck->GetTransform()->position.y + m_pPlayerGroundCheck->GetHeight() > collidedPlat->GetTransform()->position.y) {
-			std::cout << "moving player" << std::endl;
-			m_pPlayerGroundCheck->GetParent()->GetTransform()->position.y = collidedPlat->GetTransform()->position.y;
+	if (collidedPlat != nullptr) {
+		if (m_pGroundCheck->GetTransform()->position.y + m_pGroundCheck->GetHeight() > collidedPlat->GetTransform()->position.y) {
+			auto parent = m_pGroundCheck->GetParent();
+			parent->GetTransform()->position.y = collidedPlat->GetTransform()->position.y - parent->GetHeight();
 		}
 	}
 

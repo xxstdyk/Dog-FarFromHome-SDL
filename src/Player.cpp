@@ -128,13 +128,11 @@ void Player::Update() {
 		}
 	}
 
-	if (GetTransform()->position.y > 475.0f) {
-		//GetTransform()->position.y = 473.5f;
+	if (GetCollider("groundCheck")) {
 		if (GetIsJumping()) {
 			SoundManager::Instance().playSound("landSound", 0);
 		}
 		SetIsJumping(false);
-
 	}
 }
 
@@ -236,9 +234,9 @@ void Player::Decelerate() {
 
 		// If the player's velocity is not equal to zero, it's velocity will be decreased until it's zero
 		GetRigidBody()->velocity.x == 0
-			? GetRigidBody()->velocity.x == GetRigidBody()->velocity.x
+		? GetRigidBody()->velocity.x == GetRigidBody()->velocity.x
 			: GetRigidBody()->velocity.x < 0
-			? GetRigidBody()->velocity.x += abs(GetRigidBody()->velocity.x * decelerateRate)
+				? GetRigidBody()->velocity.x += abs(GetRigidBody()->velocity.x * decelerateRate)
 			: GetRigidBody()->velocity.x -= abs(GetRigidBody()->velocity.x * decelerateRate);
 
 		GetTransform()->position.x += GetRigidBody()->velocity.x;

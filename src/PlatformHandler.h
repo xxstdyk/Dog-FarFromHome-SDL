@@ -4,6 +4,7 @@
 
 #include <vector>
 
+#include "Util.h"
 #include "CollisionManager.h"
 #include "Platform.h"
 #include "Collider.h"
@@ -13,7 +14,7 @@ class PlatformHandler {
 	// Member Variables
 	private:
 
-	Collider *m_pPlayerGroundCheck;
+	Collider *m_pGroundCheck;
 	std::vector<Platform *> m_pPlatforms;
 
 	// Public Functions
