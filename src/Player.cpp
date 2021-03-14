@@ -243,6 +243,24 @@ void Player::Decelerate() {
 	}
 }
 
+
+void Player::Decel() { 
+
+	float decelRate = 0.8f;
+
+	this->GetRigidBody()->acceleration.x += -this->GetRigidBody()->acceleration.x * decelRate;
+	if (abs(this->GetRigidBody()->acceleration.x) <= 0.2f) { 
+		this->GetRigidBody()->acceleration.x = 0;
+		this->GetRigidBody()->velocity.x = 0;
+	}
+
+}
+
+void Player::ApplyMovement() { 
+	this->GetRigidBody()->velocity += this->GetRigidBody()->acceleration;
+	this->GetTransform()->position += this->GetRigidBody()->velocity;
+}
+
 // Setters
 void Player::SetAccelerationRate(float _accel) { m_accelerationRate = _accel; }
 void Player::SetMaxSpeed(float _speed) { m_maxSpeed = _speed; }

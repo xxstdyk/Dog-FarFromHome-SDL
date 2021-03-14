@@ -58,6 +58,10 @@ class Player final : public Sprite {
 	void m_buildAnimations();
 	void Move(bool _direction);
 
+	void AddAcceleration();
+	void Decel();
+	void ApplyMovement();
+
 	bool m_barking, m_canBark;
 
 	PlayerAnimationState m_currentAnimationState;
