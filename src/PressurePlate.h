@@ -2,10 +2,10 @@
 #ifndef __PRESSUREPLATE__
 #define __PRESSUREPLATE__
 
-#include "DisplayObject.h"
+#include "InteractableObject.h"
 #include "Sprite.h"
 
-class PressurePlate final : public Sprite {
+class PressurePlate final : public InteractableObject {
 
 	public:
 	PressurePlate();   // Constructor

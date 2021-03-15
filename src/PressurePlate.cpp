@@ -4,23 +4,21 @@
 
 PressurePlate::PressurePlate() {
 
-	TextureManager::Instance()->load("../Assets/textures/pressure_plate.png", "PressurePlate");
-	TextureManager::Instance()->getTextureSize("PressurePlate");
-	SetWidth(140.0f);
-	SetHeight(146.0f);
-	GetTransform()->local_position = glm::vec2(167.0f, 146.0f);
+	TextureManager::Instance()->load("../Assets/textures/pressure_plate.png", "pressurePlate");
+	auto size = TextureManager::Instance()->getTextureSize("pressurePlate");
+	SetWidth(size.x);
+	SetHeight(size.y);
+	GetTransform()->position = glm::vec2(167.0f, 146.0f);
 	GetRigidBody()->isColliding = false;
 	SetType(PRESSURE_PLATE);
 
-	//For Joshi
-	//SoundManager::Instance().load();
 }
 
 PressurePlate::~PressurePlate()
 = default;
 
 void PressurePlate::Draw() {
-	TextureManager::Instance()->draw("PressurePlate", GetTransform()->local_position.x, GetTransform()->local_position.y, 0, 250, true);
+	TextureManager::Instance()->draw("pressurePlate", GetTransform()->drawn_position.x, GetTransform()->drawn_position.y);
 }
 
 void PressurePlate::Update() {

@@ -7,7 +7,7 @@ Camera::Camera() {
 
 void Camera::Update() {
 
-
+	SetGlobalPositions();
 }
 
 void Camera::Draw() { }
@@ -24,4 +24,9 @@ void Camera::SetGlobalPositions() {
 		}
 	
 	}
+}
+
+void Camera::RemoveAllChildren() { 
+
+
 }

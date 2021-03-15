@@ -1,6 +1,5 @@
 #include "TextureManager.h"
-#include "Level1Background.h"
-#include "Target.h"
+#include "Background.h"
 
 Background::Background() {
 	TextureManager::Instance()->load("../Assets/textures/background_mark_1.png", "background");
@@ -8,7 +7,7 @@ Background::Background() {
 	const auto size = TextureManager::Instance()->getTextureSize("background");
 	SetWidth(1080);
 	SetHeight(584);
-	GetTransform()->local_position = glm::vec2(0, 0);
+	GetTransform()->position = glm::vec2(0, 0);
 	GetRigidBody()->velocity = glm::vec2(0, 0);
 	GetRigidBody()->isColliding = false;
 }
@@ -19,7 +18,8 @@ Background::~Background()
 void Background::Draw() {
 
 	// draw the target
-	TextureManager::Instance()->draw("background", 0, 0, 0, 255, false);
+	TextureManager::Instance()->draw("background", 
+		GetTransform()->drawn_position.x, GetTransform()->drawn_position.y);
 }
 void Background::Update() {
 	m_move();
@@ -29,7 +29,7 @@ void Background::Update() {
 void Background::Clean() { }
 
 void Background::m_move() {
-	GetTransform()->local_position = GetTransform()->local_position + GetRigidBody()->velocity * 5.0f;
+	GetTransform()->position = GetTransform()->position + GetRigidBody()->velocity * 5.0f;
 }
 
 void Background::m_checkBounds() { }
