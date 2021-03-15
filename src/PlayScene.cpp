@@ -12,15 +12,20 @@ void PlayScene::Start() {
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
 	
-	//Background
+	// Background
 	m_pBackground = new Background();
 	AddChild(m_pBackground);
 
-	//Pressure plate Sprite
+	// Pressure plate Sprite
 	m_pPressurePlate = new PressurePlate();
 	m_pPressurePlate->GetTransform()->position = glm::vec2(625, 470.0f);
 	AddChild(m_pPressurePlate);
 
+	// Box sprite
+	m_pBox = new PushableObject();
+	m_pBox->GetTransform()->position = glm::vec2(650.0f, 475.0f);
+	AddChild(m_pBox);
+	
 	// Player Sprite
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true); 
@@ -32,6 +37,7 @@ void PlayScene::Start() {
 	m_pEnemy = new Enemy();
 	m_pEnemy->GetTransform()->position = glm::vec2(700.0f, 285.0f);
 	AddChild(m_pEnemy);
+
 	
 	// Back Button
 	m_pBackButton = new Button("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
@@ -115,6 +121,16 @@ void PlayScene::CollisionHandler() {
 		m_pPressurePlate->GetTransform()->position = glm::vec2(625, 470.0f);
 	}
 
+	m_pBox->GetRigidBody()->isColliding = false;
+	if (CollisionManager::AABBCheck(m_pPlayer, m_pBox)) {
+		m_pBox->SetEnabled(true);
+		m_pPlayer->SetMaxSpeed(2.13f);
+		m_pBox->GetRigidBody()->velocity.x = m_pPlayer->GetRigidBody()->velocity.x;
+	}
+	else {
+		m_pBox->SetEnabled(false);
+		m_pPlayer->SetMaxSpeed(8.25f);
+	}
 }
 
 void PlayScene::HandleEvents() {

@@ -13,7 +13,7 @@ private:
 	float m_maxSpeed;
 
 	bool m_movementEnabled;
-	bool m_isJumping; // This will track whether or not the player is jumping 
+	bool m_isJumping;			// This will track whether or not the player is jumping
 
 private:
 

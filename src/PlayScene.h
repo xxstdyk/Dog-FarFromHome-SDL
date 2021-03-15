@@ -5,6 +5,7 @@
 #include "Scene.h"
 #include "Player.h"
 #include "PressurePlate.h"
+#include "PushableObject.h"
 #include "Enemy.h"
 #include "Background.h"
 #include "Button.h"
@@ -20,6 +21,7 @@ class PlayScene : public Scene {
 	Background *m_pBackground;
 	Player *m_pPlayer;
 	PressurePlate *m_pPressurePlate;
+	PushableObject*m_pBox;
 	Enemy *m_pEnemy;
 	bool m_playerFacingRight;
 
