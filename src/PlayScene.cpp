@@ -28,17 +28,22 @@ void PlayScene::Start() {
 	
 	// Player Sprite
 	m_pPlayer = new Player();
-	m_pPlayer->SetMovementEnabled(true); 
+	m_pPlayer->SetMovementEnabled(true);
 	m_pPlayer->GetTransform()->position = glm::vec2(150.0f, 475.0f);
-	AddChild(m_pPlayer);
+	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
+
+	// Platform Handler
+	// MUST BE CREATED AFTER PLAYER
+	m_pPlatformHandler = new PlatformHandler();
+	m_pPlatformHandler->SetGCCollider(m_pPlayer->GetCollider("groundCheck"));
+	CreatePlatforms();
 
 	//Enemy Sprite (cat)
 	m_pEnemy = new Enemy();
 	m_pEnemy->GetTransform()->position = glm::vec2(700.0f, 285.0f);
 	AddChild(m_pEnemy);
 
-	
 	// Back Button
 	m_pBackButton = new Button("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
 	m_pBackButton->GetTransform()->position = glm::vec2(5000.0f, 2000.0f);
@@ -78,15 +83,14 @@ void PlayScene::Start() {
 }
 
 void PlayScene::Update() {
-	
+
 	UpdateDisplayList();
+	m_pPlatformHandler->Update();
+	CollisionHandler();
 	TickGravity();
 	UpdateGlobalPositions();
 
-	CollisionHandler();
-
-	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(540.0f, 584.0f * 3 / 4);
-
+	GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(540.0f, 584.0f * 3 / 4);
 }
 
 void PlayScene::Draw() {
@@ -94,22 +98,31 @@ void PlayScene::Draw() {
 	DrawDisplayList();
 	SDL_SetRenderDrawColor(Renderer::Instance()->getRenderer(), 255, 255, 255, 255);
 
-	if (EventManager::Instance().isIMGUIActive()) {
+	m_pPlatformHandler->Draw();
+	m_pPlayer->GetCollider("groundCheck")->Draw();
 
+	if (EventManager::Instance().isIMGUIActive()) {
 		GUI_Function();
 	}
 
 }
 
-void PlayScene::CollisionHandler() { 
+void PlayScene::CreatePlatforms() {
 
-	if (CollisionManager::AABBCheck(m_pPlayer, m_pEnemy)) { 
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 512.0f), 10000, 500));
+
+	for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
+}
+
+void PlayScene::CollisionHandler() {
+
+	if (CollisionManager::AABBCheck(m_pPlayer, m_pEnemy)) {
 
 		std::cout << "Hit an Enemy!" << std::endl;
 		SoundManager::Instance().playSound("enemyCollision", 0);
 	}
 
-	if (CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) { 
+	if (CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) {
 
 		std::cout << "Stepped on the pressure plate!" << std::endl;
 		m_pPressurePlate->GetTransform()->position = glm::vec2(625, 477.0f);
@@ -155,7 +168,7 @@ void PlayScene::HandleEvents() {
 			}
 		}
 	}
-	
+
 	// handle player movement if no Game Controllers found
 	if (SDL_NumJoysticks() < 1) {
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A)) {
@@ -190,14 +203,13 @@ void PlayScene::Clean() {
 	RemoveAllChildren();
 }
 
-void PlayScene::GUI_Function()
-{
+void PlayScene::GUI_Function() {
 	// Always open with a NewFrame
 	ImGui::NewFrame();
 
 	// See examples by uncommenting the following - also look at imgui_demo.cpp in the IMGUI filter
 	//ImGui::ShowDemoWindow();
-	
+
 	ImGui::Begin("Dog - Far From Home", NULL, ImGuiWindowFlags_AlwaysAutoResize | ImGuiWindowFlags_MenuBar);
 
 	static float cameraPos[2] = { GetTransform()->position.x, GetTransform()->position.y };

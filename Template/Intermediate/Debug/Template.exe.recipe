@@ -1,5 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
+<<<<<<< HEAD
   <ProjectOutputs>
     <ProjectOutput>
       <FullPath>C:\Users\User\Documents\Dog Game\Dog-FarFromHome-SDL\bin\Debug\Template.exe</FullPath>
@@ -8,4 +9,10 @@
   <ContentFiles />
   <SatelliteDlls />
   <NonRecipeFileRefs />
+=======
+  <ProjectOutputs>C:\Users\Hasan\Desktop\DogGame\Dog-FarFromHome-SDL\bin\Debug\Template.exe</ProjectOutputs>
+  <ContentFiles></ContentFiles>
+  <SatelliteDlls></SatelliteDlls>
+  <NonRecipeFileRefs></NonRecipeFileRefs>
+>>>>>>> master
 </Project>

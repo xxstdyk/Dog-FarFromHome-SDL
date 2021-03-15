@@ -5,6 +5,7 @@
 #include "DisplayObject.h"
 #include "Animation.h"
 #include <unordered_map>
+#include <map>
 #include "SpriteSheet.h"
 
 class Sprite : public DisplayObject {

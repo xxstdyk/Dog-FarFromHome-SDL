@@ -90,7 +90,7 @@ void StartScene::Start() {
 	// Settings Button 
 
 	m_settingButton = new Button("../Assets/textures/settingsButton.png","settingsButton",SETTINGS_BUTTON);
-	m_settingButton->GetTransform()->position = glm::vec2(550.0f, 500.0f);
+	m_settingButton->GetTransform()->position = glm::vec2(550.0f, 440.0f);
 
 	m_settingButton->AddEventListener(CLICK, [&]()-> void {
 		m_settingButton->setActive(false);
