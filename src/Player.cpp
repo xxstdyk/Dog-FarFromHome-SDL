@@ -26,7 +26,7 @@ Player::Player() : m_currentAnimationState(PLAYER_IDLE_RIGHT) {
 	GetRigidBody()->isColliding = false;
 	GetRigidBody()->hasGravity = true;
 	SetMovementEnabled(true);
-	SetAccelerationRate(0.2f);
+	SetAccelerationRate(0.4f);
 	SetMaxSpeed(14);
 
 	Collider *gc = new Collider();
@@ -245,7 +245,6 @@ void Player::AddAcceleration(glm::vec2 _accelRate) {
 void Player::m_move(int _dir) {
 
 	auto accel = m_accelerationRate * _dir;
-	std::cout << "velocity: " << abs(this->GetRigidBody()->velocity.x) << std::endl;
 	if (abs(this->GetRigidBody()->velocity.x) <= GetMaxSpeed()) {
 		AddAcceleration(glm::vec2(accel, 0));
 	}
@@ -253,11 +252,12 @@ void Player::m_move(int _dir) {
 
 void Player::Decel() {
 
-	float decelRate = 0.1f;
+	float decelRate = 0.4f;
+	auto pushbackForce = this->GetRigidBody()->velocity.x * decelRate * -1.0f;
+	
+	AddAcceleration(glm::vec2(pushbackForce, 0));
 
-	AddAcceleration(glm::vec2(-this->GetRigidBody()->acceleration.x * decelRate, 0));
-
-	if (abs(this->GetRigidBody()->acceleration.x) <= 0.2f) {
+	if (abs(this->GetRigidBody()->velocity.x) <= 0.5f) {
 		this->GetRigidBody()->acceleration.x = 0;
 		this->GetRigidBody()->velocity.x = 0;
 	}
@@ -265,11 +265,18 @@ void Player::Decel() {
 
 void Player::ApplyMovement() {
 
-	this->GetRigidBody()->acceleration.x = Util::clamp(this->GetRigidBody()->acceleration.x, -GetAcceleration(), GetAcceleration());
-	this->GetRigidBody()->velocity += this->GetRigidBody()->acceleration;
+	auto rb = this->GetRigidBody();
+	auto transform = this->GetTransform();
 
-	this->GetRigidBody()->velocity.x = Util::clamp(this->GetRigidBody()->velocity.x, -GetMaxSpeed(), GetMaxSpeed());
-	this->GetTransform()->position += this->GetRigidBody()->velocity;
+	rb->acceleration.x = Util::clamp(rb->acceleration.x, -0.8f, 0.8f);
+	rb->velocity += rb->acceleration;
+
+	rb->velocity.x = Util::clamp(rb->velocity.x, -GetMaxSpeed(), GetMaxSpeed());
+
+	if (rb->velocity.y > 0 && GetCollider("groundCheck")) rb->velocity.y = 0;
+
+	transform->position += rb->velocity;
+
 }
 
 // Setters

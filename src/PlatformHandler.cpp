@@ -8,11 +8,16 @@ std::vector<Platform *> PlatformHandler::GetPlatforms() { return m_pPlatforms; }
 
 void PlatformHandler::Update() {
 
+	auto parent = m_pGroundCheck->GetParent();
 	Platform *collidedPlat = nullptr;
+
+	m_pGroundCheck->GetRigidBody()->isColliding = false;
+	m_pGroundCheck->SetColliding(false);
 
 	for (auto platform : m_pPlatforms) {
 		platform->GetRigidBody()->isColliding = false;
 		if (CollisionManager::AABBCheck(m_pGroundCheck, platform)) {
+
 			m_pGroundCheck->GetRigidBody()->isColliding = true;
 			m_pGroundCheck->SetColliding(true);
 			collidedPlat = platform;
@@ -22,14 +27,11 @@ void PlatformHandler::Update() {
 
 	if (collidedPlat != nullptr) {
 		if (m_pGroundCheck->GetTransform()->position.y + m_pGroundCheck->GetHeight() > collidedPlat->GetTransform()->position.y) {
-			auto parent = m_pGroundCheck->GetParent();
 			if (parent->GetRigidBody()->velocity.y > 0) { 
 			
 				parent->GetRigidBody()->acceleration.y = 0;
 				parent->GetRigidBody()->velocity.y = 0;
-				
-				//parent->GetRigidBody()->velocity.y = collidedPlat->GetTransform()->position.y 
-				//	- (parent->GetTransform()->position.y + parent->GetHeight());
+				parent->GetTransform()->position.y = collidedPlat->GetTransform()->position.y - parent->GetHeight();
 			}
 		}
 	}
