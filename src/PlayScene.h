@@ -9,6 +9,7 @@
 #include "Background.h"
 #include "Button.h"
 #include "Label.h"
+#include "Lever.h"
 
 class PlayScene : public Scene {
 
@@ -20,8 +21,10 @@ class PlayScene : public Scene {
 	Background *m_pBackground;
 	Player *m_pPlayer;
 	PressurePlate *m_pPressurePlate;
+	Lever* m_pLever;
 	Enemy *m_pEnemy;
 	bool m_playerFacingRight;
+	bool m_playerCanActivateLever;
 
 	// UI Items
 	Button *m_pBackButton;

@@ -2,6 +2,7 @@
 #include "Game.h"
 #include "EventManager.h"
 #include "SoundManager.h"
+#include "TextureManager.h"
 
 // required for IMGUI
 #include "imgui.h"
@@ -18,8 +19,13 @@ void PlayScene::Start() {
 
 	//Pressure plate Sprite
 	m_pPressurePlate = new PressurePlate();
-	m_pPressurePlate->GetTransform()->position = glm::vec2(625, 470.0f);
+	m_pPressurePlate->GetTransform()->position = glm::vec2(625.0f, 470.0f);
 	AddChild(m_pPressurePlate);
+
+	// Lever Sprite
+	m_pLever = new Lever();
+	m_pLever->GetTransform()->position = glm::vec2(400.0f, 475.0f);
+	AddChild(m_pLever);
 
 	// Player Sprite
 	m_pPlayer = new Player();
@@ -76,8 +82,13 @@ void PlayScene::Update() {
 	UpdateDisplayList();
 	TickGravity();
 	UpdateGlobalPositions();
-
 	CollisionHandler();
+
+	if (m_pPlayer->GetInteracting() && m_playerCanActivateLever)
+	{
+		m_pLever->SetEnabled(!m_pLever->GetEnabled());
+		std::cout << "You activated lever" << std::endl;
+	}
 
 	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(540.0f, 584.0f * 3 / 4);
 
@@ -114,7 +125,15 @@ void PlayScene::CollisionHandler() {
 	if (!CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) {
 		m_pPressurePlate->GetTransform()->position = glm::vec2(625, 470.0f);
 	}
+	m_pLever->GetRigidBody()->isColliding = false;
 
+	if (CollisionManager::AABBCheck(m_pPlayer, m_pLever)) {
+
+		std::cout << "Dog is in range to activate lever" << std::endl;
+		m_playerCanActivateLever = true;
+		SoundManager::Instance().playSound("pressurePlateCollision", 0);
+	}
+	else m_playerCanActivateLever = false;
 }
 
 void PlayScene::HandleEvents() {

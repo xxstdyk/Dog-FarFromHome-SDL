@@ -75,6 +75,13 @@ void Player::BuildSoundIndex() {
 
 	SoundManager::Instance().setSoundVolume(32);
 }
+bool Player::GetInteracting(){
+	return m_interacting;
+}
+
+void Player::SetInteracting(bool _interacting) {
+	m_interacting = _interacting;
+}
 
 void Player::Update() {
 
@@ -82,6 +89,8 @@ void Player::Update() {
 
 	EventManager::Instance().update();
 
+	SetInteracting(EventManager::Instance().isKeyDown(SDL_SCANCODE_E));
+	
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_Q) && m_canBark) {
 		m_barking = true;
 		m_canBark = false;

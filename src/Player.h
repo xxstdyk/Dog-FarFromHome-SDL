@@ -18,7 +18,7 @@ private:
 private:
 
 	void BuildSoundIndex();
-
+	
 public:
 
 	Player();
@@ -36,20 +36,21 @@ public:
 	void SetMaxSpeed(float _speed);
 	void SetMovementEnabled(bool _val);
 	void SetIsJumping(bool _jump);
+	void SetInteracting(bool _interacting);
 
 	// Getters
 	float GetAcceleration();
 	float GetMaxSpeed();
 
 	bool GetIsJumping();
-
+	bool GetInteracting();
 private:
 
 	void Jump();
 	void Decellerate();
 	void m_buildAnimations();
 	void Move(bool _direction);
-
+	bool m_interacting;
 	bool m_barking, m_canBark;
 
 	PlayerAnimationState m_currentAnimationState;

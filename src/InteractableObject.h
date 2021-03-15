@@ -18,7 +18,7 @@ class InteractableObject : public DisplayObject {
 	void SetEnabled(const bool _status);
 	bool GetEnabled() const;
 
-	operator bool();
+	explicit operator bool() const;
 };
 
 #endif

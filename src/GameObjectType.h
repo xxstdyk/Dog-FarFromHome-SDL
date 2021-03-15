@@ -9,6 +9,7 @@ enum GameObjectType {
 	//CAMERA,
 	PLAYER,
 	PRESSURE_PLATE,
+	LEVER,
 	ENEMY,
 	PLANE,
 	START_BUTTON,
