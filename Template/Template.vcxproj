@@ -165,8 +165,10 @@
     <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\Background.cpp" />
+    <ClCompile Include="..\src\InteractableObject.cpp" />
     <ClCompile Include="..\src\Platform.cpp" />
     <ClCompile Include="..\src\PressurePlate.cpp" />
+    <ClCompile Include="..\src\PushableObject.cpp" />
     <ClCompile Include="..\src\SettingScene.cpp" />
     <ClCompile Include="..\src\Sprite.cpp" />
     <ClCompile Include="..\src\UIControl.cpp" />
@@ -205,8 +207,10 @@
     <ClInclude Include="..\src\Enemy.h" />
     <ClInclude Include="..\src\EnemyAnimationState.h" />
     <ClInclude Include="..\src\Background.h" />
+    <ClInclude Include="..\src\InteractableObject.h" />
     <ClInclude Include="..\src\Platform.h" />
     <ClInclude Include="..\src\PressurePlate.h" />
+    <ClInclude Include="..\src\PushableObject.h" />
     <ClInclude Include="..\src\SettingScene.h" />
     <ClInclude Include="..\src\SoundType.h" />
     <ClInclude Include="..\src\Sprite.h" />
