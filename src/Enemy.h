@@ -2,6 +2,8 @@
 #include "EnemyAnimationState.h"
 #include "Sprite.h"
 
+#include "CollisionManager.h"
+
 class Enemy final : public Sprite {
 public:
 	Enemy();

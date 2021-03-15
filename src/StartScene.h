@@ -9,6 +9,7 @@
 #include "PressurePlate.h"
 #include "Player.h"
 
+
 class StartScene final : public Scene
 {
 public:
@@ -16,11 +17,11 @@ public:
 	~StartScene();
 
 	// Inherited via Scene
-	virtual void Draw() override;
-	virtual void Update() override;
-	virtual void Clean() override;
-	virtual void HandleEvents() override;
 	virtual void Start() override;
+	virtual void Update() override;
+	virtual void Draw() override;
+	virtual void HandleEvents() override;
+	virtual void Clean() override;
 	
 private:
 	Label* m_pStartLabel{};
@@ -30,6 +31,7 @@ private:
 	PressurePlate *m_pPressurePlate;
 	Enemy* m_pEnemy;
 	Button* m_pStartButton;
+	Button* m_settingButton;
 };
 
 #endif /* defined (__START_SCENE__) */

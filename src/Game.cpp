@@ -4,6 +4,7 @@
 #include <iomanip>
 #include "glm/gtx/string_cast.hpp"
 #include "Renderer.h"
+#include "TextureManager.h"
 #include "EventManager.h"
 
 // IMGUI Includes
@@ -22,7 +23,6 @@ Game::Game() :
 
 Game::~Game()
 = default;
-
 
 void Game::init() {
 	m_bRunning = true;
@@ -137,6 +137,10 @@ void Game::changeSceneState(const SceneState new_state) {
 			case START_SCENE:
 				m_currentScene = new StartScene();
 				std::cout << "start scene activated" << std::endl;
+				break;
+				case SETTING_SCENE :
+				m_currentScene = new SettingScene();
+				std::cout << "setting scene activated" << std::endl;
 				break;
 			case PLAY_SCENE:
 				m_currentScene = new PlayScene();

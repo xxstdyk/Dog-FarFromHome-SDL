@@ -20,7 +20,7 @@ Player::Player() : m_currentAnimationState(PLAYER_IDLE_RIGHT) {
 	// set frame height
 	SetHeight(58);
 
-	GetTransform()->local_position = glm::vec2(400.0f, 300.0f);
+	GetTransform()->position = glm::vec2(540.0f, 300.0f);
 	GetRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 	//GetRigidBody()->acceleration = glm::vec2(0.0f, 0.5f);
 	GetRigidBody()->isColliding = false;
@@ -40,8 +40,8 @@ Player::~Player()
 
 void Player::Draw() {
 	// alias for x and y
-	const auto x = GetTransform()->global_position.x;
-	const auto y = GetTransform()->global_position.y;
+	const auto x = GetTransform()->drawn_position.x;
+	const auto y = GetTransform()->drawn_position.y;
 
 	// draw the player according to animation state
 	switch (m_currentAnimationState) {
@@ -113,8 +113,8 @@ void Player::Update() {
 		}
 	}
 
-	if (GetTransform()->global_position.y > 475.0f) {
-		GetTransform()->global_position.y = 473.5f;
+	if (GetTransform()->position.y > 475.0f) {
+		GetTransform()->position.y = 473.5f;
 		if (GetIsJumping()) {
 			SoundManager::Instance().playSound("landSound", 0);
 		}
@@ -180,7 +180,7 @@ void Player::Move(bool _direction) {
 		: _direction == false ? GetRigidBody()->velocity.x = -m_maxSpeed
 		: GetRigidBody()->velocity.x = m_maxSpeed;
 
-	GetTransform()->local_position.x += GetRigidBody()->velocity.x;
+	GetTransform()->position.x += GetRigidBody()->velocity.x;
 }
 
 void Player::Jump() {
@@ -198,7 +198,7 @@ void Player::Jump() {
 	GetRigidBody()->velocity.y += GetRigidBody()->acceleration.y;
 
 	// Velocity -> Position
-	GetTransform()->local_position.y += GetRigidBody()->velocity.y;
+	GetTransform()->position.y += GetRigidBody()->velocity.y;
 }
 
 void Player::Decellerate() {
@@ -216,7 +216,7 @@ void Player::Decellerate() {
 			? GetRigidBody()->velocity.x += abs(GetRigidBody()->velocity.x * decellerateRate)
 			: GetRigidBody()->velocity.x -= abs(GetRigidBody()->velocity.x * decellerateRate);
 
-		GetTransform()->local_position.x += GetRigidBody()->velocity.x;
+		GetTransform()->position.x += GetRigidBody()->velocity.x;
 	}
 }
 
@@ -229,5 +229,4 @@ void Player::SetIsJumping(bool _jump) { m_isJumping = _jump; }
 // Getters
 float Player::GetAcceleration() { return m_accelerationRate; }
 float Player::GetMaxSpeed() { return m_maxSpeed; }
-
 bool Player::GetIsJumping() { return m_isJumping; }

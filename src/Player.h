@@ -6,7 +6,9 @@
 #include "Sprite.h"
 
 class Player final : public Sprite {
+
 private:
+
 	float m_accelerationRate;
 	float m_maxSpeed;
 
@@ -14,9 +16,11 @@ private:
 	bool m_isJumping; // This will track whether or not the player is jumping 
 
 private:
+
 	void BuildSoundIndex();
 
 public:
+
 	Player();
 	~Player();
 
@@ -40,6 +44,7 @@ public:
 	bool GetIsJumping();
 
 private:
+
 	void Jump();
 	void Decellerate();
 	void m_buildAnimations();
