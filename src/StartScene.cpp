@@ -38,36 +38,18 @@ void StartScene::HandleEvents() {
 	{
 		TheGame::Instance()->changeSceneState(SETTING_SCENE);
 	}
-
-
 }
 
 void StartScene::Start() {
+
 	//Background
 	DisplayObject *m_pBackground = new Background();
 	AddChild(m_pBackground);
-
 	const SDL_Color blue = { 0, 0, 255, 255 };
 	const SDL_Color white = { 255, 255, 255, 0 };
 	m_pStartLabel = new Label("Dog: Far From Home", "Consolas", 50, white, glm::vec2(550.0f, 150.0f));
 	m_pStartLabel->SetParent(this);
 	AddChild(m_pStartLabel);
-
-	//Player Sprite
-	m_pPlayer = new Player();
-	m_pPlayer->GetTransform()->position = glm::vec2(350.0f, 475.0f);
-	m_pPlayer->SetMovementEnabled(false);
-	AddChild(m_pPlayer);
-
-	//Pressure plate Sprite
-	m_pPressurePlate = new PressurePlate();
-	m_pPressurePlate->GetTransform()->position = glm::vec2(625, 470.0f);
-	AddChild(m_pPressurePlate);
-
-	//Enemy Sprite
-	m_pEnemy = new Enemy();
-	m_pEnemy->GetTransform()->position = glm::vec2(742.0f, 445.0f);
-	AddChild(m_pEnemy);
 
 	// StartButton
 	m_pStartButton = new Button();
@@ -88,7 +70,6 @@ void StartScene::Start() {
 	AddChild(m_pStartButton);
 
 	// Settings Button 
-
 	m_settingButton = new Button("../Assets/textures/settingsButton.png","settingsButton",SETTINGS_BUTTON);
 	m_settingButton->GetTransform()->position = glm::vec2(550.0f, 440.0f);
 
@@ -105,8 +86,6 @@ void StartScene::Start() {
 		m_settingButton->setAlpha(255);
 	});
 	AddChild(m_settingButton);
-
-
 
 	SoundManager::Instance().setMusicVolume(20);
 	SoundManager::Instance().load("../Assets/audio/menuSongReal.mp3", "mainMenuSong", SOUND_MUSIC);

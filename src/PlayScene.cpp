@@ -18,13 +18,13 @@ void PlayScene::Start() {
 
 	//Pressure plate Sprite
 	m_pPressurePlate = new PressurePlate();
-	m_pPressurePlate->GetTransform()->position = glm::vec2(625, 470.0f);
+	m_pPressurePlate->GetTransform()->position = glm::vec2(2100.0f, 1868.0f);
 	AddChild(m_pPressurePlate);
 
 	// Player Sprite
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true);
-	m_pPlayer->GetTransform()->position = glm::vec2(150.0f, 475.0f);
+	m_pPlayer->GetTransform()->position = glm::vec2(650.0f, 1920.0f);
 	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
 
@@ -36,7 +36,7 @@ void PlayScene::Start() {
 
 	//Enemy Sprite (cat)
 	m_pEnemy = new Enemy();
-	m_pEnemy->GetTransform()->position = glm::vec2(700.0f, 285.0f);
+	m_pEnemy->GetTransform()->position = glm::vec2(2110.0f, 1868.0f);
 	AddChild(m_pEnemy);
 
 	// Back Button
@@ -84,7 +84,6 @@ void PlayScene::Update() {
 	CollisionHandler();
 	TickGravity();
 	UpdateGlobalPositions();
-
 	GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(540.0f, 584.0f * 3 / 4);
 }
 
@@ -99,12 +98,11 @@ void PlayScene::Draw() {
 	if (EventManager::Instance().isIMGUIActive()) {
 		GUI_Function();
 	}
-
 }
 
 void PlayScene::CreatePlatforms() {
 
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 512.0f), 10000, 500));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 1975.0f), 10000, 500));
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 }
@@ -120,13 +118,12 @@ void PlayScene::CollisionHandler() {
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) {
 
 		std::cout << "Stepped on the pressure plate!" << std::endl;
-		m_pPressurePlate->GetTransform()->position = glm::vec2(625, 477.0f);
-
+		m_pPressurePlate->GetTransform()->position = glm::vec2(1950.0f, 1880.0f);
 		SoundManager::Instance().playSound("pressurePlateCollision", 0);
 	}
 
 	if (!CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) {
-		m_pPressurePlate->GetTransform()->position = glm::vec2(625, 470.0f);
+		m_pPressurePlate->GetTransform()->position = glm::vec2(1950.0f, 1880.0f);
 	}
 
 }

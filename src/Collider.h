@@ -26,12 +26,10 @@ class Collider : public GameObject {
 	void SetOffset(glm::vec2 _offset);
 	void SetColliding(bool _colliding);
 	
-	GameObject *GetParent();
+	GameObject *GetParent(); 
 	glm::vec2 GetOffset() const;
 
 	explicit operator bool() const;
-
-
 };
 
 #endif

@@ -33,7 +33,6 @@ void PlatformHandler::Update() {
 			}
 		}
 	}
-
 }
 
 void PlatformHandler::Draw() {
