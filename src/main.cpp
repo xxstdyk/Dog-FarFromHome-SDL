@@ -17,7 +17,7 @@ int main(int argc, char *args[]) {
 	AllocConsole();
 	freopen("CON", "w", stdout);
 
-	TheGame::Instance()->init("SDLEngine 0.24", 100, 100, 1080, 584, false);
+	TheGame::Instance()->init("Dog - Far From Home", 100, 75, 1600, 900, false);
 
 	while (TheGame::Instance()->isRunning()) {
 

@@ -3,6 +3,7 @@
 #define __PLAY_SCENE__
 
 #include "Scene.h"
+#include "PlatformHandler.h"
 #include "Player.h"
 #include "PressurePlate.h"
 #include "Enemy.h"
@@ -16,6 +17,8 @@ class PlayScene : public Scene {
 	std::string m_guiTitle;
 
 	glm::vec2 m_mousePosition;
+
+	PlatformHandler *m_pPlatformHandler;
 
 	Background *m_pBackground;
 	Player *m_pPlayer;
@@ -31,6 +34,8 @@ class PlayScene : public Scene {
 	private:
 	// IMGUI Function
 	void GUI_Function();
+
+	void CreatePlatforms();
 
 	public:
 	PlayScene();
