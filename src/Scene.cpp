@@ -97,8 +97,8 @@ void Scene::TickGravity() {
 		if (count != nullptr) { 
 			if (!count->IsEnabled())
 				break;
-			if (count->GetRigidBody()->hasGravity)
-				count->GetRigidBody()->velocity.y += m_gravityForce;
+			if (count->GetRigidBody()->hasGravity && count->GetRigidBody()->acceleration.y < m_gravityForce)
+				count->GetRigidBody()->acceleration.y += m_gravityForce * 0.1;
 		}
 	}
 }

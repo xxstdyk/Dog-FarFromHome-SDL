@@ -166,6 +166,7 @@
     <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\Background.cpp" />
+    <ClCompile Include="..\src\InteractableObject.cpp" />
     <ClCompile Include="..\src\Platform.cpp" />
     <ClCompile Include="..\src\PlatformHandler.cpp" />
     <ClCompile Include="..\src\PressurePlate.cpp" />
@@ -208,6 +209,7 @@
     <ClInclude Include="..\src\Enemy.h" />
     <ClInclude Include="..\src\EnemyAnimationState.h" />
     <ClInclude Include="..\src\Background.h" />
+    <ClInclude Include="..\src\InteractableObject.h" />
     <ClInclude Include="..\src\Platform.h" />
     <ClInclude Include="..\src\PressurePlate.h" />
     <ClInclude Include="..\src\PlatformHandler.h" />

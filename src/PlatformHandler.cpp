@@ -23,7 +23,14 @@ void PlatformHandler::Update() {
 	if (collidedPlat != nullptr) {
 		if (m_pGroundCheck->GetTransform()->position.y + m_pGroundCheck->GetHeight() > collidedPlat->GetTransform()->position.y) {
 			auto parent = m_pGroundCheck->GetParent();
-			parent->GetTransform()->position.y = collidedPlat->GetTransform()->position.y - parent->GetHeight();
+			if (parent->GetRigidBody()->velocity.y > 0) { 
+			
+				parent->GetRigidBody()->acceleration.y = 0;
+				parent->GetRigidBody()->velocity.y = 0;
+				
+				//parent->GetRigidBody()->velocity.y = collidedPlat->GetTransform()->position.y 
+				//	- (parent->GetTransform()->position.y + parent->GetHeight());
+			}
 		}
 	}
 

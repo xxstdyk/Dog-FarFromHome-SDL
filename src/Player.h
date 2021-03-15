@@ -43,6 +43,8 @@ class Player final : public Sprite {
 	void SetMovementEnabled(bool _val);
 	void SetIsJumping(bool _jump);
 
+	void AddAcceleration(glm::vec2 _accelRate);
+
 	// Getters
 	Collider *GetCollider(const std::string _key) const;
 
@@ -58,7 +60,7 @@ class Player final : public Sprite {
 	void m_buildAnimations();
 	void Move(bool _direction);
 
-	void AddAcceleration();
+	void m_move(int _dir);
 	void Decel();
 	void ApplyMovement();
 
