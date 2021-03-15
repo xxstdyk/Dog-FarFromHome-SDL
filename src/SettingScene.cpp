@@ -48,8 +48,8 @@ void SettingScene::HandleEvents() // handle keyboard inputs
 
 void SettingScene::Start() // main window  res , controls , sound , back 
 {
-	const SDL_Color blue = { 0, 0, 255, 255 }; //255
-	m_settinglabel = new Label("SETTINGS", "Consolas", 80, blue, glm::vec2(500.0f, 40.0f));
+	const SDL_Color blue = { 185, 185, 185, 185 }; //255
+	m_settinglabel = new Label("SETTINGS", "Lora", 80, blue, glm::vec2(500.0f, 40.0f));
 	m_settinglabel->SetParent(this);
 	AddChild(m_settinglabel);
 
