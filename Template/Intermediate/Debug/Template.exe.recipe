@@ -1,18 +1,27 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
 <<<<<<< HEAD
+<<<<<<< HEAD
   <ProjectOutputs>
     <ProjectOutput>
       <FullPath>C:\Users\User\Documents\Dog Game\Dog-FarFromHome-SDL\bin\Debug\Template.exe</FullPath>
+=======
+  <ProjectOutputs>
+    <ProjectOutput>
+      <FullPath>H:\Other\Visual Studio\Dog-FarFromHome-SDL\bin\Debug\Template.exe</FullPath>
+>>>>>>> ipromisemovementwillworksoonm
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
   <SatelliteDlls />
   <NonRecipeFileRefs />
+<<<<<<< HEAD
 =======
   <ProjectOutputs>C:\Users\Hasan\Desktop\DogGame\Dog-FarFromHome-SDL\bin\Debug\Template.exe</ProjectOutputs>
   <ContentFiles></ContentFiles>
   <SatelliteDlls></SatelliteDlls>
   <NonRecipeFileRefs></NonRecipeFileRefs>
 >>>>>>> master
+=======
+>>>>>>> ipromisemovementwillworksoonm
 </Project>
