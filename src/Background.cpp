@@ -8,8 +8,9 @@ Background::Background() {
 	SetWidth(1920);
 	SetHeight(1080);
 	GetTransform()->position = glm::vec2(0, 0);
-	GetRigidBody()->velocity = glm::vec2(0, 0);
 	GetRigidBody()->isColliding = false;
+	GetRigidBody()->hasGravity = false;
+
 }
 
 Background::~Background()

@@ -1,6 +1,6 @@
 #pragma once
-#ifndef __LEVEL1BACKGROUND__
-#define __LEVEL1BACKGROUND__
+#ifndef __BACKGROUND__
+#define __BACKGROUND__
 
 #include "DisplayObject.h"
 
