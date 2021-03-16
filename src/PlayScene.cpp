@@ -40,7 +40,7 @@ void PlayScene::Start() {
 	// Player Sprite
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true);
-	m_pPlayer->GetTransform()->position = glm::vec2(2800.0f, 835.0f);//glm::vec2(650.0f, 1920.0f);
+	m_pPlayer->GetTransform()->position = glm::vec2(650.0f, 1920.0f);
 	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
 
@@ -132,12 +132,11 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1100.0f, 1300), 200, 30));         //(Temp) Elevator Platform
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(774.0f, 1170.0f), 238, 20));       //Pressureplate Platform
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1009.0f, 882.0f), 398, 37));       //Telescope Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(750.0f, 920.0f), 200, 37));       //(Temp)Telescope Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(750.0f, 920.0f), 200, 37));        //(Temp)Telescope Platform
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1512.0f, 960.0f), 345, 35));       //Tree Platform (Right of Telescope)
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2230.0f, 999.0f), 377, 35));       //Tree Platform (Right of Tree Platform(1))
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2230.0f, 999.0f), 377, 35));       //Tree Platform (Right of Tree Platform(1))
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2930.0f, 590), 625, 40));          //Fire Tower Platform 
-
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1670.0f, 1935), 830, 50));
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1825.0f, 1893), 640, 50));         //Ground Platform under cat/enemy
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2385.0f, 1780), 85, 50));          //Ground Platform above cave entrance
@@ -178,9 +177,10 @@ void PlayScene::CollisionHandler() {
 		
 		if (m_appearingPlatformEnabled == true) {
 			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2525.0f, 700), 100, 30));     //Appearing Platform 1 (Lower)
-			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2700.0f, 850), 100, 30)); //Appearing Platform 2 (Higher)
+			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2700.0f, 850), 100, 30));     //Appearing Platform 2 (Higher)
 			std::cout << "stupid ass program" << std::endl;
 			for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
+			m_appearingPlatformEnabled = false;
 		}
 	}
 	else m_playerCanActivateLever = false, 
