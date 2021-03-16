@@ -1,36 +1,11 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project>
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-  <ProjectOutputs>
-    <ProjectOutput>
-      <FullPath>C:\Users\User\Documents\Dog Game\Dog-FarFromHome-SDL\bin\Debug\Template.exe</FullPath>
-=======
   <ProjectOutputs>
     <ProjectOutput>
       <FullPath>H:\Other\Visual Studio\Dog-FarFromHome-SDL\bin\Debug\Template.exe</FullPath>
->>>>>>> ipromisemovementwillworksoonm
-=======
-  <ProjectOutputs>
-    <ProjectOutput>
-      <FullPath>C:\Users\david\Desktop\Year 2 - Semester 2\Game Production II\Dog-FarFromHome-SDL\bin\Debug\Template.exe</FullPath>
->>>>>>> NewBackground
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />
   <SatelliteDlls />
   <NonRecipeFileRefs />
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-  <ProjectOutputs>C:\Users\Hasan\Desktop\DogGame\Dog-FarFromHome-SDL\bin\Debug\Template.exe</ProjectOutputs>
-  <ContentFiles></ContentFiles>
-  <SatelliteDlls></SatelliteDlls>
-  <NonRecipeFileRefs></NonRecipeFileRefs>
->>>>>>> master
-=======
->>>>>>> ipromisemovementwillworksoonm
-=======
->>>>>>> NewBackground
 </Project>

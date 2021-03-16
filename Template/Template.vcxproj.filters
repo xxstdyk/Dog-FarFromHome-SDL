@@ -123,32 +123,26 @@
     <ClCompile Include="..\src\Platform.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-    <ClCompile Include="..\src\SettingScene.cpp">
-      <Filter>Scenes</Filter>
+    <ClCompile Include="..\src\Collider.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Background.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <ClCompile Include="..\src\PushableObject.cpp">
-=======
-    <ClCompile Include="..\src\Collider.cpp">
-      <Filter>Core</Filter>
+    <ClCompile Include="..\src\SettingScene.cpp">
+      <Filter>Scenes</Filter>
     </ClCompile>
     <ClCompile Include="..\src\PlatformHandler.cpp">
->>>>>>> master
       <Filter>Game Objects</Filter>
     </ClCompile>
     <ClCompile Include="..\src\InteractableObject.cpp">
       <Filter>Core</Filter>
-=======
-    <ClCompile Include="..\src\InteractableObject.cpp">
-      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\PushableObject.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="..\src\Lever.cpp">
       <Filter>Game Objects</Filter>
->>>>>>> LeverAndLeverActivities
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -287,36 +281,27 @@
     <ClInclude Include="..\src\Platform.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\SettingScene.h">
-      <Filter>Scenes</Filter>
+    <ClInclude Include="..\src\Collider.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Background.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <ClInclude Include="..\src\PushableObject.h">
-      <Filter>Game Objects</Filter>
+    <ClInclude Include="..\src\SettingScene.h">
+      <Filter>Scenes</Filter>
     </ClInclude>
-=======
     <ClInclude Include="..\src\PlatformHandler.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
-    <ClInclude Include="..\src\Collider.h">
-      <Filter>Core</Filter>
-    </ClInclude>
->>>>>>> master
     <ClInclude Include="..\src\InteractableObject.h">
       <Filter>Core</Filter>
     </ClInclude>
-=======
-    <ClInclude Include="..\src\InteractableObject.h">
-      <Filter>Game Objects</Filter>
+    <ClInclude Include="..\src\PushableObject.h">
+      <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Lever.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
->>>>>>> LeverAndLeverActivities
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">

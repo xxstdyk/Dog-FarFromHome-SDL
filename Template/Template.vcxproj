@@ -161,16 +161,13 @@
     <ClCompile Include="..\include\IMGUI\imgui_draw.cpp" />
     <ClCompile Include="..\include\IMGUI\imgui_widgets.cpp" />
     <ClCompile Include="..\include\IMGUI_SDL\imgui_sdl.cpp" />
+    <ClCompile Include="..\src\Background.cpp" />
     <ClCompile Include="..\src\Button.cpp" />
     <ClCompile Include="..\src\Collider.cpp" />
     <ClCompile Include="..\src\CollisionManager.cpp" />
     <ClCompile Include="..\src\Enemy.cpp" />
-    <ClCompile Include="..\src\Background.cpp" />
     <ClCompile Include="..\src\InteractableObject.cpp" />
-<<<<<<< HEAD
-=======
     <ClCompile Include="..\src\Lever.cpp" />
->>>>>>> LeverAndLeverActivities
     <ClCompile Include="..\src\Platform.cpp" />
     <ClCompile Include="..\src\PlatformHandler.cpp" />
     <ClCompile Include="..\src\PressurePlate.cpp" />
@@ -206,6 +203,7 @@
     <ClInclude Include="..\include\IMGUI\imstb_truetype.h" />
     <ClInclude Include="..\include\IMGUI_SDL\imgui_sdl.h" />
     <ClInclude Include="..\src\Animation.h" />
+    <ClInclude Include="..\src\Background.h" />
     <ClInclude Include="..\src\Button.h" />
     <ClInclude Include="..\src\Collider.h" />
     <ClInclude Include="..\src\CollisionManager.h" />
@@ -213,19 +211,12 @@
     <ClInclude Include="..\src\Config.h" />
     <ClInclude Include="..\src\Enemy.h" />
     <ClInclude Include="..\src\EnemyAnimationState.h" />
-    <ClInclude Include="..\src\Background.h" />
     <ClInclude Include="..\src\InteractableObject.h" />
-<<<<<<< HEAD
-=======
     <ClInclude Include="..\src\Lever.h" />
->>>>>>> LeverAndLeverActivities
     <ClInclude Include="..\src\Platform.h" />
-    <ClInclude Include="..\src\PressurePlate.h" />
-<<<<<<< HEAD
-    <ClInclude Include="..\src\PushableObject.h" />
-=======
     <ClInclude Include="..\src\PlatformHandler.h" />
->>>>>>> master
+    <ClInclude Include="..\src\PressurePlate.h" />
+    <ClInclude Include="..\src\PushableObject.h" />
     <ClInclude Include="..\src\SettingScene.h" />
     <ClInclude Include="..\src\SoundType.h" />
     <ClInclude Include="..\src\Sprite.h" />
