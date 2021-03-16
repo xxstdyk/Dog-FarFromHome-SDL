@@ -4,7 +4,7 @@
 
 PressurePlate::PressurePlate() {
 
-	TextureManager::Instance()->load("../Assets/textures/pressure plate.png", "pressurePlate");
+	TextureManager::Instance()->load("../Assets/textures/pressurePlate.png", "pressurePlate");
 	auto size = TextureManager::Instance()->getTextureSize("pressurePlate");
 	SetWidth(size.x);
 	SetHeight(size.y);

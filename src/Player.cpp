@@ -79,7 +79,8 @@ void Player::BuildSoundIndex() {
 	SoundManager::Instance().load("../Assets/audio/dogWhine1.mp3", "enemyCollision", SOUND_SFX);
 	SoundManager::Instance().load("../Assets/audio/arf.wav", "defaultSound", SOUND_SFX);
 	SoundManager::Instance().load("../Assets/audio/jumpSound1.wav", "jumpSound", SOUND_SFX);
-	SoundManager::Instance().load("../Assets/audio/landFromJump1.mp3", "landSound", SOUND_SFX); // do this later
+	SoundManager::Instance().load("../Assets/audio/landFromJump1.mp3", "landSound", SOUND_SFX); 
+	SoundManager::Instance().load("../Assets/audio/dogSniff1.wav", "sniffSound1", SOUND_SFX);
 
 	SoundManager::Instance().setSoundVolume(32);
 }
@@ -119,6 +120,21 @@ void Player::Update() {
 		std::cout << "arf" << std::endl;
 		m_barking = false;
 		m_canBark = false;
+	}
+
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_LSHIFT) && m_canSniff) {
+		m_sniffing = true;
+		m_canSniff = false;
+	}
+	if (EventManager::Instance().isKeyUp(SDL_SCANCODE_LSHIFT)) {
+		m_canSniff = true;
+	}
+	if (m_sniffing) {
+
+		SoundManager::Instance().playSound("sniffSound1", 0, -1);
+		std::cout << "Sninf" << std::endl;
+		m_sniffing = false;
+		m_canSniff = false;
 	}
 
 	// Lets us pause the movement

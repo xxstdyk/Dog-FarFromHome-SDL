@@ -67,6 +67,7 @@ private:
 	void ApplyMovement();
 
 	bool m_barking, m_canBark;
+	bool m_sniffing, m_canSniff;
 
 	PlayerAnimationState m_currentAnimationState;
 };

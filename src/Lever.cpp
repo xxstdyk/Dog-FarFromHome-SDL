@@ -1,6 +1,5 @@
 #include "Lever.h"
-#include "SoundManager.h"
-#include "TextureManager.h"
+
 
 Lever::Lever() {
 

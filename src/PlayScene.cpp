@@ -27,6 +27,11 @@ void PlayScene::Start() {
 	m_pBox->GetTransform()->position = glm::vec2(650.0f, 475.0f);
 	AddChild(m_pBox);
 	
+	// Sniff thing
+	m_pSniff = new Sniff();
+	m_pSniff->GetTransform()->position = glm::vec2(0.0f, 0.0f);
+	AddChild(m_pSniff, 11);
+
 	// Lever Sprite
 	m_pLever = new Lever();
 	m_pLever->GetTransform()->position = glm::vec2(400.0f, 475.0f);
@@ -218,7 +223,13 @@ void PlayScene::HandleEvents() {
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_2)) {
 		TheGame::Instance()->changeSceneState(END_SCENE);
 	}
+
+	m_pSniff->SetEnabled((EventManager::Instance().isKeyDown(SDL_SCANCODE_LSHIFT)));
+
 }
+// Sniff logic thing
+
+
 
 void PlayScene::Clean() {
 	RemoveAllChildren();

@@ -144,6 +144,9 @@
     <ClCompile Include="..\src\Lever.cpp">
       <Filter>Game Objects</Filter>
     </ClCompile>
+    <ClCompile Include="..\src\Sniff.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\src\StartScene.h">
@@ -300,6 +303,9 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="..\src\Lever.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Sniff.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
   </ItemGroup>
