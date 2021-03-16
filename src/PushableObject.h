@@ -6,14 +6,11 @@
 #include "EventManager.h"
 #include "Player.h"
 
-class PushableObject : public InteractableObject
-{
-private:
-	Player* m_player;
-	
-public:
+class PushableObject : public InteractableObject {
+
+	public:
 	PushableObject();
-	
+
 	void Draw() override;
 	void Update() override;
 	void Clean() override;

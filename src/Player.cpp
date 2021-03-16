@@ -25,9 +25,10 @@ Player::Player() : m_currentAnimationState(PLAYER_IDLE_RIGHT) {
 	GetRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 	GetRigidBody()->isColliding = false;
 	GetRigidBody()->hasGravity = true;
+
 	SetMovementEnabled(true);
 	SetAccelerationRate(0.4f);
-	SetMaxSpeed(14);
+	SetMaxSpeed(8.5f);
 
 	Collider *gc = new Collider();
 	gc->SetParent(this);
@@ -97,7 +98,7 @@ void Player::Update() {
 	bool colliding = false;
 	for (auto &it : m_colliders) {
 		it.second->Update();
-		colliding = colliding && it.second;
+		colliding = colliding || it.second->operator bool();
 	}
 	GetRigidBody()->isColliding = colliding;
 
@@ -111,9 +112,11 @@ void Player::Update() {
 		m_barking = true;
 		m_canBark = false;
 	}
+	
 	if (EventManager::Instance().isKeyUp(SDL_SCANCODE_Q)) {
 		m_canBark = true;
 	}
+
 	if (m_barking) {
 		SoundManager::Instance().load("../Assets/audio/arf.wav", "barkSound1", SOUND_SFX);
 		SoundManager::Instance().playSound("barkSound1", 0, -1);
@@ -147,11 +150,10 @@ void Player::Update() {
 			== EventManager::Instance().isKeyDown(SDL_SCANCODE_D)) moveVal = 0;
 
 		m_move(moveVal);
-
 		if (!moveVal) Decel();
 	}
 
-	if (GetCollider("groundCheck")) {
+	if (GetCollider("groundCheck")->operator bool()) {
 		if (GetIsJumping()) {
 			SoundManager::Instance().playSound("landSound", 0);
 		}
@@ -180,55 +182,23 @@ void Player::setAnimationState(const PlayerAnimationState new_state) {
 
 
 void Player::m_buildAnimations() {
+
 	Animation idleAnimation = Animation();
-
 	idleAnimation.m_name = "idle";
-	idleAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-idle-0"));
-	idleAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-idle-1"));
-	idleAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-idle-2"));
-	idleAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-idle-3"));
-	idleAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-idle-4"));
-	idleAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-idle-5"));
-	idleAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-idle-6"));
 
-	//std::string tmp_str = "dog-idle-";
-	//for (int i = 0; i < 7; i++) 
-	//	idleAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame(tmp_str + std::to_string(i)));
-
+	std::string tmp_str = "dog-idle-";
+	for (int i = 0; i < 7; i++) 
+		idleAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame(tmp_str + std::to_string(i)));
 	setAnimation(idleAnimation);
 
 	Animation runAnimation = Animation();
-
 	runAnimation.m_name = "run";
-	runAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-dash-0"));
-	runAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-dash-1"));
-	runAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-dash-2"));
-	runAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-dash-3"));
-	runAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame("dog-dash-4"));
 
+	tmp_str = "dog-dash-";
+	for (int i = 0; i < 5; ++i)
+		runAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame(tmp_str + std::to_string(i)));
 	setAnimation(runAnimation);
-}
 
-void Player::Move(bool _direction) {
-
-	GetRigidBody()->acceleration.x = m_accelerationRate;
-
-	if (GetRigidBody()->velocity.x != 0)
-		GetRigidBody()->velocity.x = abs(GetRigidBody()->velocity.x) + 0.5f * GetRigidBody()->acceleration.x;
-	else
-		GetRigidBody()->velocity.x = 0.5f * GetRigidBody()->acceleration.x;
-
-	// If the player wants to move left the velocity will be turned into a negative
-	if (_direction == false)
-		GetRigidBody()->velocity.x *= -1;
-
-	// if the absolute value of the new velocity is greater than the max speed the velocity will be set to the max speed in the proper direction
-	abs(GetRigidBody()->velocity.x) < m_maxSpeed
-		? GetRigidBody()->velocity.x = GetRigidBody()->velocity.x
-		: _direction == false ? GetRigidBody()->velocity.x = -m_maxSpeed
-		: GetRigidBody()->velocity.x = m_maxSpeed;
-
-	GetTransform()->position.x += GetRigidBody()->velocity.x;
 }
 
 void Player::Jump() {
@@ -242,25 +212,6 @@ void Player::Jump() {
 		SoundManager::Instance().playSound("jumpSound", 0);
 	}
 
-}
-
-void Player::Decelerate() {
-
-	float decelerateRate = 0.2f;
-
-	if (GetRigidBody()->velocity.x != 0) {
-		if (GetRigidBody()->velocity.x < 1.0f && GetRigidBody()->velocity.x > -1.0f)
-			GetRigidBody()->velocity.x = 0.0f;
-
-		// If the player's velocity is not equal to zero, it's velocity will be decreased until it's zero
-		GetRigidBody()->velocity.x == 0
-			? GetRigidBody()->velocity.x == GetRigidBody()->velocity.x
-			: GetRigidBody()->velocity.x < 0
-			? GetRigidBody()->velocity.x += abs(GetRigidBody()->velocity.x * decelerateRate)
-			: GetRigidBody()->velocity.x -= abs(GetRigidBody()->velocity.x * decelerateRate);
-
-		GetTransform()->position.x += GetRigidBody()->velocity.x;
-	}
 }
 
 void Player::AddAcceleration(glm::vec2 _accelRate) {
@@ -298,7 +249,7 @@ void Player::ApplyMovement() {
 
 	rb->velocity.x = Util::clamp(rb->velocity.x, -GetMaxSpeed(), GetMaxSpeed());
 
-	if (rb->velocity.y > 0 && GetCollider("groundCheck")) rb->velocity.y = 0;
+	if (rb->velocity.y > 0 && GetCollider("groundCheck")->operator bool()) rb->velocity.y = 0;
 
 	transform->position += rb->velocity;
 

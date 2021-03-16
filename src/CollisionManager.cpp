@@ -52,6 +52,15 @@ bool CollisionManager::AABBCheck(GameObject *object1, GameObject *object2) {
 
 		if (!object2->GetRigidBody()->isColliding) {
 
+			switch (object2->GetType()) {
+			
+				case PUSHABLE_OBJECT:
+					object2->GetRigidBody()->velocity.y = 0;
+					break;
+
+				default:
+					break;
+			}
 
 			object2->GetRigidBody()->isColliding = true;
 			return true;

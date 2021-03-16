@@ -159,16 +159,24 @@ void PlayScene::CollisionHandler() {
 		SoundManager::Instance().playSound("pressurePlateCollision", 0);
 	}
 	else m_playerCanActivateLever = false;
-    
+
+	for (auto platform : m_pPlatformHandler->GetPlatforms()) CollisionManager::AABBCheck(platform, m_pBox);
+										
 	m_pBox->GetRigidBody()->isColliding = false;
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pBox)) {
-		m_pBox->SetEnabled(true);
-		m_pPlayer->SetMaxSpeed(2.13f);
+		m_pPlayer->SetMaxSpeed(2.0f);
+		// This sets the player's speed to 2.0f or -2.0f when the player hits the box to make sure that the box has the correct speed
+		if (m_pPlayer->GetRigidBody()->velocity.x > 0)
+			m_pPlayer->GetRigidBody()->velocity.x = 2.0f;
+		else if (m_pPlayer->GetRigidBody()->velocity.x < 0)
+			m_pPlayer->GetRigidBody()->velocity.x = -2.0f;
+		m_pBox->SetEnabled(true);		
+		//m_pBox->GetTransform()->position.y = m_pPlayer->GetTransform()->position.y;
 		m_pBox->GetRigidBody()->velocity.x = m_pPlayer->GetRigidBody()->velocity.x;
-	}
-	else {
+	}									
+	else {								
 		m_pBox->SetEnabled(false);
-		m_pPlayer->SetMaxSpeed(8.25f);
+		m_pPlayer->SetMaxSpeed(8.5f);	
 	}
 }
 

@@ -2,7 +2,15 @@
 <Project>
   <ProjectOutputs>
     <ProjectOutput>
+<<<<<<< HEAD
       <FullPath>C:\Users\Joshu\Desktop\DogFarFromHomeRepo\Dog-FarFromHome-SDL\bin\Debug\Template.exe</FullPath>
+=======
+<<<<<<< HEAD
+      <FullPath>H:\Other\Visual Studio\Dog-FarFromHome-SDL\bin\Debug\Template.exe</FullPath>
+=======
+      <FullPath>C:\Users\User\Documents\Dog Game\Dog-FarFromHome-SDL\bin\Debug\Template.exe</FullPath>
+>>>>>>> BoxPushesFromBothSides
+>>>>>>> master
     </ProjectOutput>
   </ProjectOutputs>
   <ContentFiles />

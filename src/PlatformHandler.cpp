@@ -25,13 +25,11 @@ void PlatformHandler::Update() {
 		}
 	}
 
-	if (collidedPlat != nullptr) {
+	if (collidedPlat != nullptr) { 
 		if (m_pGroundCheck->GetTransform()->position.y + m_pGroundCheck->GetHeight() > collidedPlat->GetTransform()->position.y) {
 			if (parent->GetRigidBody()->velocity.y > 0) { 
 			
-				parent->GetRigidBody()->acceleration.y = 0;
-				parent->GetRigidBody()->velocity.y = 0;
-				parent->GetTransform()->position.y = collidedPlat->GetTransform()->position.y - parent->GetHeight();
+				parent->GetTransform()->position.y = collidedPlat->GetTransform()->position.y - parent->GetHeight() + 2.5f;
 			}
 		}
 	}
