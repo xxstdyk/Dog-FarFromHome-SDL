@@ -106,6 +106,12 @@ void PlayScene::Update() {
 	{
 		m_pLever->SetEnabled(!m_pLever->GetEnabled());
 		std::cout << "You activated lever" << std::endl;
+		
+		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2525.0f, 700), 100, 30));     //Appearing Platform 1 (Lower)
+		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2700.0f, 850), 100, 30));     //Appearing Platform 2 (Higher)
+		std::cout << "stupid ass program" << std::endl;
+		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
+		m_appearingPlatformEnabled = false;
 	}
 
 	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(540.0f, 584.0f * 3 / 4);
@@ -172,19 +178,9 @@ void PlayScene::CollisionHandler() {
 
 		std::cout << "Dog is in range to activate lever" << std::endl;
 		m_playerCanActivateLever = true;
-		m_appearingPlatformEnabled = true;  //Sets true - creates platforms
 		SoundManager::Instance().playSound("pressurePlateCollision", 0);
-		
-		if (m_appearingPlatformEnabled == true) {
-			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2525.0f, 700), 100, 30));     //Appearing Platform 1 (Lower)
-			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2700.0f, 850), 100, 30));     //Appearing Platform 2 (Higher)
-			std::cout << "stupid ass program" << std::endl;
-			for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
-			m_appearingPlatformEnabled = false;
-		}
 	}
-	else m_playerCanActivateLever = false, 
-		m_appearingPlatformEnabled = false;
+	else m_playerCanActivateLever = false;
 
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) CollisionManager::AABBCheck(platform, m_pBox);
