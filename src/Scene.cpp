@@ -44,7 +44,6 @@ void Scene::RemoveAllChildren() {
 	m_displayList.clear();
 }
 
-
 int Scene::NumberOfChildren() const {
 	return m_displayList.size();
 }
