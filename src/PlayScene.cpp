@@ -84,7 +84,7 @@ void PlayScene::Start() {
 	});
 
 	SoundManager::Instance().setMusicVolume(5);
-	SoundManager::Instance().load("../Assets/audio/menuSongTest.mp3", "forestSong", SOUND_MUSIC);
+	SoundManager::Instance().load("../Assets/audio/forestBGM1.mp3", "forestSong", SOUND_MUSIC);
 	SoundManager::Instance().playMusic("forestSong", -1);
 }
 
