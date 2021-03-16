@@ -42,6 +42,7 @@ class Player final : public Sprite {
 	void SetMaxSpeed(float _speed);
 	void SetMovementEnabled(bool _val);
 	void SetIsJumping(bool _jump);
+	void SetInteracting(bool _interacting);
 
 	void AddAcceleration(glm::vec2 _accelRate);
 
@@ -52,13 +53,14 @@ class Player final : public Sprite {
 	float GetMaxSpeed();
 
 	bool GetIsJumping();
-
-	private:
+	bool GetInteracting();
+private:
 
 	void Jump();
 	void Decelerate();
 	void m_buildAnimations();
 	void Move(bool _direction);
+	bool m_interacting;
 
 	void m_move(int _dir);
 	void Decel();

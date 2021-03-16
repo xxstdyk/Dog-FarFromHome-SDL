@@ -1,10 +1,10 @@
 #include "PressurePlate.h"
-#include "../src/SoundManager.h"
-#include "../src/TextureManager.h"
+#include "SoundManager.h"
+#include "TextureManager.h"
 
 PressurePlate::PressurePlate() {
 
-	TextureManager::Instance()->load("../Assets/textures/pressure_plate.png", "pressurePlate");
+	TextureManager::Instance()->load("../Assets/textures/pressure plate.png", "pressurePlate");
 	auto size = TextureManager::Instance()->getTextureSize("pressurePlate");
 	SetWidth(size.x);
 	SetHeight(size.y);

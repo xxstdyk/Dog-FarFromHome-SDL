@@ -5,6 +5,8 @@
 enum GameObjectType {
 	NONE = -1,
 	PLAYER,
+	PRESSURE_PLATE,
+	LEVER,
 	ENEMY,
 	PRESSURE_PLATE,
 	PLATFORM,

@@ -130,6 +130,7 @@
       <Filter>Game Objects</Filter>
     </ClCompile>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="..\src\PushableObject.cpp">
 =======
     <ClCompile Include="..\src\Collider.cpp">
@@ -141,6 +142,13 @@
     </ClCompile>
     <ClCompile Include="..\src\InteractableObject.cpp">
       <Filter>Core</Filter>
+=======
+    <ClCompile Include="..\src\InteractableObject.cpp">
+      <Filter>Game Objects</Filter>
+    </ClCompile>
+    <ClCompile Include="..\src\Lever.cpp">
+      <Filter>Game Objects</Filter>
+>>>>>>> LeverAndLeverActivities
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -286,6 +294,7 @@
       <Filter>Game Objects</Filter>
     </ClInclude>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="..\src\PushableObject.h">
       <Filter>Game Objects</Filter>
     </ClInclude>
@@ -300,6 +309,14 @@
     <ClInclude Include="..\src\InteractableObject.h">
       <Filter>Core</Filter>
     </ClInclude>
+=======
+    <ClInclude Include="..\src\InteractableObject.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+    <ClInclude Include="..\src\Lever.h">
+      <Filter>Game Objects</Filter>
+    </ClInclude>
+>>>>>>> LeverAndLeverActivities
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md">

@@ -167,6 +167,10 @@
     <ClCompile Include="..\src\Enemy.cpp" />
     <ClCompile Include="..\src\Background.cpp" />
     <ClCompile Include="..\src\InteractableObject.cpp" />
+<<<<<<< HEAD
+=======
+    <ClCompile Include="..\src\Lever.cpp" />
+>>>>>>> LeverAndLeverActivities
     <ClCompile Include="..\src\Platform.cpp" />
     <ClCompile Include="..\src\PlatformHandler.cpp" />
     <ClCompile Include="..\src\PressurePlate.cpp" />
@@ -211,6 +215,10 @@
     <ClInclude Include="..\src\EnemyAnimationState.h" />
     <ClInclude Include="..\src\Background.h" />
     <ClInclude Include="..\src\InteractableObject.h" />
+<<<<<<< HEAD
+=======
+    <ClInclude Include="..\src\Lever.h" />
+>>>>>>> LeverAndLeverActivities
     <ClInclude Include="..\src\Platform.h" />
     <ClInclude Include="..\src\PressurePlate.h" />
 <<<<<<< HEAD
