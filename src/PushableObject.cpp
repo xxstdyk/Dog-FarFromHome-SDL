@@ -13,12 +13,18 @@ PushableObject::PushableObject() {
 
 void PushableObject::Draw() {
 	TextureManager::Instance()->draw("forestBox", GetTransform()->drawn_position.x, GetTransform()->drawn_position.y);
+	Util::DrawRect(GetTransform()->drawn_position, GetWidth(), GetHeight());
 }
 
 void PushableObject::Update() {
+
 	GetTransform()->position += GetRigidBody()->velocity;
+
+	GetRigidBody()->velocity.x *= 0.975f;
+	if (GetRigidBody()->velocity.x <= 0.5f)
+		GetRigidBody()->velocity.x = 0;
 }
 
 void PushableObject::Clean() {
-	
+
 }

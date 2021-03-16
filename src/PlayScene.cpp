@@ -155,15 +155,18 @@ void PlayScene::CollisionHandler() {
 	}
 	else m_playerCanActivateLever = false;
     
+	for (auto platform : m_pPlatformHandler->GetPlatforms()) CollisionManager::AABBCheck(platform, m_pBox);
+
 	m_pBox->GetRigidBody()->isColliding = false;
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pBox)) {
 		m_pBox->SetEnabled(true);
-		m_pPlayer->SetMaxSpeed(2.13f);
+		m_pPlayer->SetMaxSpeed(2.0f);
+		//m_pBox->GetTransform()->position.y = m_pPlayer->GetTransform()->position.y;
 		m_pBox->GetRigidBody()->velocity.x = m_pPlayer->GetRigidBody()->velocity.x;
 	}
 	else {
 		m_pBox->SetEnabled(false);
-		m_pPlayer->SetMaxSpeed(8.25f);
+		m_pPlayer->SetMaxSpeed(8.5f);
 	}
 }
 

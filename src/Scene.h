@@ -35,7 +35,8 @@ class Scene : public GameObject {
 
 	private:
 
-	float m_gravityForce = 0.5f;
+	const float MAX_GRAV = 15.0f;
+	float m_gravityForce = 0.67f;
 
 	uint32_t m_nextLayerIndex = 0;
 	std::vector<DisplayObject *> m_displayList;
