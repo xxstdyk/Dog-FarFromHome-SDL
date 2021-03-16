@@ -12,6 +12,7 @@
 #include "Button.h"
 #include "Label.h"
 #include "Lever.h"
+#include "Sniff.h"
 
 class PlayScene : public Scene {
 
@@ -22,6 +23,7 @@ class PlayScene : public Scene {
 
 	PlatformHandler *m_pPlatformHandler;
 
+	Sniff* m_pSniff;
 	Background *m_pBackground;
 	Player *m_pPlayer;
 	PressurePlate *m_pPressurePlate;
