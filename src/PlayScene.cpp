@@ -24,7 +24,7 @@ void PlayScene::Start() {
 
 	// Box sprite
 	m_pBox = new PushableObject();
-	m_pBox->GetTransform()->position = glm::vec2(650.0f, 475.0f);
+	m_pBox->GetTransform()->position = glm::vec2(850.0f, 475.0f);
 	AddChild(m_pBox);
 	
 	// Sniff thing
@@ -126,8 +126,15 @@ void PlayScene::Draw() {
 }
 
 void PlayScene::CreatePlatforms() {
-
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 1975.0f), 10000, 500));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1670.0f, 1935), 830, 50));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1825.0f, 1893), 640, 50));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2385.0f, 1780), 85, 50));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2455.0f, 1738), 1400, 50));
+	
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(650.0f, 1935.0f), 50, 45));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1735.0f), 660, 300));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1700.0f), 465, 300));
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 }
