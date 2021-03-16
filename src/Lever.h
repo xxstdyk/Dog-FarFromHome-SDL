@@ -4,6 +4,8 @@
 
 #include "InteractableObject.h"
 #include "Sprite.h"
+#include "SoundManager.h"
+#include "TextureManager.h"
 
 class Lever : public InteractableObject {
 public: 
