@@ -57,9 +57,7 @@ class Player final : public Sprite {
 private:
 
 	void Jump();
-	void Decelerate();
 	void m_buildAnimations();
-	void Move(bool _direction);
 	bool m_interacting;
 
 	void m_move(int _dir);
