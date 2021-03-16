@@ -32,6 +32,7 @@ class PlayScene : public Scene {
 	Enemy *m_pEnemy;
 	bool m_playerFacingRight;
 	bool m_playerCanActivateLever;
+	bool m_appearingPlatformEnabled;
 
 	// UI Items
 	Button *m_pBackButton;

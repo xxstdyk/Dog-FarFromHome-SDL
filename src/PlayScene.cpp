@@ -19,12 +19,12 @@ void PlayScene::Start() {
 
 	// Pressure plate Sprite
 	m_pPressurePlate = new PressurePlate();
-	m_pPressurePlate->GetTransform()->position = glm::vec2(2100.0f, 1868.0f);
+	m_pPressurePlate->GetTransform()->position = glm::vec2(2100.0f, 2100.0f);
 	AddChild(m_pPressurePlate);
 
 	// Box sprite
 	m_pBox = new PushableObject();
-	m_pBox->GetTransform()->position = glm::vec2(850.0f, 475.0f);
+	m_pBox->GetTransform()->position = glm::vec2(1150.0f, 800.0f);
 	AddChild(m_pBox);
 	
 	// Sniff thing
@@ -34,13 +34,13 @@ void PlayScene::Start() {
 
 	// Lever Sprite
 	m_pLever = new Lever();
-	m_pLever->GetTransform()->position = glm::vec2(400.0f, 475.0f);
+	m_pLever->GetTransform()->position = glm::vec2(1750.0f, 1920.0f);
 	AddChild(m_pLever);
 
 	// Player Sprite
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true);
-	m_pPlayer->GetTransform()->position = glm::vec2(650.0f, 1920.0f);
+	m_pPlayer->GetTransform()->position = glm::vec2(2800.0f, 835.0f);//glm::vec2(650.0f, 1920.0f);
 	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
 
@@ -126,15 +126,25 @@ void PlayScene::Draw() {
 }
 
 void PlayScene::CreatePlatforms() {
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 1975.0f), 10000, 500));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 1975.0f), 10000, 500));  //Ground 
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1813.0f, 1545), 637, 40));         //Lantern Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1320.0f, 1470), 390, 30));         //Elevator Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1100.0f, 1300), 200, 30));         //(Temp) Elevator Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(774.0f, 1170.0f), 238, 20));       //Pressureplate Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1009.0f, 882.0f), 398, 37));       //Telescope Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(750.0f, 920.0f), 200, 37));       //(Temp)Telescope Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1512.0f, 960.0f), 345, 35));       //Tree Platform (Right of Telescope)
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2230.0f, 999.0f), 377, 35));       //Tree Platform (Right of Tree Platform(1))
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2230.0f, 999.0f), 377, 35));       //Tree Platform (Right of Tree Platform(1))
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2930.0f, 590), 625, 40));          //Fire Tower Platform 
+
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1670.0f, 1935), 830, 50));
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1825.0f, 1893), 640, 50));
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2385.0f, 1780), 85, 50));
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2455.0f, 1738), 1400, 50));
-	
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(650.0f, 1935.0f), 50, 45));
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1735.0f), 660, 300));
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1700.0f), 465, 300));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1825.0f, 1893), 640, 50));         //Ground Platform under cat/enemy
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2385.0f, 1780), 85, 50));          //Ground Platform above cave entrance
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2455.0f, 1738), 1400, 50));        //Ground Platform under fire tower
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(650.0f, 1935.0f), 50, 45));        //Corner piece on ground (Left)
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1735.0f), 660, 300));        //Ground Platform Far Far Left 
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1700.0f), 465, 300));        //Ground Platform Far Left
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 }
@@ -163,9 +173,19 @@ void PlayScene::CollisionHandler() {
 
 		std::cout << "Dog is in range to activate lever" << std::endl;
 		m_playerCanActivateLever = true;
+		m_appearingPlatformEnabled = true;  //Sets true - creates platforms
 		SoundManager::Instance().playSound("pressurePlateCollision", 0);
+		
+		if (m_appearingPlatformEnabled == true) {
+			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2525.0f, 700), 100, 30));     //Appearing Platform 1 (Lower)
+			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2700.0f, 850), 100, 30)); //Appearing Platform 2 (Higher)
+			std::cout << "stupid ass program" << std::endl;
+			for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
+		}
 	}
-	else m_playerCanActivateLever = false;
+	else m_playerCanActivateLever = false, 
+		m_appearingPlatformEnabled = false;
+
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) CollisionManager::AABBCheck(platform, m_pBox);
 										
