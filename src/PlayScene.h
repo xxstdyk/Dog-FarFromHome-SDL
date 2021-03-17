@@ -23,12 +23,12 @@ class PlayScene : public Scene {
 
 	PlatformHandler *m_pPlatformHandler;
 
-	Sniff* m_pSniff;
+	Sniff *m_pSniff;
 	Background *m_pBackground;
 	Player *m_pPlayer;
 	PressurePlate *m_pPressurePlate;
-	PushableObject*m_pBox;
-	Lever* m_pLever;
+	PushableObject *m_pBox;
+	Lever *m_pLever;
 	Enemy *m_pEnemy;
 	bool m_playerFacingRight;
 	bool m_playerCanActivateLever;
