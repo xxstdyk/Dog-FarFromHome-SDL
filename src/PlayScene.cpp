@@ -114,11 +114,10 @@ void PlayScene::Update() {
 		m_appearingPlatformEnabled = false;
 	}
 
-	
+	// Move camera to track player
 	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(760.0f, 550.0f);
 
-	std::cout << GetTransform()->position.x << std::endl;
-
+	// Stop camera from moving out of bounds
 	const int LEFT_BOUND = 0, RIGHT_BOUND = 2240, VERTICAL_BOUND = 1160;
 	if (GetTransform()->position.x < LEFT_BOUND) GetTransform()->position.x = LEFT_BOUND;
 	if (GetTransform()->position.x > RIGHT_BOUND) GetTransform()->position.x = RIGHT_BOUND;
