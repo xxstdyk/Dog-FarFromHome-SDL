@@ -114,7 +114,15 @@ void PlayScene::Update() {
 		m_appearingPlatformEnabled = false;
 	}
 
-	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(540.0f, 584.0f * 3 / 4);
+	
+	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(760.0f, 550.0f);
+
+	std::cout << GetTransform()->position.x << std::endl;
+
+	const int LEFT_BOUND = 0, RIGHT_BOUND = 2240, VERTICAL_BOUND = 1160;
+	if (GetTransform()->position.x < LEFT_BOUND) GetTransform()->position.x = LEFT_BOUND;
+	if (GetTransform()->position.x > RIGHT_BOUND) GetTransform()->position.x = RIGHT_BOUND;
+	if (GetTransform()->position.y > VERTICAL_BOUND) GetTransform()->position.y = VERTICAL_BOUND;
 
 }
 
@@ -132,24 +140,24 @@ void PlayScene::Draw() {
 }
 
 void PlayScene::CreatePlatforms() {
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 1975.0f), 10000, 500));  //Ground 
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1813.0f, 1545), 637, 40));         //Lantern Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1320.0f, 1470), 390, 30));         //Elevator Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1100.0f, 1300), 200, 30));         //(Temp) Elevator Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(774.0f, 1170.0f), 238, 20));       //Pressureplate Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1009.0f, 882.0f), 398, 37));       //Telescope Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(750.0f, 920.0f), 200, 37));        //(Temp)Telescope Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1512.0f, 960.0f), 345, 35));       //Tree Platform (Right of Telescope)
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2230.0f, 999.0f), 377, 35));       //Tree Platform (Right of Tree Platform(1))
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2230.0f, 999.0f), 377, 35));       //Tree Platform (Right of Tree Platform(1))
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2930.0f, 590), 625, 40));          //Fire Tower Platform 
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 1975.0f), 10000, 10));  //Ground 
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1813.0f, 1545), 637, 10));         //Lantern Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1320.0f, 1470), 390, 10));         //Elevator Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1100.0f, 1300), 200, 10));         //(Temp) Elevator Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(774.0f, 1170.0f), 238, 10));       //Pressureplate Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1009.0f, 882.0f), 398, 10));       //Telescope Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(750.0f, 960.0f), 200, 10));        //(Temp)Telescope Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1512.0f, 960.0f), 345, 10));       //Tree Platform (Right of Telescope)
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2230.0f, 999.0f), 377, 10));       //Tree Platform (Right of Tree Platform(1))
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2230.0f, 999.0f), 377, 10));       //Tree Platform (Right of Tree Platform(1))
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2930.0f, 590), 625, 10));          //Fire Tower Platform 
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1670.0f, 1935), 830, 50));
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1825.0f, 1893), 640, 50));         //Ground Platform under cat/enemy
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2385.0f, 1780), 85, 50));          //Ground Platform above cave entrance
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2455.0f, 1738), 1400, 50));        //Ground Platform under fire tower
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(650.0f, 1935.0f), 50, 45));        //Corner piece on ground (Left)
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1735.0f), 660, 300));        //Ground Platform Far Far Left 
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1700.0f), 465, 300));        //Ground Platform Far Left
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1825.0f, 1893), 640, 10));         //Ground Platform under cat/enemy
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2385.0f, 1780), 85, 10));          //Ground Platform above cave entrance
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2455.0f, 1738), 1400, 10));        //Ground Platform under fire tower
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(650.0f, 1935.0f), 50, 10));        //Corner piece on ground (Left)
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1735.0f), 660, 10));        //Ground Platform Far Far Left 
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1700.0f), 465, 10));        //Ground Platform Far Left
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 }
