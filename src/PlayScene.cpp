@@ -162,7 +162,7 @@ void PlayScene::CreatePlatforms() {
 
 void PlayScene::CollisionHandler() {
 
-	
+	bool soundPlayed = false;
 
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pEnemy)) {
 
@@ -171,7 +171,7 @@ void PlayScene::CollisionHandler() {
 	}
 
 	if (CollisionManager::AABBCheck(m_pBox, m_pPressurePlate)) {
-		bool soundPlayed = false;
+	
 		if (!soundPlayed) {
 
 			std::cout << "Box is on top of the pressure plate" << std::endl;
