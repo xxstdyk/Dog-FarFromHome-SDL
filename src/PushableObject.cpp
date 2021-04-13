@@ -4,7 +4,7 @@
 
 PushableObject::PushableObject() {
 	TextureManager::Instance()->load("../Assets/textures/box.png", "forestBox");
-	glm::vec2 size = { 64, 64 };						//TODO: fix the size of the box because it too smol
+	glm::vec2 size = { 64, 64 };						
 	SetWidth(size.x);
 	SetHeight(size.y);
 	GetRigidBody()->hasGravity = true;	// This gives the PushableObject gravity
@@ -17,7 +17,6 @@ void PushableObject::Draw() {
 }
 
 void PushableObject::Update() {
-
 	GetTransform()->position += GetRigidBody()->velocity;
 
 	GetRigidBody()->velocity.x *= 0.975f;
