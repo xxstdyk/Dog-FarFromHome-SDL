@@ -1,6 +1,5 @@
 #include "Lever.h"
 
-
 Lever::Lever() {
 
 	TextureManager::Instance()->load("../Assets/textures/leverOff.png", "leverOff");

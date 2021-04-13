@@ -10,7 +10,6 @@ Background::Background() {
 	GetTransform()->position = glm::vec2(0, 0);
 	GetRigidBody()->isColliding = false;
 	GetRigidBody()->hasGravity = false;
-
 }
 
 Background::~Background()

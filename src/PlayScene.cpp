@@ -40,7 +40,7 @@ void PlayScene::Start() {
 	// Player Sprite
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true);
-	m_pPlayer->GetTransform()->position = glm::vec2(650.0f, 1920.0f);
+	m_pPlayer->GetTransform()->position = glm::vec2(800.0f, 2200.0f);
 	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
 
@@ -117,11 +117,11 @@ void PlayScene::Update() {
 	// Move camera to track player
 	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(760.0f, 550.0f);
 
-	// Stop camera from moving out of bounds
-	const int LEFT_BOUND = 0, RIGHT_BOUND = 2240, VERTICAL_BOUND = 1160;
-	if (GetTransform()->position.x < LEFT_BOUND) GetTransform()->position.x = LEFT_BOUND;
-	if (GetTransform()->position.x > RIGHT_BOUND) GetTransform()->position.x = RIGHT_BOUND;
-	if (GetTransform()->position.y > VERTICAL_BOUND) GetTransform()->position.y = VERTICAL_BOUND;
+	//// Stop camera from moving out of bounds
+	//const int LEFT_BOUND = 0, RIGHT_BOUND = 2240, VERTICAL_BOUND = 1160;
+	//if (GetTransform()->position.x < LEFT_BOUND) GetTransform()->position.x = LEFT_BOUND;
+	//if (GetTransform()->position.x > RIGHT_BOUND) GetTransform()->position.x = RIGHT_BOUND;
+	//if (GetTransform()->position.y > VERTICAL_BOUND) GetTransform()->position.y = VERTICAL_BOUND;
 
 }
 
@@ -139,7 +139,20 @@ void PlayScene::Draw() {
 }
 
 void PlayScene::CreatePlatforms() {
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(-4000.0f, 1975.0f), 10000, 10));  //Ground 
+	//Level 2 - Area 1 (Anything with an X is final position - DO NOT TOUCH)
+	//Ground Platforms
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(720.0f, 2325.0f), 1000, 10));      //Ground Platform/Spawn X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2570.0f, 2325.0f), 475, 10));      //Ground Platform for Enemy/Cave   X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(670.0f, 2282.0f), 52, 55));        //Ground Corner Platform (Left) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(460.0f, 2082.0f), 220, 255));      //Ground Platform Far Left X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 2038.0f), 483, 50));         //Ground Platform Far Far Left  X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1883.0f, 2240.0f), 656, 40));      //Ground Platform with Lever X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1722, 2282.0f), 194, 50));         //Ground Corner Platform (Right) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2523, 2282.0f), 55, 55));          //Ground Corner Platform (Right inside of Cave) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2453.0f, 2120), 75, 40));          //Ground Platform above cave entrance 
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2529.0f, 2080), 3000, 50));        //Ground Platform under fire tower X
+
+	//Wooden Platform
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1813.0f, 1545), 637, 10));         //Lantern Platform
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1320.0f, 1470), 390, 10));         //Elevator Platform
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1100.0f, 1300), 200, 10));         //(Temp) Elevator Platform
@@ -150,13 +163,13 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2230.0f, 999.0f), 377, 10));       //Tree Platform (Right of Tree Platform(1))
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2230.0f, 999.0f), 377, 10));       //Tree Platform (Right of Tree Platform(1))
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2930.0f, 590), 625, 10));          //Fire Tower Platform 
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1670.0f, 1935), 830, 50));
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1825.0f, 1893), 640, 10));         //Ground Platform under cat/enemy
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2385.0f, 1780), 85, 10));          //Ground Platform above cave entrance
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2455.0f, 1738), 1400, 10));        //Ground Platform under fire tower
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(650.0f, 1935.0f), 50, 10));        //Corner piece on ground (Left)
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1735.0f), 660, 10));        //Ground Platform Far Far Left 
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 1700.0f), 465, 10));        //Ground Platform Far Left
+
+
+
+
+
+
+
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 }

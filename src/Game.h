@@ -7,7 +7,6 @@
 #include <string>
 #include <vector>
 #include "SceneState.h"
-
 #include <SDL.h>
 
 // Game Managers
@@ -18,13 +17,11 @@
 #include "PlayScene.h"
 #include "EndScene.h"
 #include "SettingScene.h"
-
 #include "Config.h"
 
 class Game {
 
 	public:
-
 	static Game *Instance() {
 		if (s_pInstance == nullptr) {
 			s_pInstance = new Game();
@@ -47,10 +44,9 @@ class Game {
 	// getter and setter functions
 	glm::vec2 getMousePosition() const;
 	void setFrames(Uint32 frames);
-
 	float GetDeltaTime() const;
 	void SetDeltaTime(float _time);
-	
+
 	Uint32 getFrames() const;
 	bool isRunning() const;
 	void changeSceneState(SceneState new_state);
