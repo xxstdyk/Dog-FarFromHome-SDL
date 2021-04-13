@@ -158,7 +158,7 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2529.0f, 2080), 3444, 50));        //Ground Platform under fire tower - Extends to Area 2X
 
 	//Side/Wall Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3057.0f, 1800), 10, 520));         //Side Platform for Enemy/Cave (Right) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3057.0f, 1800), 10, 550));         //Side Platform for Enemy/Cave (Right) X
 
 	//Wooden Platforms
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1863.0f, 1877), 660, 10));         //Wood Platform with Lantern X
