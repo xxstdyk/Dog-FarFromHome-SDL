@@ -10,6 +10,7 @@ class Platform final : public DisplayObject {
 	private:
 
 	public:
+	Platform();
 	Platform(glm::vec2, int, int);
 	~Platform();
 

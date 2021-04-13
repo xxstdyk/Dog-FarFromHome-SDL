@@ -13,6 +13,7 @@
 #include "Button.h"
 #include "Label.h"
 #include "Lever.h"
+#include "Elevator.h"
 #include "Sniff.h"
 
 class PlayScene : public Scene {
@@ -34,6 +35,7 @@ class PlayScene : public Scene {
 	Lever *m_pLever;
 	Lever* m_pBlackLever;
 	Enemy *m_pEnemy;
+	Elevator *m_pElevator;
 	
 	bool m_playerFacingRight;
 	bool m_playerCanActivateLever;
