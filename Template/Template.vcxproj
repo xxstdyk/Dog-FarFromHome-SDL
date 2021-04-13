@@ -194,6 +194,7 @@
     <ClCompile Include="..\src\StartScene.cpp" />
     <ClCompile Include="..\src\TextureManager.cpp" />
     <ClCompile Include="..\src\Util.cpp" />
+    <ClCompile Include="Elevator.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\include\IMGUI\imconfig.h" />
@@ -249,6 +250,7 @@
     <ClInclude Include="..\src\TextureManager.h" />
     <ClInclude Include="..\src\Transform.h" />
     <ClInclude Include="..\src\Util.h" />
+    <ClInclude Include="Elevator.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="..\README.md" />

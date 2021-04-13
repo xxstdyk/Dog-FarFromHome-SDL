@@ -1,5 +1,4 @@
 #pragma once
-#pragma once
 #ifndef __PLAYER__
 #define __PLAYER__
 

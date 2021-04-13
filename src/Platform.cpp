@@ -3,7 +3,7 @@
 #include "Util.h"
 
 Platform::Platform(glm::vec2 _position, int _width, int _height) {
-
+	
 	GetTransform()->position = _position;
 
 	SetWidth(_width);
@@ -19,6 +19,7 @@ Platform::~Platform()
 = default;
 
 void Platform::Draw() {
+
 	Util::DrawRect(GetTransform()->drawn_position, GetWidth(), GetHeight());
 }
 

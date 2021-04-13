@@ -4,6 +4,7 @@
 
 #include "Scene.h"
 #include "PlatformHandler.h"
+#include "Platform.h"
 #include "Player.h"
 #include "PressurePlate.h"
 #include "PushableObject.h"
@@ -30,9 +31,11 @@ class PlayScene : public Scene {
 	PushableObject *m_pBox;
 	Lever *m_pLever;
 	Enemy *m_pEnemy;
+	
 	bool m_playerFacingRight;
 	bool m_playerCanActivateLever;
 	bool m_appearingPlatformEnabled;
+	bool leverIsActivated;
 
 	// UI Items
 	Button *m_pBackButton;

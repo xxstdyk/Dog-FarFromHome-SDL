@@ -3,6 +3,7 @@
 #define __PLATFORM__
 
 #include "DisplayObject.h"
+#include "TextureManager.h"
 
 class Platform final : public DisplayObject { 
 
@@ -22,6 +23,7 @@ class Platform final : public DisplayObject {
 	float PlayerVelX;
 	float PlayerVelY;
 	bool OnGround;
+	bool leverIsActivated;
 	
 };
 
