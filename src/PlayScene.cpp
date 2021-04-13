@@ -37,6 +37,11 @@ void PlayScene::Start() {
 	m_pLever->GetTransform()->position = glm::vec2(2100.0f, 2177.0f);
 	AddChild(m_pLever);
 
+	// Lever Sprite (Area 2)
+	m_pLever = new Lever();
+	m_pLever->GetTransform()->position = glm::vec2(4500.0f, 237);
+	AddChild(m_pLever);
+
 	// Player Sprite
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true);
@@ -105,19 +110,21 @@ void PlayScene::Update() {
 	if (m_pPlayer->GetInteracting() && m_playerCanActivateLever)
 	{
 		m_pLever->SetEnabled(!m_pLever->GetEnabled());
-		std::cout << "You activated lever" << std::endl;
+		std::cout << "You activated lever 1" << std::endl;
 
-		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2525.0f, 700), 100, 30));     //Appearing Platform 1 (Lower)
-		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2700.0f, 850), 100, 30));     //Appearing Platform 2 (Higher)
 		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2725.0f, 1100), 100, 30));    //Appearing Platform 1 (Low)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1250), 100, 30));    //Appearing Platform 2 (Mid)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1000), 100, 30));    //Appearing Platform 2 (High)
+	}
 
-		if (leverIsActivated == true)
-		{
-			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5153.0f, 100), 100, 100));  //Ground Platform above Area 3 with Lever(Right) 
-		}
+	if (m_pPlayer->GetInteracting() && m_playerCanActivateLever) {
+		m_pBlackLever->SetEnabled(!m_pBlackLever->GetEnabled());
+		std::cout << "You activated lever 2" << std::endl;
+
+		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
+
+		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5153.0f, 100), 100, 100));  //Ground Platform above Area 3 with Lever(Right) 
 	}
 
 	// Move camera to track player

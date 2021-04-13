@@ -1,15 +1,15 @@
 #include "PlatformHandler.h"
 
-void PlatformHandler::SetGCCollider(Collider *_gc) { m_pGroundCheck = _gc; }
+void PlatformHandler::SetGCCollider(Collider* _gc) { m_pGroundCheck = _gc; }
 
-void PlatformHandler::AddPlatform(Platform *_plat) { m_pPlatforms.push_back(_plat); }
+void PlatformHandler::AddPlatform(Platform* _plat) { m_pPlatforms.push_back(_plat); }
 
-std::vector<Platform *> PlatformHandler::GetPlatforms() { return m_pPlatforms; }
+std::vector<Platform*> PlatformHandler::GetPlatforms() { return m_pPlatforms; }
 
 void PlatformHandler::Update() {
 
 	auto parent = m_pGroundCheck->GetParent();
-	Platform *collidedPlat = nullptr;
+	Platform* collidedPlat = nullptr;
 
 	m_pGroundCheck->GetRigidBody()->isColliding = false;
 	m_pGroundCheck->SetColliding(false);
@@ -25,10 +25,10 @@ void PlatformHandler::Update() {
 		}
 	}
 
-	if (collidedPlat != nullptr) { 
+	if (collidedPlat != nullptr) {
 		if (m_pGroundCheck->GetTransform()->position.y + m_pGroundCheck->GetHeight() > collidedPlat->GetTransform()->position.y) {
-			if (parent->GetRigidBody()->velocity.y > 0) { 
-			
+			if (parent->GetRigidBody()->velocity.y > 0) {
+
 				parent->GetTransform()->position.y = collidedPlat->GetTransform()->position.y - parent->GetHeight() + 2.5f;
 			}
 		}

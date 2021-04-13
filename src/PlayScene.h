@@ -32,13 +32,13 @@ class PlayScene : public Scene {
 	PressurePlate *m_pPressurePlate;
 	PushableObject *m_pBox;
 	Lever *m_pLever;
-	Lever *m_pLeverBlack;
+	Lever* m_pBlackLever;
 	Enemy *m_pEnemy;
 	
 	bool m_playerFacingRight;
 	bool m_playerCanActivateLever;
 	bool m_appearingPlatformEnabled;
-	bool leverIsActivated;
+	bool blackLeverIsActivated;
 
 	// UI Items
 	Button *m_pBackButton;
