@@ -145,13 +145,14 @@ void Player::Update() {
 		int moveVal = 0;
 
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A)) moveVal = -1;
-		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D)) moveVal =  1;
+		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D)) moveVal = 1;
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A)
 			== EventManager::Instance().isKeyDown(SDL_SCANCODE_D)) moveVal = 0;
 
 		m_move(moveVal);
 		if (!moveVal) Decel();
 	}
+	else Decel();
 
 	if (GetCollider("groundCheck")->operator bool()) {
 		if (GetIsJumping()) {

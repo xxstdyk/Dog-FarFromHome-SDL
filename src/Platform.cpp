@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Platform.h"
 #include "Util.h"
+#include "EventManager.h"
 
 Platform::Platform(glm::vec2 _position, int _width, int _height) {
 	
@@ -19,7 +20,8 @@ Platform::~Platform()
 = default;
 
 void Platform::Draw() {
-
+	//Debug - Hold H for platform outline
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_H))
 	Util::DrawRect(GetTransform()->drawn_position, GetWidth(), GetHeight());
 }
 

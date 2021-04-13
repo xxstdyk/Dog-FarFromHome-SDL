@@ -1,5 +1,5 @@
 #include "PushableObject.h"
-
+#include "EventManager.h"
 #include "CollisionManager.h"
 
 PushableObject::PushableObject() {
@@ -13,6 +13,8 @@ PushableObject::PushableObject() {
 
 void PushableObject::Draw() {
 	TextureManager::Instance()->draw("forestBox", GetTransform()->drawn_position.x, GetTransform()->drawn_position.y);
+	//Debug - Hold H for box hitbox
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_H))
 	Util::DrawRect(GetTransform()->drawn_position, GetWidth(), GetHeight());
 }
 

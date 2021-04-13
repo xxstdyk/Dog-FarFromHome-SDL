@@ -3,7 +3,6 @@
 #define __PRESSURE_PLATE_HANDLER__
 
 #include <vector>
-
 #include "Util.h"
 #include "CollisionManager.h"
 #include "Platform.h"

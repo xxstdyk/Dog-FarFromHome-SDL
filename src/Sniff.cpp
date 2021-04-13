@@ -2,8 +2,7 @@
 
 Sniff::Sniff() {
 	SetEnabled(false);
-	TextureManager::Instance()->load("../Assets/textures/background.png", "dogSniff");
-
+	TextureManager::Instance()->load("../Assets/textures/GOODSHIT.png", "dogSniff");
 }
 Sniff::~Sniff() {
 

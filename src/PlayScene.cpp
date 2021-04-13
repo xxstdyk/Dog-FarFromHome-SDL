@@ -4,7 +4,7 @@
 #include "SoundManager.h"
 #include "TextureManager.h"
 
-// required for IMGUI
+// Required for IMGUI
 #include "imgui.h"
 #include "imgui_sdl.h"
 #include "Renderer.h"
@@ -19,7 +19,7 @@ void PlayScene::Start() {
 
 	// Pressure plate Sprite
 	m_pPressurePlate = new PressurePlate();
-	m_pPressurePlate->GetTransform()->position = glm::vec2(2100.0f, 2100.0f);
+	m_pPressurePlate->GetTransform()->position = glm::vec2(2576.0f, 2325.0f);
 	AddChild(m_pPressurePlate);
 
 	// Box sprite
@@ -32,22 +32,15 @@ void PlayScene::Start() {
 	m_pSniff->GetTransform()->position = glm::vec2(0.0f, 0.0f);
 	AddChild(m_pSniff, 11);
 
-	// Lever Sprite (Red)
+	// Lever Sprite (Area 1)
 	m_pLever = new Lever();
 	m_pLever->GetTransform()->position = glm::vec2(2100.0f, 2177.0f);
 	AddChild(m_pLever);
 
-	// Lever Sprite (Black)
-	m_pLeverBlack = new Lever;
-	m_pLever->GetTransform()->position = glm::vec2(5550.0f, 1500);
-	leverIsActivated == true;
-	AddChild(m_pLeverBlack);
-
-
 	// Player Sprite
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true);
-	m_pPlayer->GetTransform()->position = glm::vec2(4000.0f, 1950); /*(800.0f, 2200.0f);*/
+	m_pPlayer->GetTransform()->position = glm::vec2(800.0f, 2200.0f);
 	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
 
@@ -114,6 +107,7 @@ void PlayScene::Update() {
 		m_pLever->SetEnabled(!m_pLever->GetEnabled());
 		std::cout << "You activated lever" << std::endl;
 		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
+		m_pPlatformHandler = new Platform ("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2725.0f, 1100), 100, 30));    //Appearing Platform 1 (Low)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1250), 100, 30));    //Appearing Platform 2 (Mid)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1000), 100, 30));    //Appearing Platform 2 (High)
@@ -122,26 +116,28 @@ void PlayScene::Update() {
 		{
 			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5153.0f, 100), 100, 100));  //Ground Platform above Area 3 with Lever(Right) 
 		}
-
 	}
 
 	// Move camera to track player
 	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(760.0f, 550.0f);
 
 	// Stop camera from moving out of bounds
-	const int LEFT_BOUND = 0, RIGHT_BOUND = 4350, VERTICAL_BOUND = 2400;
+	const int LEFT_BOUND = 0, RIGHT_BOUND = 4350, VERTICAL_BOUND = 0;
 	if (GetTransform()->position.x < LEFT_BOUND) GetTransform()->position.x = LEFT_BOUND;
 	if (GetTransform()->position.x > RIGHT_BOUND) GetTransform()->position.x = RIGHT_BOUND;
-	if (GetTransform()->position.y > VERTICAL_BOUND) GetTransform()->position.y = VERTICAL_BOUND;
+	if (GetTransform()->position.y < VERTICAL_BOUND) GetTransform()->position.y = VERTICAL_BOUND;
 }
 
 void PlayScene::Draw() {
-
 	DrawDisplayList();
-	SDL_SetRenderDrawColor(Renderer::Instance()->getRenderer(), 255, 255, 255, 255);
+	//Debug key
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_H)) {
+		//Player Hitbox
+		SDL_SetRenderDrawColor(Renderer::Instance()->getRenderer(), 255, 255, 255, 255);
+		m_pPlatformHandler->Draw();
+		m_pPlayer->GetCollider("groundCheck")->Draw();
+	}
 
-	m_pPlatformHandler->Draw();
-	m_pPlayer->GetCollider("groundCheck")->Draw();
 
 	if (EventManager::Instance().isIMGUIActive()) {
 		GUI_Function();
@@ -183,11 +179,19 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5153.0f, 1560), 810, 10));         //Ground Platform above Area 3 with Lever(Right) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4900.0f, 1560), 300, 10));         //(Temp) Ground Platform above Area 3 (Middle) X
 
-	//Wooden Platforms
+	//Wooden Structered Platforms
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4000.0f, 1960), 100, 30));         //Short Wooden Platform X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4120.0f, 1837), 100, 30));         //Medium Wooden Platform X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4240.0f, 1760), 100, 30));         //Medium-High Wooden Platform X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4320.0f, 1640), 100, 30));         //High Wooden Platform X
+
+	//Wooden Platforms
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4425.0f, 880), 178, 10));          //Wooden Platform above Area 2 (Bottom) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4196.0f, 758), 178, 10));          //Wooden Platform above Area 2 (Mid) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3962.0f, 640), 203, 10));          //Wooden Platform above Area 2 (Top Left) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4282.0f, 560), 523, 10));          //Wooden Platform above Area 2 (Top) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5155.0f, 237), 355, 10));          //Wooden Platform above Area 2 (Top with Lever) X
+
 
 	//Side/Wall Platform
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4478.0f, 1560), 45, 518));         //Side Platform for Area 3 (Left) X
@@ -300,11 +304,17 @@ void PlayScene::HandleEvents() {
 	}
 
 	m_pSniff->SetEnabled((EventManager::Instance().isKeyDown(SDL_SCANCODE_LSHIFT)));
+	
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_LSHIFT)) {
+		m_pPlayer->SetMovementEnabled(false);
+	}
 
+	else {
+		EventManager::Instance().isKeyUp(SDL_SCANCODE_LSHIFT);
+		m_pPlayer->SetMovementEnabled(true);
+	}
 }
 // Sniff logic thing
-
-
 
 void PlayScene::Clean() {
 	RemoveAllChildren();
