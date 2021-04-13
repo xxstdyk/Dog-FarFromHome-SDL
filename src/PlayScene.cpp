@@ -107,7 +107,6 @@ void PlayScene::Update() {
 		m_pLever->SetEnabled(!m_pLever->GetEnabled());
 		std::cout << "You activated lever" << std::endl;
 		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
-		m_pPlatformHandler = new Platform ("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2725.0f, 1100), 100, 30));    //Appearing Platform 1 (Low)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1250), 100, 30));    //Appearing Platform 2 (Mid)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1000), 100, 30));    //Appearing Platform 2 (High)
@@ -159,7 +158,7 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2529.0f, 2080), 3444, 50));        //Ground Platform under fire tower - Extends to Area 2X
 
 	//Side/Wall Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3057.0f, 2125), 10, 220));         //Side Platform for Enemy/Cave (Right) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3057.0f, 1800), 10, 520));         //Side Platform for Enemy/Cave (Right) X
 
 	//Wooden Platforms
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1863.0f, 1877), 660, 10));         //Wood Platform with Lantern X
