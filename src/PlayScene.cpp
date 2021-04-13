@@ -37,28 +37,23 @@ void PlayScene::Start() {
 	m_pLever->GetTransform()->position = glm::vec2(2100.0f, 2177.0f);
 	AddChild(m_pLever);
 
-	// Lever Sprite (Area 2)
-	m_pLever = new Lever();
-	m_pLever->GetTransform()->position = glm::vec2(4500.0f, 237);
-	AddChild(m_pLever);
-
 	// Player Sprite
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true);
-	m_pPlayer->GetTransform()->position = glm::vec2(800.0f, 2200.0f);
+	m_pPlayer->GetTransform()->position = glm::vec2(800.0f, 2255.0f);
 	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
+
+	// Elevator Sprite
+	m_pElevator = new Elevator();
+	m_pElevator->GetTransform()->position = glm::vec2(1363.0f, 1640);
+	AddChild(m_pElevator);
 
 	// Platform Handler
 	// MUST BE CREATED AFTER PLAYER
 	m_pPlatformHandler = new PlatformHandler();
 	m_pPlatformHandler->SetGCCollider(m_pPlayer->GetCollider("groundCheck"));
 	CreatePlatforms();
-
-	//Enemy Sprite (cat)
-	m_pEnemy = new Enemy();
-	m_pEnemy->GetTransform()->position = glm::vec2(2110.0f, 1850);
-	AddChild(m_pEnemy);
 
 	// Back Button
 	m_pBackButton = new Button("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
@@ -118,15 +113,6 @@ void PlayScene::Update() {
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1000), 100, 30));    //Appearing Platform 2 (High)
 	}
 
-	if (m_pPlayer->GetInteracting() && m_playerCanActivateLever) {
-		m_pBlackLever->SetEnabled(!m_pBlackLever->GetEnabled());
-		std::cout << "You activated lever 2" << std::endl;
-
-		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
-
-		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5153.0f, 100), 100, 100));  //Ground Platform above Area 3 with Lever(Right) 
-	}
-
 	// Move camera to track player
 	GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(760.0f, 550.0f);
 
@@ -146,7 +132,6 @@ void PlayScene::Draw() {
 		m_pPlatformHandler->Draw();
 		m_pPlayer->GetCollider("groundCheck")->Draw();
 	}
-
 
 	if (EventManager::Instance().isIMGUIActive()) {
 		GUI_Function();
@@ -172,8 +157,12 @@ void PlayScene::CreatePlatforms() {
 
 	//Wooden Platforms
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1863.0f, 1877), 660, 10));         //Wood Platform with Lantern X
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1556.0f, 1800), 208, 10));         //Wood Platform with Elevator X
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1400.0f, 1300), 100, 500));        //(Temp) Elevator Platform X 
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1363.0f, 1800), 200, 10));         //Wood Platform under Elevator X
+	m_pElevator->setFloor(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1363.0f, 1640), 200, 10));         //Wood Platform above Elevator x
+	m_pElevator->setRoof(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1560.0f, 1800), 200, 10));         //Wood Platform beside Elevator x
+	//m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1400.0f, 1300), 100, 500));        //(Temp) Elevator Platform X 
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(792.0f, 1483.0f), 248, 10));       //Wood Platform with Two Pressureplates X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1036.0f, 1200.0f), 410, 10));      //Wood Platform with Telescope X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1560.0f, 1280.0f), 354, 10));      //Wood Platform attached to Tree Platform (Right of Telescope) X
@@ -206,23 +195,14 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4478.0f, 1560), 45, 518));         //Side Platform for Area 3 (Left) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5913.0f, 1560), 45, 518));         //Side Platform for Area 3 (Right) X
 
-
-
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 }
 
 void PlayScene::CollisionHandler() {
 
 	bool soundPlayed = false;
-
-	if (CollisionManager::AABBCheck(m_pPlayer, m_pEnemy)) {
-
-		std::cout << "Hit an Enemy!" << std::endl;
-		SoundManager::Instance().playSound("enemyCollision", 0);
-	}
-
 	if (CollisionManager::AABBCheck(m_pBox, m_pPressurePlate)) {
-	
+
 		if (!soundPlayed) {
 
 			std::cout << "Box is on top of the pressure plate" << std::endl;
@@ -230,7 +210,6 @@ void PlayScene::CollisionHandler() {
 			SoundManager::Instance().playSound("pressurePlateCollision", 0);
 			soundPlayed = true;
 		}
-
 	}
 
 	if (!CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) {
@@ -243,7 +222,6 @@ void PlayScene::CollisionHandler() {
 		m_playerCanActivateLever = true;
 	}
 	else m_playerCanActivateLever = false;
-
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) CollisionManager::AABBCheck(platform, m_pBox);
 
@@ -262,6 +240,20 @@ void PlayScene::CollisionHandler() {
 	else {
 		m_pBox->SetEnabled(false);
 		m_pPlayer->SetMaxSpeed(8.5f);
+	}
+
+	if (CollisionManager::AABBCheck(m_pElevator->GetFloor(), m_pPlayer))
+	{
+		// true boolean = up, false bool = down
+		if (m_pElevator->getDirection() && m_pElevator->TimerReady())
+		{
+			//m_pPlayer->GetTransform()->position.y = m_pElevator->GetFloor()->GetTransform()->position.y;
+			m_pPlayer->GetTransform()->position.y -= 10;
+		}
+		else if (!m_pElevator->getDirection() && m_pElevator->TimerReady())
+		{
+			m_pPlayer->GetTransform()->position.y += 10;
+		}
 	}
 }
 
