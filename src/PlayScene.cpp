@@ -32,15 +32,22 @@ void PlayScene::Start() {
 	m_pSniff->GetTransform()->position = glm::vec2(0.0f, 0.0f);
 	AddChild(m_pSniff, 11);
 
-	// Lever Sprite
+	// Lever Sprite (Red)
 	m_pLever = new Lever();
 	m_pLever->GetTransform()->position = glm::vec2(2100.0f, 2177.0f);
 	AddChild(m_pLever);
 
+	// Lever Sprite (Black)
+	m_pLeverBlack = new Lever;
+	m_pLever->GetTransform()->position = glm::vec2(5550.0f, 1500);
+	leverIsActivated == true;
+	AddChild(m_pLeverBlack);
+
+
 	// Player Sprite
 	m_pPlayer = new Player();
 	m_pPlayer->SetMovementEnabled(true);
-	m_pPlayer->GetTransform()->position = glm::vec2(800.0f, 2200.0f); //(3020.0f, 884); /*(800.0f, 2200.0f);*/
+	m_pPlayer->GetTransform()->position = glm::vec2(4000.0f, 1950); /*(800.0f, 2200.0f);*/
 	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
 
@@ -107,22 +114,25 @@ void PlayScene::Update() {
 		m_pLever->SetEnabled(!m_pLever->GetEnabled());
 		std::cout << "You activated lever" << std::endl;
 		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
-		m_appearingPlatformEnabled = false;
-		leverIsActivated == true;
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2725.0f, 1100), 100, 30));    //Appearing Platform 1 (Low)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1250), 100, 30));    //Appearing Platform 2 (Mid)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1000), 100, 30));    //Appearing Platform 2 (High)
+
+		if (leverIsActivated == true)
+		{
+			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5153.0f, 100), 100, 100));  //Ground Platform above Area 3 with Lever(Right) 
+		}
+
 	}
 
 	// Move camera to track player
 	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(760.0f, 550.0f);
 
-	//// Stop camera from moving out of bounds
-	//const int LEFT_BOUND = 0, RIGHT_BOUND = 2240, VERTICAL_BOUND = 1160;
-	//if (GetTransform()->position.x < LEFT_BOUND) GetTransform()->position.x = LEFT_BOUND;
-	//if (GetTransform()->position.x > RIGHT_BOUND) GetTransform()->position.x = RIGHT_BOUND;
-	//if (GetTransform()->position.y > VERTICAL_BOUND) GetTransform()->position.y = VERTICAL_BOUND;
-
+	// Stop camera from moving out of bounds
+	const int LEFT_BOUND = 0, RIGHT_BOUND = 4350, VERTICAL_BOUND = 2400;
+	if (GetTransform()->position.x < LEFT_BOUND) GetTransform()->position.x = LEFT_BOUND;
+	if (GetTransform()->position.x > RIGHT_BOUND) GetTransform()->position.x = RIGHT_BOUND;
+	if (GetTransform()->position.y > VERTICAL_BOUND) GetTransform()->position.y = VERTICAL_BOUND;
 }
 
 void PlayScene::Draw() {
@@ -150,7 +160,7 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1722, 2282.0f), 194, 50));         //Ground Corner Platform (Right) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2523, 2282.0f), 55, 55));          //Ground Corner Platform (Right inside of Cave) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2453.0f, 2120), 75, 40));          //Ground Platform above cave entrance X
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2529.0f, 2080), 3000, 50));        //Ground Platform under fire tower X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2529.0f, 2080), 3444, 50));        //Ground Platform under fire tower - Extends to Area 2X
 
 	//Side/Wall Platform
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3057.0f, 2125), 10, 220));         //Side Platform for Enemy/Cave (Right) X
@@ -168,9 +178,20 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3020.0f, 884), 650 , 10));         //Fire Tower Platform X
 
 	//Level 2 - Area 2
-	//Wooden Platforms
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4000.0f, 1950), 100, 35));         //Short Wooden Platform
+	//Ground Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4478.0f, 1560), 457, 10));         //Ground Platform above Area 3 (Left) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5153.0f, 1560), 810, 10));         //Ground Platform above Area 3 with Lever(Right) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4900.0f, 1560), 300, 10));         //(Temp) Ground Platform above Area 3 (Middle) X
 
+	//Wooden Platforms
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4000.0f, 1960), 100, 30));         //Short Wooden Platform X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4120.0f, 1837), 100, 30));         //Medium Wooden Platform X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4240.0f, 1760), 100, 30));         //Medium-High Wooden Platform X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4320.0f, 1640), 100, 30));         //High Wooden Platform X
+
+	//Side/Wall Platform
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4478.0f, 1560), 45, 518));         //Side Platform for Area 3 (Left) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5913.0f, 1560), 45, 518));         //Side Platform for Area 3 (Right) X
 
 
 
@@ -202,7 +223,6 @@ void PlayScene::CollisionHandler() {
 		std::cout << "Dog is in range to activate lever" << std::endl;
 		m_playerCanActivateLever = true;
 		SoundManager::Instance().playSound("pressurePlateCollision", 0);
-
 	}
 	else m_playerCanActivateLever = false;
 

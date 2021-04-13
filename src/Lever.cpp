@@ -4,6 +4,7 @@ Lever::Lever() {
 
 	TextureManager::Instance()->load("../Assets/textures/leverOff.png", "leverOff");
 	TextureManager::Instance()->load("../Assets/textures/leverOff.png", "leverOn");
+	TextureManager::Instance()->load("../Assets/textures/leverOffBlack.png", "leverOffBlack");
 	auto size = TextureManager::Instance()->getTextureSize("leverOff");
 	SetWidth(size.x);
 	SetHeight(size.y);

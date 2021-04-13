@@ -30,6 +30,7 @@ class PlayScene : public Scene {
 	PressurePlate *m_pPressurePlate;
 	PushableObject *m_pBox;
 	Lever *m_pLever;
+	Lever *m_pLeverBlack;
 	Enemy *m_pEnemy;
 	
 	bool m_playerFacingRight;
