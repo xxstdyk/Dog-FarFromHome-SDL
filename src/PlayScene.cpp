@@ -12,7 +12,7 @@
 void PlayScene::Start() {
 	// Set GUI Title
 	m_guiTitle = "Play Scene";
-	
+
 	// Background
 	m_pBackground = new Background();
 	AddChild(m_pBackground);
@@ -26,7 +26,7 @@ void PlayScene::Start() {
 	m_pBox = new PushableObject();
 	m_pBox->GetTransform()->position = glm::vec2(1155.0f, 1080.0f);
 	AddChild(m_pBox);
-	
+
 	// Sniff thing
 	m_pSniff = new Sniff();
 	m_pSniff->GetTransform()->position = glm::vec2(0.0f, 0.0f);
@@ -61,15 +61,15 @@ void PlayScene::Start() {
 	m_pBackButton->AddEventListener(CLICK, [&]()-> void {
 		m_pBackButton->setActive(false);
 		TheGame::Instance()->changeSceneState(START_SCENE);
-	});
+		});
 
 	m_pBackButton->AddEventListener(MOUSE_OVER, [&]()->void {
 		m_pBackButton->setAlpha(128);
-	});
+		});
 
 	m_pBackButton->AddEventListener(MOUSE_OUT, [&]()->void {
 		m_pBackButton->setAlpha(255);
-	});
+		});
 	AddChild(m_pBackButton);
 
 	// Next Button
@@ -78,15 +78,15 @@ void PlayScene::Start() {
 	m_pNextButton->AddEventListener(CLICK, [&]()-> void {
 		m_pNextButton->setActive(false);
 		TheGame::Instance()->changeSceneState(END_SCENE);
-	});
+		});
 
 	m_pNextButton->AddEventListener(MOUSE_OVER, [&]()->void {
 		m_pNextButton->setAlpha(128);
-	});
+		});
 
 	m_pNextButton->AddEventListener(MOUSE_OUT, [&]()->void {
 		m_pNextButton->setAlpha(255);
-	});
+		});
 
 	SoundManager::Instance().setMusicVolume(5);
 	SoundManager::Instance().load("../Assets/audio/forestBGM1.mp3", "forestSong", SOUND_MUSIC);
@@ -106,6 +106,9 @@ void PlayScene::Update() {
 	{
 		m_pLever->SetEnabled(!m_pLever->GetEnabled());
 		std::cout << "You activated lever" << std::endl;
+
+		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2525.0f, 700), 100, 30));     //Appearing Platform 1 (Lower)
+		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2700.0f, 850), 100, 30));     //Appearing Platform 2 (Higher)
 		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2725.0f, 1100), 100, 30));    //Appearing Platform 1 (Low)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1250), 100, 30));    //Appearing Platform 2 (Mid)
@@ -118,7 +121,7 @@ void PlayScene::Update() {
 	}
 
 	// Move camera to track player
-	GetTransform()->position =  m_pPlayer->GetTransform()->position - glm::vec2(760.0f, 550.0f);
+	GetTransform()->position = m_pPlayer->GetTransform()->position - glm::vec2(760.0f, 550.0f);
 
 	// Stop camera from moving out of bounds
 	const int LEFT_BOUND = 0, RIGHT_BOUND = 4350, VERTICAL_BOUND = 0;
@@ -203,17 +206,24 @@ void PlayScene::CreatePlatforms() {
 
 void PlayScene::CollisionHandler() {
 
+	bool soundPlayed = false;
+
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pEnemy)) {
 
 		std::cout << "Hit an Enemy!" << std::endl;
 		SoundManager::Instance().playSound("enemyCollision", 0);
 	}
 
-	if (CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) {
+	if (CollisionManager::AABBCheck(m_pBox, m_pPressurePlate)) {
+	
+		if (!soundPlayed) {
 
-		std::cout << "Stepped on the pressure plate!" << std::endl;
-		m_pPressurePlate->GetTransform()->position = glm::vec2(1950.0f, 1880.0f);
-		SoundManager::Instance().playSound("pressurePlateCollision", 0);
+			std::cout << "Box is on top of the pressure plate" << std::endl;
+			m_pPressurePlate->GetTransform()->position = glm::vec2(1950.0f, 1880.0f);
+			SoundManager::Instance().playSound("pressurePlateCollision", 0);
+			soundPlayed = true;
+		}
+
 	}
 
 	if (!CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) {
@@ -223,15 +233,13 @@ void PlayScene::CollisionHandler() {
 
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pLever)) {
 
-		std::cout << "Dog is in range to activate lever" << std::endl;
 		m_playerCanActivateLever = true;
-		SoundManager::Instance().playSound("pressurePlateCollision", 0);
 	}
 	else m_playerCanActivateLever = false;
 
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) CollisionManager::AABBCheck(platform, m_pBox);
-										
+
 	m_pBox->GetRigidBody()->isColliding = false;
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pBox)) {
 		m_pPlayer->SetMaxSpeed(2.0f);
@@ -240,13 +248,13 @@ void PlayScene::CollisionHandler() {
 			m_pPlayer->GetRigidBody()->velocity.x = 2.0f;
 		else if (m_pPlayer->GetRigidBody()->velocity.x < 0)
 			m_pPlayer->GetRigidBody()->velocity.x = -2.0f;
-		m_pBox->SetEnabled(true);		
+		m_pBox->SetEnabled(true);
 		//m_pBox->GetTransform()->position.y = m_pPlayer->GetTransform()->position.y;
 		m_pBox->GetRigidBody()->velocity.x = m_pPlayer->GetRigidBody()->velocity.x;
-	}									
-	else {								
+	}
+	else {
 		m_pBox->SetEnabled(false);
-		m_pPlayer->SetMaxSpeed(8.5f);	
+		m_pPlayer->SetMaxSpeed(8.5f);
 	}
 }
 
@@ -260,13 +268,16 @@ void PlayScene::HandleEvents() {
 			if (EventManager::Instance().getGameController(0)->LEFT_STICK_X > deadZone) {
 				m_pPlayer->setAnimationState(PLAYER_RUN_RIGHT);
 				m_playerFacingRight = true;
-			} else if (EventManager::Instance().getGameController(0)->LEFT_STICK_X < -deadZone) {
+			}
+			else if (EventManager::Instance().getGameController(0)->LEFT_STICK_X < -deadZone) {
 				m_pPlayer->setAnimationState(PLAYER_RUN_LEFT);
 				m_playerFacingRight = false;
-			} else {
+			}
+			else {
 				if (m_playerFacingRight) {
 					m_pPlayer->setAnimationState(PLAYER_IDLE_RIGHT);
-				} else {
+				}
+				else {
 					m_pPlayer->setAnimationState(PLAYER_IDLE_LEFT);
 				}
 			}
@@ -278,13 +289,16 @@ void PlayScene::HandleEvents() {
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A)) {
 			m_pPlayer->setAnimationState(PLAYER_RUN_LEFT);
 			m_playerFacingRight = false;
-		} else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D)) {
+		}
+		else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D)) {
 			m_pPlayer->setAnimationState(PLAYER_RUN_RIGHT);
 			m_playerFacingRight = true;
-		} else {
+		}
+		else {
 			if (m_playerFacingRight) {
 				m_pPlayer->setAnimationState(PLAYER_IDLE_RIGHT);
-			} else {
+			}
+			else {
 				m_pPlayer->setAnimationState(PLAYER_IDLE_LEFT);
 			}
 		}
