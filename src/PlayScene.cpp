@@ -26,6 +26,16 @@ void PlayScene::Start() {
 	m_pPressurePlate = new PressurePlate();
 	m_pPressurePlate->GetTransform()->position = glm::vec2(910.0f, 1460.0f); // 882 1427
 	AddChild(m_pPressurePlate);
+
+	// Right Pressure plate Sprite (Cave)
+	m_pPressurePlate = new PressurePlate();
+	m_pPressurePlate->GetTransform()->position = glm::vec2(2950.0f, 2307);
+	AddChild(m_pPressurePlate);
+
+	// Left Pressure plate Sprite (Cave)
+	m_pPressurePlate = new PressurePlate();
+	m_pPressurePlate->GetTransform()->position = glm::vec2(2650.0f, 2307);
+	AddChild(m_pPressurePlate);
 	
 	// Sniff thing
 	m_pSniff = new Sniff();
@@ -191,7 +201,7 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3057.0f, 2130), 20, 205));         //Side Platform for Enemy/Cave (Right) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(817.0f, 1408.0f), 5, 80));         //Fence Platform for Platform w/ Pressureplate (Left) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1057.0f, 1405.0f), 5, 80));        //Fence Platform for Platform w/ Pressureplate (Right) X
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3042.0f, 1985), 40, 100));          //Watch Tower Support Beam (Left - Bottom) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3042.0f, 1985), 40, 100));         //Watch Tower Support Beam (Left - Bottom) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3042.0f, 890), 25, 910));          //Watch Tower Support Beam (Left) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3617.0f, 900), 25, 1100));         //Watch Tower Support Beam (Right) X
 
@@ -203,7 +213,7 @@ void PlayScene::CreatePlatforms() {
 	m_pElevator->setRoof(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1560.0f, 1800), 200, 10));         //Wood Platform beside Elevator x
 	//m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1400.0f, 1300), 100, 500));        //(Temp) Elevator Platform X 
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(792.0f, 1483.0f), 248, 10));       //Wood Platform with Two Pressureplates X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(817.0f, 1483.0f), 248, 10));       //Wood Platform with Pressureplates X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1036.0f, 1200.0f), 410, 10));      //Wood Platform with Telescope X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1560.0f, 1280.0f), 354, 10));      //Wood Platform attached to Tree Platform (Right of Telescope) X
 	//m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2297.0f, 1315.0f), 387, 10));    //Wood Platform attached to Tree (Left of Fire Tower) X
@@ -244,7 +254,7 @@ void PlayScene::CollisionHandler() {
 	if (CollisionManager::AABBCheck(m_pBox, m_pPressurePlate)) {
 		if (!m_boxOnPressurePlate) {
 			SoundManager::Instance().playSound("pressurePlateCollision", 0);
-			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2300.0f, 1200.0), 385, 40));
+			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2300.0f, 1100.0), 385, 40));
 			m_disappearingLongPlatform = m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1);
 			m_disappearingLongPlatform->pressurePlateActivated = true;
 			AddChild(m_disappearingLongPlatform);
