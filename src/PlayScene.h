@@ -18,8 +18,6 @@
 
 class PlayScene : public Scene {
 
-
-
 	private:
 	std::string m_guiTitle;
 

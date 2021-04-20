@@ -5,9 +5,25 @@
 #include "CollisionManager.h"
 
 class Enemy final : public Sprite {
-public:
+
+	private:
+	void m_buildAnimations();
+
+	glm::vec2 m_home;
+	bool m_facingRight;
+
+	EnemyAnimationState m_currentAnimationState;
+
+	int m_stunTimer;
+	bool m_stunned;
+
+	public:
 	Enemy();
 	~Enemy();
+
+	void Stun();
+
+	void SetHome(glm::vec2 _pos) { m_home = _pos; }
 
 	// Life Cycle Methods
 	virtual void Draw() override;
@@ -16,9 +32,4 @@ public:
 
 	// setters
 	void setAnimationState(EnemyAnimationState new_state);
-
-private:
-	void m_buildAnimations();
-
-	EnemyAnimationState m_currentAnimationState;
 };

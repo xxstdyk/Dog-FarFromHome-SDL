@@ -55,21 +55,28 @@ void PlayScene::Start() {
 	m_pPlatformHandler->SetGCCollider(m_pPlayer->GetCollider("groundCheck"));
 	CreatePlatforms();
 
+	// enemy
+	m_pEnemy = new Enemy();
+	m_pEnemy->GetTransform()->position = { 2576.0f + 240.0f, 2325.0f };
+	m_pEnemy->GetTransform()->position.y -= m_pEnemy->GetHeight();
+	m_pEnemy->SetHome(m_pEnemy->GetTransform()->position);
+	AddChild(m_pEnemy, 3);
+
 	// Back Button
 	m_pBackButton = new Button("../Assets/textures/backButton.png", "backButton", BACK_BUTTON);
 	m_pBackButton->GetTransform()->position = glm::vec2(5000.0f, 2000.0f);
 	m_pBackButton->AddEventListener(CLICK, [&]()-> void {
 		m_pBackButton->setActive(false);
 		TheGame::Instance()->changeSceneState(START_SCENE);
-		});
+	});
 
 	m_pBackButton->AddEventListener(MOUSE_OVER, [&]()->void {
 		m_pBackButton->setAlpha(128);
-		});
+	});
 
 	m_pBackButton->AddEventListener(MOUSE_OUT, [&]()->void {
 		m_pBackButton->setAlpha(255);
-		});
+	});
 	AddChild(m_pBackButton);
 
 	// Next Button
@@ -78,15 +85,15 @@ void PlayScene::Start() {
 	m_pNextButton->AddEventListener(CLICK, [&]()-> void {
 		m_pNextButton->setActive(false);
 		TheGame::Instance()->changeSceneState(END_SCENE);
-		});
+	});
 
 	m_pNextButton->AddEventListener(MOUSE_OVER, [&]()->void {
 		m_pNextButton->setAlpha(128);
-		});
+	});
 
 	m_pNextButton->AddEventListener(MOUSE_OUT, [&]()->void {
 		m_pNextButton->setAlpha(255);
-		});
+	});
 
 	SoundManager::Instance().setMusicVolume(5);
 	SoundManager::Instance().load("../Assets/audio/forestBGM1.mp3", "forestSong", SOUND_MUSIC);
@@ -102,8 +109,7 @@ void PlayScene::Update() {
 	UpdateGlobalPositions();
 	CollisionHandler();
 
-	if (m_pPlayer->GetInteracting() && m_playerCanActivateLever)
-	{
+	if (m_pPlayer->GetInteracting() && m_playerCanActivateLever) {
 		m_pLever->SetEnabled(!m_pLever->GetEnabled());
 		std::cout << "You activated lever 1" << std::endl;
 
@@ -111,6 +117,15 @@ void PlayScene::Update() {
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2725.0f, 1100), 100, 30));    //Appearing Platform 1 (Low)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1250), 100, 30));    //Appearing Platform 2 (Mid)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1000), 100, 30));    //Appearing Platform 2 (High)
+	}
+
+	// arf
+	if (m_pPlayer->m_barking) {
+
+		auto dist = Util::distance(m_pPlayer->GetTransform()->position, m_pEnemy->GetTransform()->position);
+
+		if (dist < 300.0f)
+			m_pEnemy->Stun();
 	}
 
 	// Move camera to track player
@@ -169,7 +184,7 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2297.0f, 1315.0f), 387, 10));      //Wood Platform attached to Tree (Left of Fire Tower) X
 
 	//Fire Tower Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3020.0f, 884), 650 , 10));         //Fire Tower Platform X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3020.0f, 884), 650, 10));         //Fire Tower Platform X
 
 	//Level 2 - Area 2
 	//Ground Platform
@@ -220,8 +235,7 @@ void PlayScene::CollisionHandler() {
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pLever)) {
 
 		m_playerCanActivateLever = true;
-	}
-	else m_playerCanActivateLever = false;
+	} else m_playerCanActivateLever = false;
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) CollisionManager::AABBCheck(platform, m_pBox);
 
@@ -236,22 +250,17 @@ void PlayScene::CollisionHandler() {
 		m_pBox->SetEnabled(true);
 		//m_pBox->GetTransform()->position.y = m_pPlayer->GetTransform()->position.y;
 		m_pBox->GetRigidBody()->velocity.x = m_pPlayer->GetRigidBody()->velocity.x;
-	}
-	else {
+	} else {
 		m_pBox->SetEnabled(false);
 		m_pPlayer->SetMaxSpeed(8.5f);
 	}
 
-	if (CollisionManager::AABBCheck(m_pElevator->GetFloor(), m_pPlayer))
-	{
+	if (CollisionManager::AABBCheck(m_pElevator->GetFloor(), m_pPlayer)) {
 		// true boolean = up, false bool = down
-		if (m_pElevator->getDirection() && m_pElevator->TimerReady())
-		{
+		if (m_pElevator->getDirection() && m_pElevator->TimerReady()) {
 			//m_pPlayer->GetTransform()->position.y = m_pElevator->GetFloor()->GetTransform()->position.y;
 			m_pPlayer->GetTransform()->position.y -= 10;
-		}
-		else if (!m_pElevator->getDirection() && m_pElevator->TimerReady())
-		{
+		} else if (!m_pElevator->getDirection() && m_pElevator->TimerReady()) {
 			m_pPlayer->GetTransform()->position.y += 10;
 		}
 	}
@@ -267,16 +276,13 @@ void PlayScene::HandleEvents() {
 			if (EventManager::Instance().getGameController(0)->LEFT_STICK_X > deadZone) {
 				m_pPlayer->setAnimationState(PLAYER_RUN_RIGHT);
 				m_playerFacingRight = true;
-			}
-			else if (EventManager::Instance().getGameController(0)->LEFT_STICK_X < -deadZone) {
+			} else if (EventManager::Instance().getGameController(0)->LEFT_STICK_X < -deadZone) {
 				m_pPlayer->setAnimationState(PLAYER_RUN_LEFT);
 				m_playerFacingRight = false;
-			}
-			else {
+			} else {
 				if (m_playerFacingRight) {
 					m_pPlayer->setAnimationState(PLAYER_IDLE_RIGHT);
-				}
-				else {
+				} else {
 					m_pPlayer->setAnimationState(PLAYER_IDLE_LEFT);
 				}
 			}
@@ -288,16 +294,13 @@ void PlayScene::HandleEvents() {
 		if (EventManager::Instance().isKeyDown(SDL_SCANCODE_A)) {
 			m_pPlayer->setAnimationState(PLAYER_RUN_LEFT);
 			m_playerFacingRight = false;
-		}
-		else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D)) {
+		} else if (EventManager::Instance().isKeyDown(SDL_SCANCODE_D)) {
 			m_pPlayer->setAnimationState(PLAYER_RUN_RIGHT);
 			m_playerFacingRight = true;
-		}
-		else {
+		} else {
 			if (m_playerFacingRight) {
 				m_pPlayer->setAnimationState(PLAYER_IDLE_RIGHT);
-			}
-			else {
+			} else {
 				m_pPlayer->setAnimationState(PLAYER_IDLE_LEFT);
 			}
 		}
@@ -316,7 +319,7 @@ void PlayScene::HandleEvents() {
 	}
 
 	m_pSniff->SetEnabled((EventManager::Instance().isKeyDown(SDL_SCANCODE_LSHIFT)));
-	
+
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_LSHIFT)) {
 		m_pPlayer->SetMovementEnabled(false);
 	}
