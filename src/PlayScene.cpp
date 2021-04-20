@@ -167,7 +167,6 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1363.0f, 1640), 200, 10));         //Wood Platform above Elevator x
 	m_pElevator->setRoof(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1560.0f, 1800), 200, 10));         //Wood Platform beside Elevator x
-	//m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1400.0f, 1300), 100, 500));      //(Temp) Elevator Platform X 
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(820.0f, 1475.0f), 243, 10));       //Wood Platform with One Pressureplates X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1036.0f, 1200.0f), 410, 10));      //Wood Platform with Telescope X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1560.0f, 1280.0f), 354, 10));      //Wood Platform attached to Tree Platform (Right of Telescope) X
