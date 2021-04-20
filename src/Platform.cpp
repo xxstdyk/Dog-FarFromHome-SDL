@@ -4,7 +4,7 @@
 #include "EventManager.h"
 
 Platform::Platform(glm::vec2 _position, int _width, int _height) {
-	
+	TextureManager::Instance()->load("../Assets/textures/shortPlatform.png", "appearingPlatform");
 	GetTransform()->position = _position;
 
 	SetWidth(_width);
@@ -22,7 +22,10 @@ Platform::~Platform()
 void Platform::Draw() {
 	//Debug - Hold H for platform outline
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_H))
-	Util::DrawRect(GetTransform()->drawn_position, GetWidth(), GetHeight());
+		Util::DrawRect(GetTransform()->drawn_position, GetWidth(), GetHeight());
+
+	if (leverIsActivated)
+		TextureManager::Instance()->draw("appearingPlatform", this->GetTransform()->drawn_position.x, this->GetTransform()->drawn_position.y);
 }
 
 void Platform::Update() { }

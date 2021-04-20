@@ -7,6 +7,7 @@
 #include "Sprite.h"
 
 class Player final : public Sprite {
+	friend class PlayScene;
 
 	private:
 

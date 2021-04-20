@@ -80,12 +80,12 @@ void Player::BuildSoundIndex() {
 	SoundManager::Instance().load("../Assets/audio/dogWhine1.mp3", "enemyCollision", SOUND_SFX);
 	SoundManager::Instance().load("../Assets/audio/arf.wav", "defaultSound", SOUND_SFX);
 	SoundManager::Instance().load("../Assets/audio/jumpSound1.wav", "jumpSound", SOUND_SFX);
-	SoundManager::Instance().load("../Assets/audio/landFromJump1.mp3", "landSound", SOUND_SFX); 
+	SoundManager::Instance().load("../Assets/audio/landFromJump1.mp3", "landSound", SOUND_SFX);
 	SoundManager::Instance().load("../Assets/audio/dogSniff1.wav", "sniffSound1", SOUND_SFX);
 
 	SoundManager::Instance().setSoundVolume(32);
 }
-bool Player::GetInteracting(){
+bool Player::GetInteracting() {
 	return m_interacting;
 }
 
@@ -107,15 +107,6 @@ void Player::Update() {
 	EventManager::Instance().update();
 
 	SetInteracting(EventManager::Instance().isKeyDown(SDL_SCANCODE_E));
-	
-	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_Q) && m_canBark) {
-		m_barking = true;
-		m_canBark = false;
-	}
-	
-	if (EventManager::Instance().isKeyUp(SDL_SCANCODE_Q)) {
-		m_canBark = true;
-	}
 
 	if (m_barking) {
 		SoundManager::Instance().load("../Assets/audio/arf.wav", "barkSound1", SOUND_SFX);
@@ -123,6 +114,15 @@ void Player::Update() {
 		std::cout << "arf" << std::endl;
 		m_barking = false;
 		m_canBark = false;
+	}
+
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_Q) && m_canBark) {
+		m_barking = true;
+		m_canBark = false;
+	}
+
+	if (EventManager::Instance().isKeyUp(SDL_SCANCODE_Q)) {
+		m_canBark = true;
 	}
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_LSHIFT) && m_canSniff) {
@@ -151,8 +151,7 @@ void Player::Update() {
 
 		m_move(moveVal);
 		if (!moveVal) Decel();
-	}
-	else Decel();
+	} else Decel();
 
 	if (GetCollider("groundCheck")->operator bool()) {
 		if (GetIsJumping()) {
@@ -188,7 +187,7 @@ void Player::m_buildAnimations() {
 	idleAnimation.m_name = "idle";
 
 	std::string tmp_str = "dog-idle-";
-	for (int i = 0; i < 7; i++) 
+	for (int i = 0; i < 7; i++)
 		idleAnimation.m_frames.push_back(GetSpriteSheet()->GetFrame(tmp_str + std::to_string(i)));
 	setAnimation(idleAnimation);
 
@@ -231,7 +230,7 @@ void Player::Decel() {
 
 	float decelRate = 0.4f;
 	auto pushbackForce = this->GetRigidBody()->velocity.x * decelRate * -1.0f;
-	
+
 	AddAcceleration(glm::vec2(pushbackForce, 0));
 
 	if (abs(this->GetRigidBody()->velocity.x) <= 0.5f) {
