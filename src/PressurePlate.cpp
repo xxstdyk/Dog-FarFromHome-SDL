@@ -4,7 +4,7 @@
 
 PressurePlate::PressurePlate() {
 
-	TextureManager::Instance()->load("../Assets/textures/pressurePlate.png", "pressurePlate");
+	TextureManager::Instance()->load("../Assets/textures/pressure_plate.png", "pressurePlate");
 	auto size = TextureManager::Instance()->getTextureSize("pressurePlate");
 	SetWidth(size.x);
 	SetHeight(size.y);
@@ -21,7 +21,9 @@ void PressurePlate::Draw() {
 }
 
 void PressurePlate::Update() {
-
+	// if (GetEnabled()) {
+	// 	
+	// }
 }
 
 void PressurePlate::Clean() {
