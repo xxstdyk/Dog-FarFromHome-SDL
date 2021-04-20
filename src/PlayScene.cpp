@@ -27,15 +27,15 @@ void PlayScene::Start() {
 	m_pPressurePlate->GetTransform()->position = glm::vec2(910.0f, 1460.0f); // 882 1427
 	AddChild(m_pPressurePlate);
 
-	// Right Pressure plate Sprite (Cave)
-	m_pPressurePlate = new PressurePlate();
-	m_pPressurePlate->GetTransform()->position = glm::vec2(2950.0f, 2307);
-	AddChild(m_pPressurePlate);
+	//// Right Pressure plate Sprite (Cave)
+	//m_pPressurePlate = new PressurePlate();
+	//m_pPressurePlate->GetTransform()->position = glm::vec2(2950.0f, 2307);
+	//AddChild(m_pPressurePlate);
 
-	// Left Pressure plate Sprite (Cave)
-	m_pPressurePlate = new PressurePlate();
-	m_pPressurePlate->GetTransform()->position = glm::vec2(2650.0f, 2307);
-	AddChild(m_pPressurePlate);
+	//// Left Pressure plate Sprite (Cave)
+	//m_pPressurePlate = new PressurePlate();
+	//m_pPressurePlate->GetTransform()->position = glm::vec2(2650.0f, 2307);
+	//AddChild(m_pPressurePlate);
 	
 	// Sniff thing
 	m_pSniff = new Sniff();
@@ -46,6 +46,11 @@ void PlayScene::Start() {
 	m_pLever = new Lever();
 	m_pLever->GetTransform()->position = glm::vec2(2100.0f, 2177.0f);
 	AddChild(m_pLever);
+
+	//// Lever Sprite (Area 2)
+	//m_pBlackLever = new Lever();
+	//m_pBlackLever->GetTransform()->position = glm::vec2(5700.0f, 1500);
+	//AddChild(m_pBlackLever);
 
 	// Player Sprite
 	m_pPlayer = new Player();
@@ -122,7 +127,6 @@ void PlayScene::Update() {
 	if (m_pPlayer->GetInteracting() && m_playerCanActivateLever) {
 		m_pLever->SetEnabled(!m_pLever->GetEnabled());
 		m_appearingPlatformEnabled = true;
-		std::cout << "You activated lever 1" << std::endl;
 
 		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2725.0f, 1100), 100, 30));    //Appearing Platform 1 (Low)
@@ -240,7 +244,6 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4282.0f, 560), 523, 10));          //Wooden Platform above Area 2 (Top) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5155.0f, 237), 355, 10));          //Wooden Platform above Area 2 (Top with Lever) X
 
-
 	//Side/Wall Platform
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4478.0f, 1560), 45, 518));         // Side Platform for Area 3 (Left) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5913.0f, 1560), 45, 518));         // Side Platform for Area 3 (Right) X
@@ -254,7 +257,7 @@ void PlayScene::CollisionHandler() {
 	if (CollisionManager::AABBCheck(m_pBox, m_pPressurePlate)) {
 		if (!m_boxOnPressurePlate) {
 			SoundManager::Instance().playSound("pressurePlateCollision", 0);
-			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2300.0f, 1100.0), 385, 40));
+			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2200.0f, 1250.0), 385, 40));
 			m_disappearingLongPlatform = m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1);
 			m_disappearingLongPlatform->pressurePlateActivated = true;
 			AddChild(m_disappearingLongPlatform);

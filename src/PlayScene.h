@@ -39,6 +39,7 @@ class PlayScene : public Scene {
 	
 	bool m_playerFacingRight;
 	bool m_boxOnPressurePlate;
+	bool m_pressurePlateActivate;
 	bool blackLeverIsActivated;
 	bool m_playerCanActivateLever;
 	bool m_appearingPlatformEnabled;
