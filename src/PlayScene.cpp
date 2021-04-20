@@ -114,8 +114,13 @@ void PlayScene::Update() {
 
 		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2725.0f, 1100), 100, 30));    //Appearing Platform 1 (Low)
+		m_disappearingPlatforms.push_back(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
+		
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1250), 100, 30));    //Appearing Platform 2 (Mid)
+		m_disappearingPlatforms.push_back(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
+		
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1000), 100, 30));    //Appearing Platform 2 (High)
+		m_disappearingPlatforms.push_back(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
 	}
 
 	if (m_pPlayer->GetInteracting() && m_playerCanActivateLever) {
@@ -147,6 +152,10 @@ void PlayScene::Draw() {
 		m_pPlayer->GetCollider("groundCheck")->Draw();
 	}
 
+	if (m_appearingPlatformEnabled) {
+		for (int x = 0; x < m_disappearingPlatforms.size(); x++)
+			m_disappearingPlatforms[x]->Draw();
+	}
 
 	if (EventManager::Instance().isIMGUIActive()) {
 		GUI_Function();

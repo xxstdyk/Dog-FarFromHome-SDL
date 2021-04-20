@@ -25,6 +25,7 @@ class PlayScene : public Scene {
 	glm::vec2 m_mousePosition;
 
 	PlatformHandler *m_pPlatformHandler;
+	std::vector<Platform*> m_disappearingPlatforms;
 
 	Sniff *m_pSniff;
 	Background *m_pBackground;
