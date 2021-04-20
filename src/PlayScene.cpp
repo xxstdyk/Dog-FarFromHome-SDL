@@ -24,7 +24,7 @@ void PlayScene::Start() {
 
 	// Pressure plate Sprite
 	m_pPressurePlate = new PressurePlate();
-	m_pPressurePlate->GetTransform()->position = glm::vec2(882.0f, 1473.0f); // 882 1427
+	m_pPressurePlate->GetTransform()->position = glm::vec2(910.0f, 1460.0f); // 882 1427
 	AddChild(m_pPressurePlate);
 	
 	// Sniff thing
