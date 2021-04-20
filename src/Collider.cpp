@@ -4,7 +4,6 @@ Collider::Collider() :
 	m_pParent(nullptr),
 	m_offset(glm::vec2(0, 0)),
 	m_colliding(false) {
-
 	GetRigidBody()->isColliding = false;
 }
 

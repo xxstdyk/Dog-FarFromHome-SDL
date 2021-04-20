@@ -105,8 +105,6 @@ void PlayScene::Update() {
 	if (m_pPlayer->GetInteracting() && m_playerCanActivateLever)
 	{
 		m_pLever->SetEnabled(!m_pLever->GetEnabled());
-		std::cout << "You activated lever 1" << std::endl;
-
 		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2725.0f, 1100), 100, 30));    //Appearing Platform 1 (Low)
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1250), 100, 30));    //Appearing Platform 2 (Mid)

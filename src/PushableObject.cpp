@@ -21,7 +21,6 @@ void PushableObject::Draw() {
 void PushableObject::Update() {
 
 	GetTransform()->position += GetRigidBody()->velocity;
-
 	GetRigidBody()->velocity.x *= 0.975f;
 	if (GetRigidBody()->velocity.x <= 0.5f)
 		GetRigidBody()->velocity.x = 0;

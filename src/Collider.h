@@ -1,7 +1,6 @@
 #pragma once
 #ifndef __COLLIDER__
 #define __COLLIDER__
-
 #include "util.h"
 #include "GameObject.h"
 
