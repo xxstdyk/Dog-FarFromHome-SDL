@@ -2,7 +2,7 @@
 
 Lever::Lever() {
 	TextureManager::Instance()->load("../Assets/textures/leverOff.png", "leverOff");
-	TextureManager::Instance()->load("../Assets/textures/leverOff.png", "leverOn");
+	TextureManager::Instance()->load("../Assets/textures/leverOn.png", "leverOn");
 	auto size = TextureManager::Instance()->getTextureSize("leverOff");
 	SetWidth(size.x);
 	SetHeight(size.y);
@@ -15,7 +15,7 @@ Lever::~Lever()
 = default;
 
 void Lever::Draw() {
-	if (this) TextureManager::Instance()->draw("leverOn", GetTransform()->drawn_position.x, GetTransform()->drawn_position.y);
+	if (GetEnabled()) TextureManager::Instance()->draw("leverOn", GetTransform()->drawn_position.x, GetTransform()->drawn_position.y);
 	else TextureManager::Instance()->draw("leverOff", GetTransform()->drawn_position.x, GetTransform()->drawn_position.y);
 }
 

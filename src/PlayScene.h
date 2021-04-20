@@ -23,8 +23,9 @@ class PlayScene : public Scene {
 
 	glm::vec2 m_mousePosition;
 
+	Platform *m_disappearingLongPlatform;
 	PlatformHandler *m_pPlatformHandler;
-	std::vector<Platform*> m_disappearingPlatforms;
+	std::vector<Platform *> m_disappearingShortPlatforms;
 
 	Sniff *m_pSniff;
 	Background *m_pBackground;
@@ -37,9 +38,10 @@ class PlayScene : public Scene {
 	Elevator *m_pElevator;
 	
 	bool m_playerFacingRight;
+	bool m_boxOnPressurePlate;
+	bool blackLeverIsActivated;
 	bool m_playerCanActivateLever;
 	bool m_appearingPlatformEnabled;
-	bool blackLeverIsActivated;
 
 	// UI Items
 	Button *m_pBackButton;

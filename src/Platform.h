@@ -25,6 +25,7 @@ class Platform final : public DisplayObject {
 	float PlayerVelY;
 	bool OnGround;
 	bool leverIsActivated;
+	bool pressurePlateActivated;
 	
 };
 
