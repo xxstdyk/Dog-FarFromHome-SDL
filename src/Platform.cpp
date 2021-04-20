@@ -4,7 +4,8 @@
 #include "EventManager.h"
 
 Platform::Platform(glm::vec2 _position, int _width, int _height) {
-	TextureManager::Instance()->load("../Assets/textures/shortPlatform.png", "appearingPlatform");
+	TextureManager::Instance()->load("../Assets/textures/shortPlatform.png", "appearingShortPlatform");
+	TextureManager::Instance()->load("../Assets/textures/appearingLongPlatform.png", "appearingLongPlatform");
 	GetTransform()->position = _position;
 
 	SetWidth(_width);
@@ -25,7 +26,10 @@ void Platform::Draw() {
 		Util::DrawRect(GetTransform()->drawn_position, GetWidth(), GetHeight());
 
 	if (leverIsActivated)
-		TextureManager::Instance()->draw("appearingPlatform", this->GetTransform()->drawn_position.x, this->GetTransform()->drawn_position.y);
+		TextureManager::Instance()->draw("appearingShortPlatform", GetTransform()->drawn_position.x, GetTransform()->drawn_position.y);
+
+	if (pressurePlateActivated)
+		TextureManager::Instance()->draw("appearingLongPlatform", GetTransform()->drawn_position.x, GetTransform()->drawn_position.y);
 }
 
 void Platform::Update() { }

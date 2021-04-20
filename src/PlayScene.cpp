@@ -17,16 +17,16 @@ void PlayScene::Start() {
 	m_pBackground = new Background();
 	AddChild(m_pBackground);
 
-	// Pressure plate Sprite
-	m_pPressurePlate = new PressurePlate();
-	m_pPressurePlate->GetTransform()->position = glm::vec2(2576.0f, 2325.0f);
-	AddChild(m_pPressurePlate);
-
 	// Box sprite
 	m_pBox = new PushableObject();
 	m_pBox->GetTransform()->position = glm::vec2(1155.0f, 1080.0f);
 	AddChild(m_pBox);
 
+	// Pressure plate Sprite
+	m_pPressurePlate = new PressurePlate();
+	m_pPressurePlate->GetTransform()->position = glm::vec2(882.0f, 1473.0f); // 882 1427
+	AddChild(m_pPressurePlate);
+	
 	// Sniff thing
 	m_pSniff = new Sniff();
 	m_pSniff->GetTransform()->position = glm::vec2(0.0f, 0.0f);
@@ -43,7 +43,7 @@ void PlayScene::Start() {
 	m_pPlayer->GetTransform()->position = glm::vec2(800.0f, 2255.0f);
 	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
-
+	
 	// Elevator Sprite
 	m_pElevator = new Elevator();
 	m_pElevator->GetTransform()->position = glm::vec2(1363.0f, 1640);
@@ -116,16 +116,16 @@ void PlayScene::Update() {
 
 		for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2725.0f, 1100), 100, 30));    //Appearing Platform 1 (Low)
-		m_disappearingPlatforms.push_back(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
-		m_disappearingPlatforms.at(0)->leverIsActivated = true;
+		m_disappearingShortPlatforms.push_back(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
+		m_disappearingShortPlatforms.at(0)->leverIsActivated = true;
 		
-		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1250), 100, 30));    //Appearing Platform 2 (Mid)
-		m_disappearingPlatforms.push_back(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
-		m_disappearingPlatforms.at(1)->leverIsActivated = true;
+		// m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1250), 100, 30));    //Appearing Platform 2 (Mid)
+		// m_disappearingShortPlatforms.push_back(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
+		// m_disappearingShortPlatforms.at(0)->leverIsActivated = true;
 		
 		m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2900.0f, 1000), 100, 30));    //Appearing Platform 2 (High)
-		m_disappearingPlatforms.push_back(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
-		m_disappearingPlatforms.at(2)->leverIsActivated = true;
+		m_disappearingShortPlatforms.push_back(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
+		m_disappearingShortPlatforms.at(1)->leverIsActivated = true;
 	}
 
 	// arf
@@ -159,10 +159,14 @@ void PlayScene::Draw() {
 
 	// If the lever is activated the appearing platforms will be drawn 
 	if (m_appearingPlatformEnabled) {
-		for (int x = 0; x < m_disappearingPlatforms.size(); x++) {
-			m_disappearingPlatforms[x]->Draw();		
+		for (int x = 0; x < m_disappearingShortPlatforms.size(); x++) {
+			m_disappearingShortPlatforms[x]->Draw();		
 		}
 	}
+
+	// If the box is on the pressure plate the long appearing platform will be rendered
+	if (m_boxOnPressurePlate)
+		m_disappearingLongPlatform->Draw();
 
 	if (EventManager::Instance().isIMGUIActive()) {
 		GUI_Function();
@@ -228,28 +232,32 @@ void PlayScene::CreatePlatforms() {
 
 
 	//Side/Wall Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4478.0f, 1560), 45, 518));         //Side Platform for Area 3 (Left) X
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5913.0f, 1560), 45, 518));         //Side Platform for Area 3 (Right) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(4478.0f, 1560), 45, 518));         // Side Platform for Area 3 (Left) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(5913.0f, 1560), 45, 518));         // Side Platform for Area 3 (Right) X
 
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) AddChild(platform);
 }
 
 void PlayScene::CollisionHandler() {
 
-	bool soundPlayed = false;
+	// This checks collisions between the box and the pressure plate
 	if (CollisionManager::AABBCheck(m_pBox, m_pPressurePlate)) {
-
-		if (!soundPlayed) {
-
-			std::cout << "Box is on top of the pressure plate" << std::endl;
-			m_pPressurePlate->GetTransform()->position = glm::vec2(1950.0f, 1880.0f);
+		if (!m_boxOnPressurePlate) {
 			SoundManager::Instance().playSound("pressurePlateCollision", 0);
-			soundPlayed = true;
+			m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2300.0f, 1200.0), 385, 40));
+			m_disappearingLongPlatform = m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1);
+			m_disappearingLongPlatform->pressurePlateActivated = true;
+			AddChild(m_disappearingLongPlatform);
 		}
+		m_boxOnPressurePlate = true;
+		std::cout << m_disappearingLongPlatform->GetTransform()->drawn_position.x << " " << m_disappearingLongPlatform->GetTransform()->drawn_position.y << std::endl;
 	}
+	else m_boxOnPressurePlate = false;
 
-	if (!CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) {
-		m_pPressurePlate->GetTransform()->position = glm::vec2(1950.0f, 1880.0f);
+	// This checks collision between the player and the pressure plate
+	if (CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) {
+		SoundManager::Instance().playSound("pressurePlateCollision", 0);
+		// m_pPressurePlate->GetTransform()->position = glm::vec2(1950.0f, 1880.0f);
 	}
 	m_pLever->GetRigidBody()->isColliding = false;
 
@@ -339,6 +347,12 @@ void PlayScene::HandleEvents() {
 		TheGame::Instance()->changeSceneState(END_SCENE);
 	}
 
+	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_M)) {
+		std::cout << m_pPlayer->GetTransform()->drawn_position.x << " " << m_pPlayer->GetTransform()->drawn_position.y << std::endl;
+	}
+
+
+	
 	m_pSniff->SetEnabled((EventManager::Instance().isKeyDown(SDL_SCANCODE_LSHIFT)));
 
 	if (EventManager::Instance().isKeyDown(SDL_SCANCODE_LSHIFT)) {
