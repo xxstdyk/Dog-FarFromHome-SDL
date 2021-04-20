@@ -25,17 +25,18 @@ void PlayScene::Start() {
 	// Pressure plate Sprite
 	m_pPressurePlate = new PressurePlate();
 	m_pPressurePlate->GetTransform()->position = glm::vec2(910.0f, 1460.0f); // 882 1427
+	m_pPressurePlate->DisableTimer();
 	AddChild(m_pPressurePlate);
 
-	//// Right Pressure plate Sprite (Cave)
-	//m_pPressurePlate = new PressurePlate();
-	//m_pPressurePlate->GetTransform()->position = glm::vec2(2950.0f, 2307);
-	//AddChild(m_pPressurePlate);
+	// Right Pressure plate Sprite (Cave)
+	m_pCavePressurePlateRight = new PressurePlate();
+	m_pCavePressurePlateRight->GetTransform()->position = glm::vec2(2950.0f, 2307);
+	AddChild(m_pCavePressurePlateRight);
 
-	//// Left Pressure plate Sprite (Cave)
-	//m_pPressurePlate = new PressurePlate();
-	//m_pPressurePlate->GetTransform()->position = glm::vec2(2650.0f, 2307);
-	//AddChild(m_pPressurePlate);
+	// Left Pressure plate Sprite (Cave)
+	m_pCavePressurePlateLeft = new PressurePlate();
+	m_pCavePressurePlateLeft->GetTransform()->position = glm::vec2(2650.0f, 2307);
+	AddChild(m_pCavePressurePlateLeft);
 	
 	// Sniff thing
 	m_pSniff = new Sniff();
@@ -149,6 +150,11 @@ void PlayScene::Update() {
 
 		if (dist < 300.0f)
 			m_pEnemy->Stun();
+	}
+
+	// Move drawbridge
+	if (m_drawbridgeMove)	{
+		std::cout << "The drawbridge has moved" << std::endl;
 	}
 
 	// Move camera to track player
@@ -267,13 +273,36 @@ void PlayScene::CollisionHandler() {
 	}
 	else m_boxOnPressurePlate = false;
 
-	// This checks collision between the player and the pressure plate
+	// This checks collision between the player and the pressure plate on the wooden platform
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pPressurePlate)) {
 		SoundManager::Instance().playSound("pressurePlateCollision", 0);
 		// m_pPressurePlate->GetTransform()->position = glm::vec2(1950.0f, 1880.0f);
 	}
 	m_pLever->GetRigidBody()->isColliding = false;
 
+	// This checks the collision between the pressure plates in the cave against the player and the enemy 
+	if (CollisionManager::AABBCheck(m_pCavePressurePlateLeft, m_pPlayer))
+		m_pCavePressurePlateLeft->SetEnabled(true);
+	else if (CollisionManager::AABBCheck(m_pCavePressurePlateLeft, m_pEnemy))
+		m_pCavePressurePlateRight->SetEnabled(true);
+	else {
+		m_pCavePressurePlateLeft->SetEnabled(false);
+		m_pCavePressurePlateLeft->ResetTimer();
+	}
+ 
+	if (CollisionManager::AABBCheck(m_pCavePressurePlateRight, m_pPlayer))
+		m_pCavePressurePlateRight->SetEnabled(true);
+	else if (CollisionManager::AABBCheck(m_pCavePressurePlateRight, m_pEnemy))
+		m_pCavePressurePlateRight->SetEnabled(true);
+	else {
+		m_pCavePressurePlateRight->SetEnabled(false);
+		m_pCavePressurePlateRight->ResetTimer();
+	}
+
+	// Checks to see if draw bridge can be lifted
+	if (m_pCavePressurePlateLeft->GetTimer() >= 120 && m_pCavePressurePlateRight->GetTimer() >= 120)
+		m_drawbridgeMove = true;
+	
 	if (CollisionManager::AABBCheck(m_pPlayer, m_pLever)) {
 
 		m_playerCanActivateLever = true;
@@ -282,7 +311,7 @@ void PlayScene::CollisionHandler() {
 	for (auto platform : m_pPlatformHandler->GetPlatforms()) CollisionManager::AABBCheck(platform, m_pBox);
 
 	m_pBox->GetRigidBody()->isColliding = false;
-	if (CollisionManager::AABBCheck(m_pPlayer, m_pBox)) {
+	if (CollisionManager::AABBCheck(m_pBox, m_pPlayer)) {
 		m_pPlayer->SetMaxSpeed(2.0f);
 		// This sets the player's speed to 2.0f or -2.0f when the player hits the box to make sure that the box has the correct speed
 		if (m_pPlayer->GetRigidBody()->velocity.x > 0)
@@ -297,6 +326,7 @@ void PlayScene::CollisionHandler() {
 		m_pPlayer->SetMaxSpeed(8.5f);
 	}
 
+	// This checks the collision between the elevator's floor and the player
 	if (CollisionManager::AABBCheck(m_pElevator->GetFloor(), m_pPlayer)) {
 		// true boolean = up, false bool = down
 		if (m_pElevator->getDirection() && m_pElevator->TimerReady()) {
@@ -306,6 +336,7 @@ void PlayScene::CollisionHandler() {
 			m_pPlayer->GetTransform()->position.y += 10;
 		}
 	}
+
 }
 
 void PlayScene::HandleEvents() {
