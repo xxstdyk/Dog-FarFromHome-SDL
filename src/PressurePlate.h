@@ -6,7 +6,8 @@
 #include "Sprite.h"
 
 class PressurePlate final : public InteractableObject {
-
+	bool m_timerOn;
+	
 	public:
 	PressurePlate();   // Constructor
 	~PressurePlate();  // Destructor
@@ -14,6 +15,8 @@ class PressurePlate final : public InteractableObject {
 	void Draw() override;
 	void Update() override;
 	void Clean() override;
+
+	void DisableTimer();
 
 };
 #endif

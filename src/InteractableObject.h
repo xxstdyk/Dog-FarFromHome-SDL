@@ -8,6 +8,7 @@ class InteractableObject : public DisplayObject {
 
 	private:
 	bool m_enabled;
+	int m_timer;
 
 	public:
 
@@ -15,8 +16,14 @@ class InteractableObject : public DisplayObject {
 	virtual void Update() override = 0;
 	virtual void Clean() override = 0;
 
+	void IncrementTimer();
+	
 	void SetEnabled(const bool _status);
 	bool GetEnabled() const;
+
+	void ResetTimer();
+	int GetTimer() const;
+	
 
 	explicit operator bool() const;
 };

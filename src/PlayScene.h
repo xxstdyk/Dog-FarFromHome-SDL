@@ -33,12 +33,15 @@ class PlayScene : public Scene {
 	Player *m_pPlayer;
 	Drawbridge* m_pDrawbridge;
 	PressurePlate *m_pPressurePlate;
+	PressurePlate *m_pCavePressurePlateLeft;
+	PressurePlate *m_pCavePressurePlateRight;
 	PushableObject *m_pBox;
 	Lever *m_pLever;
 	Lever* m_pBlackLever;
 	Enemy *m_pEnemy;
 	Elevator *m_pElevator;
 	
+	bool m_drawbridgeMove;
 	bool m_playerFacingRight;
 	bool m_boxOnPressurePlate;
 	bool m_pressurePlateActivate;
