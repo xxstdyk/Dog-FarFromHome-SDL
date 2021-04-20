@@ -58,6 +58,11 @@ void PlayScene::Start() {
 	m_pPlayer->GetTransform()->position = glm::vec2(800.0f, 2255.0f);
 	AddChild(m_pPlayer, 10);
 	m_playerFacingRight = true;
+
+	// Drawbridge Sprite
+	m_pDrawbridge = new Drawbridge();
+	m_pDrawbridge->GetTransform()->position = glm::vec2(2964.0f, 1728);
+	AddChild(m_pDrawbridge);
 	
 	// Elevator Sprite
 	m_pElevator = new Elevator();

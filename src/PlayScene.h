@@ -15,6 +15,7 @@
 #include "Lever.h"
 #include "Elevator.h"
 #include "Sniff.h"
+#include "Drawbridge.h"
 
 class PlayScene : public Scene {
 
@@ -30,6 +31,7 @@ class PlayScene : public Scene {
 	Sniff *m_pSniff;
 	Background *m_pBackground;
 	Player *m_pPlayer;
+	Drawbridge* m_pDrawbridge;
 	PressurePlate *m_pPressurePlate;
 	PushableObject *m_pBox;
 	Lever *m_pLever;
