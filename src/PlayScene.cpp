@@ -142,7 +142,7 @@ void PlayScene::CreatePlatforms() {
 	//Level 2 - Area 1 (Anything with an X is final position - DO NOT TOUCH)
 	//Ground Platforms
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(720.0f, 2325.0f), 1000, 10));      //Ground Platform/Spawn X
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2576.0f, 2325.0f), 480, 10));      //Ground Platform for Enemy/Cave X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2578.0f, 2325.0f), 480, 10));      //Ground Platform for Enemy/Cave X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(670.0f, 2282.0f), 52, 55));        //Ground Corner Platform (Left) X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(460.0f, 2082.0f), 220, 255));      //Ground Platform Far Left X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(0.0f, 2038.0f), 483, 50));         //Ground Platform Far Far Left  X
@@ -153,7 +153,7 @@ void PlayScene::CreatePlatforms() {
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2529.0f, 2080), 3444, 50));        //Ground Platform under fire tower - Extends to Area 2X
 
 	//Side/Wall Platform
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3057.0f, 1800), 10, 550));         //Side Platform for Enemy/Cave (Right) X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3057.0f, 2130), 20, 205));         //Side Platform for Enemy/Cave (Right) X
 
 	//Wooden Platforms
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1863.0f, 1877), 660, 10));         //Wood Platform with Lantern X
@@ -163,10 +163,10 @@ void PlayScene::CreatePlatforms() {
 	m_pElevator->setRoof(m_pPlatformHandler->GetPlatforms().at(m_pPlatformHandler->GetPlatforms().size() - 1));
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1560.0f, 1800), 200, 10));         //Wood Platform beside Elevator x
 	//m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1400.0f, 1300), 100, 500));        //(Temp) Elevator Platform X 
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(792.0f, 1483.0f), 248, 10));       //Wood Platform with Two Pressureplates X
+	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(820.0f, 1475.0f), 243, 10));       //Wood Platform with One Pressureplates X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1036.0f, 1200.0f), 410, 10));      //Wood Platform with Telescope X
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(1560.0f, 1280.0f), 354, 10));      //Wood Platform attached to Tree Platform (Right of Telescope) X
-	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2297.0f, 1315.0f), 387, 10));      //Wood Platform attached to Tree (Left of Fire Tower) X
+	//m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(2297.0f, 1315.0f), 387, 10));      //Wood Platform attached to Tree (Left of Fire Tower) X
 
 	//Fire Tower Platform
 	m_pPlatformHandler->AddPlatform(new Platform(glm::vec2(3020.0f, 884), 650 , 10));         //Fire Tower Platform X

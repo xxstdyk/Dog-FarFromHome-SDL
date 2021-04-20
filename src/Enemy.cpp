@@ -1,5 +1,4 @@
 #include "Enemy.h"
-
 #include "SoundManager.h"
 #include "TextureManager.h"
 
@@ -11,12 +10,11 @@ Enemy::Enemy() : m_currentAnimationState(ENEMY_IDLE_RIGHT) {
 
 	setSpriteSheet(TextureManager::Instance()->getSpriteSheet("catsprite"));
 
-	// set frame width
+	// Set frame width
 	SetWidth(81);
 
-	// set frame height
+	// Set frame height
 	SetHeight(64);
-
 	GetTransform()->position = glm::vec2(600.0f, 300.0f);
 	GetRigidBody()->velocity = glm::vec2(0.0f, 0.0f);
 	GetRigidBody()->acceleration = glm::vec2(0.0f, 0.0f);
@@ -25,7 +23,6 @@ Enemy::Enemy() : m_currentAnimationState(ENEMY_IDLE_RIGHT) {
 	SetType(ENEMY);
 
 	m_buildAnimations();
-	
 }
 
 Enemy::~Enemy()
@@ -57,7 +54,6 @@ void Enemy::Draw() {
 	default:
 		break;
 	}
-
 }
 
 void Enemy::Update() {}
